@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  --primary-color: #1b5e20; /* Màu xanh đậm đặc trưng cho VN-AgriTrace */
+  --secondary-color: #4caf50; /* Màu xanh lá sáng làm điểm nhấn */
+  --text-color: #333;
+  --light-text-color: #fff;
+  --sidebar-bg: rgba(255, 255, 255, 0.75); /* Nền mờ cho sidebar (tăng độ đục nhẹ) */
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  overflow: hidden; /* Ngăn thanh cuộn xuất hiện trên body */
+  background-color: #f5f5f5;
+}
+
+#app {
+  height: 100vh; /* Chiều cao toàn màn hình */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Đảm bảo bản đồ Leaflet tràn container */
+.leaflet-container {
+    background: #ddd;
+    height: 100%;
+    width: 100%;
+}
+
+/* Reset cho các nút bấm */
+button {
+  font-family: inherit;
+}

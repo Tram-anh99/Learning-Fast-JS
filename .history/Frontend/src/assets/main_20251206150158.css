@@ -1,0 +1,21 @@
+/* src/assets/main.css */
+
+/* 1. Thiết lập cho toàn bộ trang web */
+html,
+body {
+     width: 100%;
+     height: 100%; /* QUAN TRỌNG NHẤT: Bắt buộc html và body phải cao full màn hình */
+     margin: 0;
+     padding: 0;
+     overflow: hidden; /* Chặn thanh cuộn thừa */
+}
+
+/* 2. Thiết lập cho cái khung bao ngoài cùng của Vue */
+#app {
+     width: 100%;
+     height: 100%; /* Nó phải ăn theo chiều cao của body */
+     display: block; /* Quan trọng: Gỡ bỏ display:grid mặc định gây lỗi của Vue */
+     margin: 0;
+     padding: 0;
+     max-width: none; /* Gỡ bỏ giới hạn chiều rộng 1280px mặc định */
+}
