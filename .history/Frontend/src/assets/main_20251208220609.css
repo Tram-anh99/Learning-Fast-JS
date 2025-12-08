@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
-
-/* src/assets/main.css */
+@tailwind utilities;/* src/assets/main.css */
 html, body {
      width: 100%;
      height: 100%;
