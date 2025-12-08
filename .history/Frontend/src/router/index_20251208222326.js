@@ -23,12 +23,12 @@ const router = createRouter({
                component: DiaryPage,
           },
           // Route động cho khách quét QR
-          // :id là mã số của lô trồng/sản phẩm
-          {
-               path: "/truy-xuat/:id",
-               name: "Traceability",
-               component: TraceabilityPage,
-          },
+  // :id là mã số của lô trồng/sản phẩm
+  {
+    path: '/truy-xuat/:id', 
+    name: 'Traceability',
+    component: TraceabilityPage
+  }
      ],
 });
 

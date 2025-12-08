@@ -22,13 +22,6 @@ const router = createRouter({
                name: "nhat-ky-canh-tac",
                component: DiaryPage,
           },
-          // Route động cho khách quét QR
-          // :id là mã số của lô trồng/sản phẩm
-          {
-               path: "/truy-xuat/:id",
-               name: "Traceability",
-               component: TraceabilityPage,
-          },
      ],
 });
 

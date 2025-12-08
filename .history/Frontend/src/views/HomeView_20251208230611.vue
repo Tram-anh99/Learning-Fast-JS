@@ -2,9 +2,7 @@
 import { onMounted, ref, shallowRef, computed, watch } from 'vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useRouter } from 'vue-router' // 1. Import cái này
 
-const router = useRouter() // 2. Khai báo router
 const map = shallowRef(null);
 const mapContainer = ref(null);
 const layerGroup = shallowRef(null);
@@ -189,8 +187,16 @@ const goToTraceability = (maSanPham) => {
             </div>
           </div>
 
-          <button class="btn-qr" @click="goToTraceability('LUA-ST25-003')" ><i class="fas fa-qrcode"></i> Quét mã Truy xuất nguồn gốc</button>
-        
+          <button class="btn-qr"><i class="fas fa-qrcode"></i> Quét mã Truy xuất nguồn gốc</button>
+          <button 
+            @click="goToTraceability('LUA-ST25-003')" 
+            class="flex items-center justify-center w-full py-3 font-bold text-white transition transform bg-green-800 shadow-lg hover:bg-green-900 rounded-xl active:scale-95">
+              
+            <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4h2v-4zM6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Quét mã Truy xuất nguồn gốc
+          </button>
         </div>
       </div>
 
