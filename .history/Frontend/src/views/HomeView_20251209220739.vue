@@ -200,8 +200,14 @@ const goToTraceability = (maSanPham) => {
             </div>
           </div>
 
-          <button class="btn-qr" @click="openQRModal('LUA-ST25-003')" ><i class="fas fa-qrcode"></i> Quét mã Truy xuất nguồn gốc</button>
-     
+          <button class="btn-qr" @click="goToTraceability('LUA-ST25-003')" ><i class="fas fa-qrcode"></i> Quét mã Truy xuất nguồn gốc</button>
+        <button 
+  @click="openQRModal('LUA-ST25-003')" 
+  class="flex items-center justify-center w-full py-3 font-bold text-white bg-green-800 shadow-lg hover:bg-green-900 rounded-xl">
+  <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">...</svg>
+  
+  Quét mã Truy xuất nguồn gốc
+</button>
         </div>
       </div>
 
@@ -570,14 +576,5 @@ const goToTraceability = (maSanPham) => {
 
 .btn-qr:hover {
   background: #2d6a4f;
-}
-/* Hiệu ứng phóng to nhẹ khi hiện popup */
-.animate-scale {
-  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes scaleUp {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
 }
 </style>

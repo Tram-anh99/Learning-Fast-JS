@@ -200,44 +200,13 @@ const goToTraceability = (maSanPham) => {
             </div>
           </div>
 
-          <button class="btn-qr" @click="openQRModal('LUA-ST25-003')" ><i class="fas fa-qrcode"></i> Quét mã Truy xuất nguồn gốc</button>
-     
+          <button class="btn-qr" @click="goToTraceability('LUA-ST25-003')" ><i class="fas fa-qrcode"></i> Quét mã Truy xuất nguồn gốc</button>
+        
         </div>
       </div>
 
     </aside>
   </div>
-  <div v-if="showQR" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="background-color: rgba(0,0,0,0.6);" @click.self="showQR = false">
-  
-  <div class="w-full max-w-sm p-6 text-center bg-white shadow-2xl rounded-2xl animate-scale">
-    
-    <h3 class="mb-2 text-xl font-bold text-gray-800">Mã QR Truy xuất</h3>
-    <p class="mb-6 text-sm text-gray-500">Dùng Zalo hoặc Camera để quét mã này</p>
-
-    <div class="flex justify-center mb-6">
-      <div class="inline-block p-4 bg-white border-2 border-green-500 rounded-xl">
-        <qrcode-vue 
-          :value="qrLink" 
-          :size="220" 
-          level="H" 
-          render-as="svg"
-          foreground="#15803d"
-        />
-      </div>
-    </div>
-
-    <p class="text-[10px] text-gray-400 bg-gray-100 p-2 rounded truncate mb-4">
-      {{ qrLink }}
-    </p>
-
-    <button 
-      @click="showQR = false"
-      class="w-full py-3 font-bold text-gray-800 transition bg-gray-200 hover:bg-gray-300 rounded-xl">
-      Đóng lại
-    </button>
-  </div>
-
-</div>
 </template>
 
 <style scoped>
@@ -570,14 +539,5 @@ const goToTraceability = (maSanPham) => {
 
 .btn-qr:hover {
   background: #2d6a4f;
-}
-/* Hiệu ứng phóng to nhẹ khi hiện popup */
-.animate-scale {
-  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes scaleUp {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
 }
 </style>

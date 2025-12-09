@@ -571,13 +571,4 @@ const goToTraceability = (maSanPham) => {
 .btn-qr:hover {
   background: #2d6a4f;
 }
-/* Hiệu ứng phóng to nhẹ khi hiện popup */
-.animate-scale {
-  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes scaleUp {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
 </style>

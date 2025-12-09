@@ -240,7 +240,7 @@ const goToTraceability = (maSanPham) => {
 </div>
 </template>
 
-<style scoped>
+<styl scoped>
 /* --- GIỮ CSS LAYOUT CŨ --- */
 .webgis-container {
   position: absolute;
@@ -580,4 +580,5 @@ const goToTraceability = (maSanPham) => {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
-</style>
+
+</styl>
