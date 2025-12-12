@@ -17,10 +17,12 @@ const danhSachVung = ref(mockDataVung);
 
 <template>
       <!-- Container layout chính - flex column -->
-      <div class="absolute inset-0 bg-slate-100 flex flex-col p-5 gap-5">
+      <div class="absolute inset-0 flex flex-col gap-5 p-5 bg-slate-100">
             <!-- 1. Thanh thống kê ở trên cùng -->
             <StatsBarComponent :thongKe="thongKe" />
 
+            <!-- 2. Bản đồ ở giữa -->
+            <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
             <!-- 2. Khu vực giữa: Biểu đồ & Bản đồ -->
             <div class="flex flex-[2] gap-5 min-h-0">
                   <!-- Biểu đồ bên trái (chiếm 1 phần) -->

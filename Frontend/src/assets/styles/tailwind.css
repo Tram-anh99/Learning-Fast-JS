@@ -220,7 +220,7 @@
       /* ========== BUTTON STYLES - Modern ========== */
       /* Nút chính (primary button) - Gradient */
       .btn-primary {
-            @apply cursor-pointer text-sm font-semibold transition-all duration-200 px-4 py-2.5 rounded-xl active: scale-95;
+            @apply cursor-pointer text-sm font-semibold transition-all duration-200 px-4 py-2.5 rounded-xl active:scale-95;
             background: linear-gradient(135deg, #1b4332 0%, #0f2818 100%);
             color: white;
       }
@@ -231,7 +231,7 @@
 
       /* Nút nhỏ chỉnh sửa - Modern */
       .btn-primary-sm {
-            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 active: scale-90;
+            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 active:scale-90;
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
             color: #0284c7;
             font-weight: 600;
@@ -243,7 +243,7 @@
 
       /* Nút nhỏ cảnh báo - Modern */
       .btn-primary-warn {
-            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 active: scale-90;
+            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 active:scale-90;
             background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
             color: #ea580c;
             font-weight: 600;
