@@ -102,15 +102,15 @@ watch(danhSachTimKiem, veLaiBanDo);
       <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
 
         <!-- Tabs - Modern style with proper state management -->
-        <div class="flex flex-shrink-0 gap-2 p-3 overflow-x-auto border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50">
+        <div class="flex gap-2 p-3 border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50 flex-shrink-0">
           <!-- Tab All -->
           <button 
             @click="setLocFilter('all')" 
             :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+              'flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95',
               boLocHienTai === 'all'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg'
+                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50'
             ]"
           >
             Tất cả
@@ -120,10 +120,10 @@ watch(danhSachTimKiem, veLaiBanDo);
           <button 
             @click="setLocFilter('canh_tac')" 
             :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+              'flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95',
               boLocHienTai === 'canh_tac'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg'
+                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50'
             ]"
           >
             Canh tác
@@ -133,26 +133,13 @@ watch(danhSachTimKiem, veLaiBanDo);
           <button 
             @click="setLocFilter('thu_hoach')" 
             :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+              'flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95',
               boLocHienTai === 'thu_hoach'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg'
+                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50'
             ]"
           >
             Thu hoạch
-          </button>
-
-          <!-- Tab Đã thu hoạch -->
-          <button 
-            @click="setLocFilter('da_thu_hoach')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'da_thu_hoach'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
-            Đã thu hoạch
           </button>
         </div>
 

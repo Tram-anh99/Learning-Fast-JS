@@ -220,37 +220,25 @@
       /* ========== BUTTON STYLES - Modern ========== */
       /* Nút chính (primary button) - Gradient */
       .btn-primary {
-            @apply cursor-pointer text-sm font-semibold transition-all duration-200 px-4 py-2.5 rounded-xl active: scale-95;
+            @apply cursor-pointer text-sm font-semibold transition-all duration-200 px-4 py-2.5 rounded-xl hover: shadow-lg active:scale-95;
             background: linear-gradient(135deg, #1b4332 0%, #0f2818 100%);
             color: white;
       }
 
-      .btn-primary:hover {
-            box-shadow: 0 10px 25px rgba(27, 67, 50, 0.3);
-      }
-
       /* Nút nhỏ chỉnh sửa - Modern */
       .btn-primary-sm {
-            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 active: scale-90;
+            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 hover: shadow-md active:scale-90;
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
             color: #0284c7;
             font-weight: 600;
       }
 
-      .btn-primary-sm:hover {
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
-      }
-
       /* Nút nhỏ cảnh báo - Modern */
       .btn-primary-warn {
-            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 active: scale-90;
+            @apply w-9 h-9 rounded-xl cursor-pointer transition-all duration-200 hover: shadow-md active:scale-90;
             background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
             color: #ea580c;
             font-weight: 600;
-      }
-
-      .btn-primary-warn:hover {
-            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
       }
 
       /* ========== BADGE STYLES - Modern ========== */
@@ -314,7 +302,7 @@
       /* ========== MAP CONTROL STYLES - Modern ========== */
       /* Nút điều khiển bản đồ (mặc định) */
       .map-control-btn {
-            @apply w-full border-2 rounded-xl text-left cursor-pointer text-sm transition-all duration-200 font-medium px-3 py-2.5;
+            @apply w-full border-2 rounded-xl text-left cursor-pointer text-sm transition-all duration-200 font-medium px-3 py-2.5 hover: shadow-md;
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             border-color: #e2e8f0;
             color: #1f2937;
@@ -324,7 +312,6 @@
       .map-control-btn:hover {
             background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
             border-color: #94a3b8;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       /* Nút điều khiển bản đồ khi active (xanh đậm) */

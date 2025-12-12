@@ -6,7 +6,7 @@ import { RouterView } from 'vue-router';
   <div class="app-layout">
     <header class="top-navbar">
       <div class="brand">
-        <i class="fas fa-leaf logo-icon"></i>
+        <i class="fas fa-seedling logo-icon"></i>
         <div class="brand-text">
           <span class="brand-title">Hệ thống Quản lý Vùng trồng</span>
           <span class="brand-subtitle">Luận văn Thạc sĩ CNTT</span>

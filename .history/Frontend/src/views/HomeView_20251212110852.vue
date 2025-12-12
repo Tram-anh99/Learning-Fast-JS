@@ -43,11 +43,6 @@ import {
 
 const router = useRouter();
 
-// Handler để set filter - unwrap ref tự động
-const setLocFilter = (value) => {
-  boLocHienTai.value = value;
-};
-
 // Khởi tạo bản đồ khi component mounted
 onMounted(() => {
   initMap();
@@ -101,58 +96,20 @@ watch(danhSachTimKiem, veLaiBanDo);
       <!-- List view -->
       <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
 
-        <!-- Tabs - Modern style with proper state management -->
-        <div class="flex flex-shrink-0 gap-2 p-3 overflow-x-auto border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50">
-          <!-- Tab All -->
+        <!-- Tabs - Modern style -->
+        <div class="flex gap-2 p-3 border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50 flex-shrink-0">
           <button 
-            @click="setLocFilter('all')" 
+            v-for="tab in ['all', 'canh_tac', 'thu_hoach']" 
+            :key="tab" 
+            @click="boLocHienTai = tab" 
             :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'all'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+              'flex-1 py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200',
+              boLocHienTai === tab
+                ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg hover:shadow-xl scale-105'
+                : 'text-gray-600 hover:text-gray-800 hover:bg-white/50 border-2 border-transparent hover:border-slate-300'
             ]"
           >
-            Tất cả
-          </button>
-
-          <!-- Tab Canh tác -->
-          <button 
-            @click="setLocFilter('canh_tac')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'canh_tac'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
-            Canh tác
-          </button>
-
-          <!-- Tab Thu hoạch -->
-          <button 
-            @click="setLocFilter('thu_hoach')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'thu_hoach'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
-            Thu hoạch
-          </button>
-
-          <!-- Tab Đã thu hoạch -->
-          <button 
-            @click="setLocFilter('da_thu_hoach')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'da_thu_hoach'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
-            Đã thu hoạch
+            {{ tab === 'all' ? 'Tất cả' : tab === 'canh_tac' ? 'Canh tác' : 'Thu hoạch' }}
           </button>
         </div>
 

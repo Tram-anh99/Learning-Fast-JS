@@ -97,9 +97,9 @@ export const danhSachGoc = ref([
           chungNhan: "4C Certified",
           anh: "https://images.unsplash.com/photo-1559056199-641a0ac8b3f2?q=80&w=1000&auto=format&fit=crop",
           toaDo: [
-               [10.7, 106.65],
+               [10.70, 106.65],
                [10.71, 106.66],
-               [10.7, 106.66],
+               [10.70, 106.66],
           ],
           nhatKy: [
                {
@@ -160,7 +160,6 @@ export const getClassTrangThai = (tt) => {
           canh_tac: "bg-green-500",
           sau_benh: "bg-red-500",
           thu_hoach: "bg-yellow-500",
-          da_thu_hoach: "bg-blue-600",
      };
      return classes[tt] || "bg-gray-500";
 };
@@ -173,7 +172,6 @@ export const getMapColor = (tt) => {
           canh_tac: "#4caf50",
           sau_benh: "#ef5350",
           thu_hoach: "#ffca28",
-          da_thu_hoach: "#2563eb",
      };
      return colors[tt] || "#999";
 };
@@ -186,7 +184,6 @@ export const getTextTrangThai = (tt) => {
           canh_tac: "Đang canh tác",
           sau_benh: "Cảnh báo dịch hại",
           thu_hoach: "Đang thu hoạch",
-          da_thu_hoach: "Đã thu hoạch",
      };
      return texts[tt] || "Không xác định";
 };

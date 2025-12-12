@@ -102,7 +102,7 @@ watch(danhSachTimKiem, veLaiBanDo);
       <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
 
         <!-- Tabs - Modern style with proper state management -->
-        <div class="flex flex-shrink-0 gap-2 p-3 overflow-x-auto border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50">
+        <div class="flex gap-2 p-3 border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50 flex-shrink-0 overflow-x-auto">
           <!-- Tab All -->
           <button 
             @click="setLocFilter('all')" 

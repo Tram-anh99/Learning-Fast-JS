@@ -34,21 +34,21 @@ defineEmits(['close']);
             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md animate-fade-in">
             <!-- Modal Card - Compact size -->
             <div
-                  class="relative w-full max-w-xs p-6 text-center border shadow-2xl bg-gradient-to-br from-white via-slate-50 to-blue-50 rounded-2xl animate-scale-up border-white/80">
+                  class="relative w-full max-w-xs bg-gradient-to-br from-white via-slate-50 to-blue-50 rounded-2xl shadow-2xl p-6 text-center animate-scale-up border border-white/80">
 
                   <!-- Decorative gradient circles (smaller) -->
                   <div
-                        class="absolute w-32 h-32 rounded-full -top-16 -right-16 bg-gradient-to-br from-green-400/20 to-blue-400/20 blur-2xl">
+                        class="absolute -top-16 -right-16 w-32 h-32 bg-gradient-to-br from-green-400/20 to-blue-400/20 rounded-full blur-2xl">
                   </div>
                   <div
-                        class="absolute w-32 h-32 rounded-full -bottom-16 -left-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-2xl">
+                        class="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl">
                   </div>
 
                   <!-- Close button -->
                   <button @click="$emit('close')"
                         class="absolute top-3 right-3 p-1.5 hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-all duration-200 rounded-full"
                         title="Đóng">
-                        <svg class="w-4 h-4 transition-transform duration-300 hover:rotate-90" fill="none"
+                        <svg class="w-4 h-4 hover:rotate-90 transition-transform duration-300" fill="none"
                               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -64,7 +64,7 @@ defineEmits(['close']);
                         </div>
 
                         <h3
-                              class="mb-1 text-xl font-bold text-transparent bg-gradient-to-r from-gray-900 via-green-700 to-blue-700 bg-clip-text">
+                              class="text-xl font-bold bg-gradient-to-r from-gray-900 via-green-700 to-blue-700 bg-clip-text text-transparent mb-1">
                               Mã QR
                         </h3>
                         <p class="text-xs text-gray-600">
@@ -77,12 +77,12 @@ defineEmits(['close']);
                         <div class="relative">
                               <!-- Glow effect (subtle) -->
                               <div
-                                    class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-r from-green-400 to-blue-400 rounded-xl blur-lg opacity-20 hover:opacity-40">
+                                    class="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-400 rounded-xl blur-lg opacity-20 hover:opacity-40 transition-opacity duration-300">
                               </div>
 
                               <!-- QR Card - Smaller -->
                               <div
-                                    class="relative p-4 transition-all duration-300 bg-white border-2 shadow-lg rounded-xl border-slate-200 hover:shadow-xl">
+                                    class="relative bg-white p-4 rounded-xl shadow-lg border-2 border-slate-200 hover:shadow-xl transition-all duration-300">
                                     <QrcodeVue :value="qrValue" :size="180" level="H" render-as="svg"
                                           foreground="#0d7a4a" />
                               </div>
@@ -91,11 +91,11 @@ defineEmits(['close']);
 
                   <!-- URL Display Section - Compact -->
                   <div
-                        class="relative z-10 p-3 mb-4 transition-all duration-200 border rounded-lg bg-gradient-to-r from-slate-100 to-blue-50 border-slate-200/50 hover:border-slate-300">
+                        class="relative z-10 mb-4 p-3 bg-gradient-to-r from-slate-100 to-blue-50 rounded-lg border border-slate-200/50 hover:border-slate-300 transition-all duration-200">
                         <p class="text-[11px] text-gray-600 font-semibold uppercase tracking-wider mb-1.5 opacity-70">
                               🔗 Link truy cập
                         </p>
-                        <p class="font-mono text-xs text-gray-700 break-all">
+                        <p class="text-xs text-gray-700 font-mono break-all">
                               {{ qrValue }}
                         </p>
                   </div>
@@ -103,7 +103,7 @@ defineEmits(['close']);
                   <!-- Action Buttons - Compact -->
                   <div class="relative z-10">
                         <button @click="$emit('close')"
-                              class="w-full px-3 py-2 text-sm font-semibold text-gray-600 transition-all duration-200 border border-gray-200 rounded-lg hover:bg-gray-100">
+                              class="w-full py-2 px-3 text-gray-600 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 text-sm border border-gray-200">
                               Đóng
                         </button>
                   </div>

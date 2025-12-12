@@ -97,9 +97,9 @@ export const danhSachGoc = ref([
           chungNhan: "4C Certified",
           anh: "https://images.unsplash.com/photo-1559056199-641a0ac8b3f2?q=80&w=1000&auto=format&fit=crop",
           toaDo: [
-               [10.7, 106.65],
+               [10.70, 106.65],
                [10.71, 106.66],
-               [10.7, 106.66],
+               [10.70, 106.66],
           ],
           nhatKy: [
                {
