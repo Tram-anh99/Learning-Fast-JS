@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mockup - Quản lý mã số vùng trồng</title>
+  <style>
+    /* CSS đơn giản để mô phỏng layout (desktop + responsive) */
+    :root {
+      --header-h: 56px;
+      --sidebar-w: 360px;
+      --accent: #2563eb;
+      --accent-2: #16a34a;
+      --muted: #6b7280;
+      --bg: #f8fafc;
+    }
+    html,body { height:100%; margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:var(--bg); color:#0f172a; }
+    .app { display:flex; flex-direction:column; height:100vh; }
+    header { height:var(--header-h); background:white; display:flex; align-items:center; justify-content:space-between; padding:0 16px; box-shadow:0 1px 3px rgba(2,6,23,0.08); }
+    header h1 { margin:0; font-size:16px; font-weight:600; }
+    header .controls { display:flex; gap:8px; align-items:center; }
+    button.btn { border:0; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:13px; }
+    .btn.primary { background:var(--accent); color:white; }
+    .btn.gray { background:#f3f4f6; color:#111827; }
+
+    .body { display:flex; flex:1; overflow:hidden; }
+    aside.sidebar { width:var(--sidebar-w); background:white; padding:16px; border-right:1px solid #e6edf3; overflow:auto; }
+    .search { margin-bottom:12px; }
+    .search input { width:100%; padding:10px 12px; border:1px solid #e6edf3; border-radius:8px; outline:none; font-size:14px; }
+    .list-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .areas-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+    .area-item { background:#fff; border:1px solid #eef2f6; padding:10px; border-radius:8px; text-align:left; cursor:pointer; transition:box-shadow .12s; }
+    .area-item:hover { box-shadow:0 6px 18px rgba(16,24,40,0.06); }
+    .area-title { font-weight:600; font-size:14px; }
+    .area-sub { font-size:12px; color:var(--muted); }
+
+    main.map-wrap { flex:1; position:relative; display:flex; flex-direction:column; }
+    .map-area { flex:1; background:linear-gradient(180deg,#e6f0ff 0%, #cfe6ff 100%); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    /* map placeholder */
+    .map-canvas { width:100%; height:100%; background:#cfe6ff; position:relative; }
+    /* our simple SVG shapes on map */
+    svg { width:100%; height:100%; display:block; }
+
+    .toolbar { position:absolute; top:12px; left:12px; background:white; padding:8px; border-radius:8px; box-shadow:0 6px 20px rgba(2,6,23,0.08); display:flex; gap:8px; z-index:20; }
+    .fab { position:absolute; bottom:14px; right:14px; background:var(--accent); color:white; padding:10px 12px; border-radius:10px; box-shadow:0 8px 24px rgba(37,99,235,0.18); cursor:pointer; }
+
+    .detail-panel { position:absolute; right:16px; top:72px; width:320px; background:white; border-radius:8px; padding:12px; box-shadow:0 12px 30px rgba(2,6,23,0.12); z-index:30; display:none; }
+    .detail-panel.show { display:block; }
+    .detail-panel h3 { margin:0 0 6px 0; font-size:16px; }
+    .detail-row { font-size:13px; color:var(--muted); margin-bottom:8px; }
+    .detail-actions { display:flex; gap:8px; margin-top:8px; }
+
+    /* small responsive for mobile */
+    @media (max-width:900px) {
+      aside.sidebar { display:none; }
+      .detail-panel { width:90%; right:5%; top:64px; }
+    }
+    footer.hint { font-size:12px; color:var(--muted); padding:8px 12px; background:transparent; border-top:1px dashed #e6edf3; }
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Mockup Quản lý vùng trồng">
+    <header>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36'><rect width='36' height='36' rx='8' fill='%232563eb'/></svg>" alt="logo" style="width:36px;height:36px;border-radius:6px" />
+        <div>
+          <h1>Quản lý mã số vùng trồng</h1>
+          <div style="font-size:12px;color:#6b7280">Demo giao diện — Frontend only</div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn primary" id="importBtn">Import</button>
+        <button class="btn gray" id="locBtn">Vị trí tôi</button>
+      </div>
+    </header>
+
+    <div class="body">
+      <aside class="sidebar" aria-label="Sidebar danh sách vùng">
+        <div class="search">
+          <input id="searchInput" placeholder="Tìm theo mã hoặc tên..." />
+        </div>
+        <div class="list-title">
+          <strong>Danh sách vùng</strong>
+          <span style="font-size:13px;color:var(--muted)" id="countLabel">3 vùng</span>
+        </div>
+
+        <ul class="areas-list" id="areasList">
+          <!-- will be populated by JS -->
+        </ul>
+
+        <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+          Lưu ý: đây là mockup giao diện. Hành vi thực tế cần kết nối backend.
+        </div>
+      </aside>
+
+      <main class="map-wrap" role="main">
+        <div class="map-area">
+          <div class="map-canvas" id="mapCanvas" aria-hidden="false">
+            <!-- Simple SVG to illustrate polygons and centroid markers -->
+            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+              <!-- grid for reference -->
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#e6f0ff"/><stop offset="1" stop-color="#cfe6ff"/></linearGradient>
+              </defs>
+
+              <!-- polygon 1 -->
+              <polygon id="poly-1" points="120,120 260,80 340,160 300,260 160,240" fill="#16a34a" fill-opacity="0.35" stroke="#14532d" stroke-width="2" cursor="pointer" />
+              <!-- polygon 2 -->
+              <polygon id="poly-2" points="420,320 560,300 620,360 580,420 460,420" fill="#ef4444" fill-opacity="0.28" stroke="#b91c1c" stroke-width="2" cursor="pointer" />
+              <!-- polygon 3 -->
+              <polygon id="poly-3" points="700,100 820,120 880,200 760,220 700,160" fill="#f59e0b" fill-opacity="0.3" stroke="#92400e" stroke-width="2" cursor="pointer" />
+
+              <!-- centroids / labels -->
+              <circle cx="230" cy="160" r="4" fill="#065f46"></circle>
+              <text x="240" y="155" font-size="12" fill="#065f46">V001</text>
+
+              <circle cx="540" cy="360" r="4" fill="#7f1d1d"></circle>
+              <text x="550" y="355" font-size="12" fill="#7f1d1d">V002</text>
+
+              <circle cx="780" cy="170" r="4" fill="#92400e"></circle>
+              <text x="790" y="165" font-size="12" fill="#92400e">V003</text>
+            </svg>
+            <!-- toolbar -->
+            <div class="toolbar" style="position:absolute; left:12px; top:12px;">
+              <button class="btn primary" id="drawBtn">Vẽ</button>
+              <button class="btn" id="cancelBtn">Hủy</button>
+              <button class="btn primary" id="saveBtn" style="background: #0ea5a3">Lưu</button>
+            </div>
+            <div class="fab" id="fabAdd">+</div>
+          </div>
+
+          <!-- details panel -->
+          <div class="detail-panel" id="detailPanel" role="dialog" aria-hidden="true">
+            <h3 id="detailTitle">Vùng A (V001)</h3>
+            <div class="detail-row"><strong>Mã:</strong> <span id="detailCode">V001</span></div>
+            <div class="detail-row"><strong>Diện tích:</strong> <span id="detailArea">1,200 m²</span></div>
+            <div class="detail-row"><strong>Chủ sở hữu:</strong> <span id="detailOwner">Nguyễn Văn A</span></div>
+            <div class="detail-actions">
+              <button class="btn" id="editBtn" style="background:#fbbf24">Sửa</button>
+              <button class="btn" id="delBtn" style="background:#ef4444;color:white">Xóa</button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="hint" style="text-align:left">Demo: click mục trong danh sách để focus vùng; click polygon trên "bản đồ" cũng mở panel.</footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Mock dataset
+    const areas = [
+      { id: 'a1', code: 'V001', name: 'Vùng A', area_m2: 1200, color: '#16a34a', polyId: 'poly-1', owner: 'Nguyễn Văn A' },
+      { id: 'a2', code: 'V002', name: 'Vùng B', area_m2: 2450, color: '#ef4444', polyId: 'poly-2', owner: 'Trần Thị B' },
+      { id: 'a3', code: 'V003', name: 'Vùng C', area_m2: 800,  color: '#f59e0b', polyId: 'poly-3', owner: 'Lê Văn C' }
+    ];
+
+    const areasList = document.getElementById('areasList');
+    const countLabel = document.getElementById('countLabel');
+    const detailPanel = document.getElementById('detailPanel');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailCode = document.getElementById('detailCode');
+    const detailArea = document.getElementById('detailArea');
+    const detailOwner = document.getElementById('detailOwner');
+
+    function renderList(filter='') {
+      areasList.innerHTML = '';
+      const filtered = areas.filter(a => (a.code + ' ' + a.name).toLowerCase().includes(filter.toLowerCase()));
+      countLabel.textContent = filtered.length + ' vùng';
+      filtered.forEach(a => {
+        const li = document.createElement('li');
+        li.className = 'area-item';
+        li.innerHTML = `<div class="area-title">${a.name}</div><div class="area-sub">Mã: ${a.code} • ${a.area_m2} m²</div>`;
+        li.onclick = () => selectArea(a);
+        areasList.appendChild(li);
+      });
+    }
+
+    function selectArea(a) {
+      // show panel with details and highlight polygon visually
+      detailTitle.textContent = `${a.name} (${a.code})`;
+      detailCode.textContent = a.code;
+      detailArea.textContent = a.area_m2.toLocaleString() + ' m²';
+      detailOwner.textContent = a.owner || '-';
+      detailPanel.classList.add('show');
+      detailPanel.setAttribute('aria-hidden','false');
+      // simulate highlight: increase opacity
+      document.querySelectorAll('polygon').forEach(p => p.style.fillOpacity = '0.25');
+      const poly = document.getElementById(a.polyId);
+      if (poly) poly.style.fillOpacity = '0.6';
+      // scroll map to make polygon visible (not actual map pan here)
+    }
+
+    // Click on polygon to open detail
+    document.querySelectorAll('polygon').forEach(poly => {
+      poly.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const id = poly.id;
+        const a = areas.find(x => x.polyId === id);
+        if (a) selectArea(a);
+      });
+    });
+
+    // toolbar actions (mock)
+    document.getElementById('drawBtn').addEventListener('click', () => alert('Bật chế độ Vẽ (mô phỏng)'));
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      detailPanel.classList.remove('show'); detailPanel.setAttribute('aria-hidden','true');
+      document.querySelectorAll('polygon').forEach(p => p.style.fillOpacity = '0.35');
+    });
+    document.getElementById('saveBtn').addEventListener('click', () => alert('Gọi API để lưu vùng (mô phỏng)'));
+    document.getElementById('importBtn').addEventListener('click', () => alert('Mở modal Import (mô phỏng)'));
+    document.getElementById('locBtn').addEventListener('click', () => alert('Fly to user location (mô phỏng)'));
+    document.getElementById('fabAdd').addEventListener('click', () => alert('Tạo vùng nhanh (mô phỏng)'));
+
+    document.getElementById('delBtn').addEventListener('click', () => {
+      if (!confirm('Xác nhận xóa vùng này?')) return;
+      alert('Gửi lệnh xóa tới API (mô phỏng)');
+      detailPanel.classList.remove('show');
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      renderList(e.target.value);
+    });
+
+    // initial render
+    renderList();
+  </script>
+</body>
+</html>
