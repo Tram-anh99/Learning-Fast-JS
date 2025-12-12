@@ -1,0 +1,163 @@
+/* ==========================================
+   TAILWIND CSS DIRECTIVES
+   ========================================== */
+/* Thêm base styles (reset, typography mặc định) */
+@tailwind base;
+/* Thêm component classes (@layer components định nghĩa custom class) */
+@tailwind components;
+/* Thêm utility classes (padding, margin, color, etc.) */
+@tailwind utilities;
+
+/* ==========================================
+   CUSTOM COMPONENT UTILITIES
+   Các component tái sử dụng được
+   ========================================== */
+@layer components {
+
+      /* ========== STAT CARD COMPONENT ========== */
+      /* Thẻ hiển thị thống kê */
+      .stat-card {
+            @apply flex-1 bg-white px-5 py-4 rounded-xl shadow-sm flex items-center gap-4;
+      }
+
+      /* ========== ICON BOX COMPONENT ========== */
+      /* Hộp chứa icon với nền màu */
+      .icon-box {
+            @apply w-12 h-12 rounded-lg flex justify-center items-center text-xl text-white;
+      }
+
+      /* Icon box màu success (xanh lá) */
+      .icon-box-success {
+            @apply icon-box;
+            background-color: #10b981;
+      }
+
+      /* Icon box màu primary (xanh đậm) */
+      .icon-box-primary {
+            @apply icon-box;
+            background-color: #1b4332;
+      }
+
+      /* Icon box màu warning (vàng cam) */
+      .icon-box-warning {
+            @apply icon-box;
+            background-color: #f59e0b;
+      }
+
+      /* ========== STAT INFO TEXT ========== */
+      /* Tiêu đề số liệu thống kê (lớn, đậm) */
+      .stat-info-title {
+            @apply text-xl font-bold text-slate-800 m-0;
+      }
+
+      /* Mô tả dưới tiêu đề (nhỏ, nhạt) */
+      .stat-info-desc {
+            @apply text-sm text-slate-500 m-0;
+      }
+
+      /* ========== BUTTON STYLES ========== */
+      /* Nút chính (primary button) - xanh đậm */
+      .btn-primary {
+            @apply cursor-pointer text-sm font-medium transition-all;
+            background-color: #1b4332;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+      }
+
+      /* Hover effect cho primary button */
+      .btn-primary:hover {
+            opacity: 0.9;
+      }
+
+      /* Nút nhỏ chỉnh sửa (xanh nhạt) */
+      .btn-primary-sm {
+            @apply w-8 h-8 rounded-lg cursor-pointer transition-all;
+            background-color: #e0f2fe;
+            color: #0284c7;
+      }
+
+      /* Nút nhỏ cảnh báo (cam nhạt) */
+      .btn-primary-warn {
+            @apply w-8 h-8 rounded-lg cursor-pointer transition-all;
+            background-color: #ffedd5;
+            color: #ea580c;
+      }
+
+      /* ========== BADGE STYLES ========== */
+      /* Badge trạng thái - hoạt động (xanh lục) */
+      .badge-active {
+            @apply inline-block px-2.5 py-1 rounded-full text-xs font-semibold;
+            background-color: #d1fae5;
+            color: #065f46;
+      }
+
+      /* Badge trạng thái - cảnh báo (vàng) */
+      .badge-warning {
+            @apply inline-block px-2.5 py-1 rounded-full text-xs font-semibold;
+            background-color: #fef3c7;
+            color: #92400e;
+      }
+
+      /* Badge trạng thái - nguy hiểm (đỏ) */
+      .badge-danger {
+            @apply inline-block px-2.5 py-1 rounded-full text-xs font-semibold;
+            background-color: #fee2e2;
+            color: #991b1b;
+      }
+
+      /* ========== PANEL STYLES ========== */
+      /* Panel container - card với background trắng */
+      .panel {
+            @apply bg-white rounded-xl shadow-sm;
+      }
+
+      /* Panel header - phần tiêu đề panel */
+      .panel-header {
+            @apply px-5 py-4 border-b border-slate-200 flex justify-between items-center;
+      }
+
+      /* Tiêu đề panel */
+      .panel-title {
+            @apply text-lg font-semibold text-slate-900 m-0;
+      }
+
+      /* ========== TABLE STYLES ========== */
+      /* Header cột bảng (sticky top) */
+      .table-header {
+            @apply text-left px-5 py-3 bg-slate-100 text-slate-600 font-semibold text-sm sticky top-0;
+      }
+
+      /* Ô dữ liệu bảng */
+      .table-cell {
+            @apply px-5 py-3 border-b border-slate-100 text-slate-700 text-sm;
+      }
+
+      /* Hover effect cho dòng bảng */
+      .table-row-hover {
+            @apply hover: bg-slate-50 transition-colors;
+      }
+
+      /* ========== MAP CONTROL STYLES ========== */
+      /* Nút điều khiển bản đồ (mặc định) */
+      .map-control-btn {
+            @apply w-full border rounded-lg text-left cursor-pointer text-sm transition-all;
+            background-color: #f8fafc;
+            border-color: #e2e8f0;
+            padding: 0.5rem;
+            color: #1f2937;
+      }
+
+      /* Hover effect cho control button */
+      .map-control-btn:hover {
+            background-color: #e2e6ea;
+      }
+
+      /* Nút điều khiển bản đồ khi active (xanh đậm) */
+      .map-control-btn-active {
+            @apply map-control-btn;
+            background-color: #1b4332;
+            color: white;
+            border-color: #1b4332;
+      }
+}

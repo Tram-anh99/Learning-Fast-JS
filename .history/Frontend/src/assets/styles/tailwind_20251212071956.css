@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom component utilities */
+@layer components {
+  /* Stat card component */
+  .stat-card {
+    @apply flex-1 bg-white px-5 py-4 rounded-xl shadow-sm flex items-center gap-4;
+  }
+
+  /* Icon box component */
+  .icon-box {
+    @apply w-12 h-12 rounded-lg flex justify-center items-center text-xl text-white;
+  }
+
+  .icon-box-success {
+    @apply icon-box;
+    background-color: #10b981;
+  }
+
+  .icon-box-primary {
+    @apply icon-box;
+    background-color: #1b4332;
+  }
+
+  .icon-box-warning {
+    @apply icon-box;
+    background-color: #f59e0b;
+  }
+
+  /* Stat info text */
+  .stat-info-title {
+    @apply text-xl font-bold text-slate-800 m-0;
+  }
+
+  .stat-info-desc {
+    @apply text-sm text-slate-500 m-0;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply cursor-pointer text-sm font-medium transition-all;
+    background-color: #1b4332;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-primary-sm {
+    @apply w-8 h-8 rounded-lg cursor-pointer transition-all;
+    background-color: #e0f2fe;
+    color: #0284c7;
+  }
+
+  .btn-primary-warn {
+    @apply w-8 h-8 rounded-lg cursor-pointer transition-all;
+    background-color: #ffedd5;
+    color: #ea580c;
+  }
+
+  /* Badge styles */
+  .badge-active {
+    @apply inline-block px-2.5 py-1 rounded-full text-xs font-semibold;
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+
+  .badge-warning {
+    @apply inline-block px-2.5 py-1 rounded-full text-xs font-semibold;
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+
+  .badge-danger {
+    @apply inline-block px-2.5 py-1 rounded-full text-xs font-semibold;
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+
+  /* Panel styles */
+  .panel {
+    @apply bg-white rounded-xl shadow-sm;
+  }
+
+  .panel-header {
+    @apply px-5 py-4 border-b border-slate-200 flex justify-between items-center;
+  }
+
+  .panel-title {
+    @apply text-lg font-semibold text-slate-900 m-0;
+  }
+
+  /* Table styles */
+  .table-header {
+    @apply text-left px-5 py-3 bg-slate-100 text-slate-600 font-semibold text-sm sticky top-0;
+  }
+
+  .table-cell {
+    @apply px-5 py-3 border-b border-slate-100 text-slate-700 text-sm;
+  }
+
+  .table-row-hover {
+    @apply hover:bg-slate-50 transition-colors;
+  }
+
+  /* Map controls */
+  .map-control-btn {
+    @apply w-full bg-slate-100 border border-slate-300 px-2 py-2 rounded-lg text-left cursor-pointer text-sm text-slate-800 hover:bg-slate-200 transition-all;
+  }
+
+  .map-control-btn-active {
+    @apply map-control-btn bg-primary text-white border-primary;
+  }
+}
