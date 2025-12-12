@@ -64,10 +64,10 @@ watch(danhSachTimKiem, veLaiBanDo);
       <!-- ========== HEADER ========== -->
       <header class="sidebar-header" :class="{ 'detail-mode': vungDangXem }">
         <div v-if="!vungDangXem" class="w-full">
-          <div class="p-4 bg-green-900 rounded-t-2xl">
+          <div class="bg-green-900 rounded-t-2xl p-4">
             <div class="relative">
               <!-- Search icon -->
-              <svg class="absolute w-5 h-5 text-green-300 -translate-y-1/2 pointer-events-none left-3 top-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               
@@ -76,7 +76,7 @@ watch(danhSachTimKiem, veLaiBanDo);
                 v-model="searchQuery" 
                 type="text" 
                 placeholder="Tìm nông sản..." 
-                class="w-full py-2 pl-10 pr-3 text-white placeholder-green-300 transition-colors bg-green-800 rounded-lg focus:outline-none focus:bg-green-700 focus:ring-1 focus:ring-green-400"
+                class="w-full pl-10 pr-3 py-2 bg-green-800 text-white placeholder-green-300 rounded-lg focus:outline-none focus:bg-green-700 focus:ring-1 focus:ring-green-400 transition-colors"
               >
             </div>
           </div>
@@ -85,13 +85,13 @@ watch(danhSachTimKiem, veLaiBanDo);
         <div v-else class="header-content detail">
           <button 
             @click="quayLaiDanhSach"
-            class="p-2 transition-colors rounded-lg hover:bg-white/20"
+            class="p-2 hover:bg-white/20 rounded-lg transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <h3 class="font-bold text-white">Thông tin Chi tiết</h3>
+          <h3 class="text-white font-bold">Thông tin Chi tiết</h3>
         </div>
       </header>
 
@@ -101,7 +101,7 @@ watch(danhSachTimKiem, veLaiBanDo);
       <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
         
         <!-- Tabs -->
-        <div class="flex gap-1 p-2 border-b border-gray-100 bg-white/30">
+        <div class="flex gap-1 p-2 bg-white/30 border-b border-gray-100">
           <button 
             v-for="tab in ['all', 'canh_tac', 'thu_hoach']"
             :key="tab"
@@ -118,7 +118,7 @@ watch(danhSachTimKiem, veLaiBanDo);
         </div>
 
         <!-- Item list -->
-        <div class="flex-grow p-3 space-y-2 overflow-y-auto">
+        <div class="flex-grow overflow-y-auto p-3 space-y-2">
           <ul class="space-y-2">
             <HomeListItem 
               v-for="item in danhSachTimKiem"

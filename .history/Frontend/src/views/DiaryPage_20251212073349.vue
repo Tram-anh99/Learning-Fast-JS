@@ -45,7 +45,7 @@ const handleAddNew = () => {
       <section>
         <h2 class="flex items-center justify-between mb-3 text-lg font-bold text-gray-800">
           Hoạt động gần đây
-          <button class="text-sm font-medium text-green-600 transition-colors hover:text-green-700">
+          <button class="text-sm font-medium text-green-600 hover:text-green-700 transition-colors">
             Xem tất cả
           </button>
         </h2>

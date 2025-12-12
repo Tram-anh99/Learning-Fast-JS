@@ -13,40 +13,37 @@
    Hiệu ứng chuyển động toàn ứng dụng
    ========================================== */
 @layer utilities {
+  /* Hiệu ứng fade in (mờ dần xuất hiện) */
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
 
-      /* Hiệu ứng fade in (mờ dần xuất hiện) */
-      .animate-fade-in {
-            animation: fadeIn 0.2s ease-out;
-      }
+  /* Hiệu ứng scale up (phóng to xuất hiện) */
+  .animate-scale-up {
+    animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
 
-      /* Hiệu ứng scale up (phóng to xuất hiện) */
-      .animate-scale-up {
-            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
+  /* Keyframe fade in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-      /* Keyframe fade in */
-      @keyframes fadeIn {
-            from {
-                  opacity: 0;
-            }
-
-            to {
-                  opacity: 1;
-            }
-      }
-
-      /* Keyframe scale up */
-      @keyframes scaleUp {
-            from {
-                  opacity: 0;
-                  transform: scale(0.8);
-            }
-
-            to {
-                  opacity: 1;
-                  transform: scale(1);
-            }
-      }
+  /* Keyframe scale up */
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 
@@ -177,11 +174,7 @@
 
       /* Hover effect cho dòng bảng */
       .table-row-hover {
-            transition: background-color 0.15s ease-in-out;
-      }
-
-      .table-row-hover:hover {
-            @apply bg-slate-50;
+            @apply hover: bg-slate-50 transition-colors;
       }
 
       /* ========== MAP CONTROL STYLES ========== */

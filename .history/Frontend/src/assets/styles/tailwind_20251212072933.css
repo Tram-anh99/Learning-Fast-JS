@@ -177,11 +177,8 @@
 
       /* Hover effect cho dòng bảng */
       .table-row-hover {
+            @apply hover: bg-slate-50;
             transition: background-color 0.15s ease-in-out;
-      }
-
-      .table-row-hover:hover {
-            @apply bg-slate-50;
       }
 
       /* ========== MAP CONTROL STYLES ========== */
