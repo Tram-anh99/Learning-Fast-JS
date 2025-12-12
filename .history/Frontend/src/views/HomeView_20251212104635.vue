@@ -23,7 +23,7 @@ import { useRouter } from 'vue-router';
 import HomeListItem from '../components/HomeListItem.vue';
 import HomeDetailView from '../components/HomeDetailView.vue';
 import QRModal from '../components/QRModal.vue';
-import {
+import { 
   boLocHienTai,
   vungDangXem,
   searchQuery,
@@ -54,7 +54,7 @@ watch(danhSachTimKiem, veLaiBanDo);
 
 <template>
   <div class="webgis-container">
-
+    
     <!-- Map -->
     <div ref="mapContainer" class="map-container"></div>
 
@@ -67,23 +67,27 @@ watch(danhSachTimKiem, veLaiBanDo);
           <div class="p-4 bg-green-900 rounded-t-2xl">
             <div class="relative">
               <!-- Search icon -->
-              <svg class="absolute w-5 h-5 text-green-300 -translate-y-1/2 pointer-events-none left-3 top-1/2"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg class="absolute w-5 h-5 text-green-300 -translate-y-1/2 pointer-events-none left-3 top-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-
+              
               <!-- Search input -->
-              <input v-model="searchQuery" type="text" placeholder="Tìm nông sản..."
-                class="w-full py-2 pl-10 pr-3 text-white placeholder-green-300 transition-colors bg-green-800 rounded-lg focus:outline-none focus:bg-green-700 focus:ring-1 focus:ring-green-400">
+              <input 
+                v-model="searchQuery" 
+                type="text" 
+                placeholder="Tìm nông sản..." 
+                class="w-full py-2 pl-10 pr-3 text-white placeholder-green-300 transition-colors bg-green-800 rounded-lg focus:outline-none focus:bg-green-700 focus:ring-1 focus:ring-green-400"
+              >
             </div>
           </div>
         </div>
 
         <div v-else class="header-content detail">
-          <button @click="quayLaiDanhSach" class="p-2 transition-colors rounded-lg hover:bg-white/20">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
+          <button 
+            @click="quayLaiDanhSach"
+            class="p-2 transition-colors rounded-lg hover:bg-white/20"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -92,18 +96,23 @@ watch(danhSachTimKiem, veLaiBanDo);
       </header>
 
       <!-- ========== CONTENT AREA ========== -->
-
+      
       <!-- List view -->
       <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
-
+        
         <!-- Tabs -->
         <div class="flex gap-1 p-2 border-b border-gray-100 bg-white/30">
-          <button v-for="tab in ['all', 'canh_tac', 'thu_hoach']" :key="tab" @click="boLocHienTai = tab" :class="[
-            'flex-1 py-2 px-3 rounded-lg text-sm font-semibold transition-all',
-            boLocHienTai === tab
-              ? 'bg-white text-green-700 shadow-sm'
-              : 'text-gray-600 hover:text-gray-800'
-          ]">
+          <button 
+            v-for="tab in ['all', 'canh_tac', 'thu_hoach']"
+            :key="tab"
+            @click="boLocHienTai = tab"
+            :class="[
+              'flex-1 py-2 px-3 rounded-lg text-sm font-semibold transition-all',
+              boLocHienTai === tab 
+                ? 'bg-white text-green-700 shadow-sm' 
+                : 'text-gray-600 hover:text-gray-800'
+            ]"
+          >
             {{ tab === 'all' ? 'Tất cả' : tab === 'canh_tac' ? 'Canh tác' : 'Thu hoạch' }}
           </button>
         </div>
@@ -111,16 +120,20 @@ watch(danhSachTimKiem, veLaiBanDo);
         <!-- Item list -->
         <div class="flex-grow p-3 space-y-2 overflow-y-auto">
           <ul class="space-y-2">
-            <HomeListItem v-for="item in danhSachTimKiem" :key="item.id" :item="item"
-              :getClassTrangThai="getClassTrangThai" :getTextTrangThai="getTextTrangThai" @select="chonVung" />
+            <HomeListItem 
+              v-for="item in danhSachTimKiem"
+              :key="item.id"
+              :item="item"
+              :getClassTrangThai="getClassTrangThai"
+              :getTextTrangThai="getTextTrangThai"
+              @select="chonVung"
+            />
           </ul>
-
+          
           <!-- Empty state -->
           <div v-if="danhSachTimKiem.length === 0" class="flex flex-col items-center justify-center py-8 text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-2 opacity-30" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <p class="text-sm">Không tìm thấy nông sản nào</p>
           </div>
@@ -128,12 +141,21 @@ watch(danhSachTimKiem, veLaiBanDo);
       </div>
 
       <!-- Detail view -->
-      <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
+      <HomeDetailView 
+        v-else
+        :vung="vungDangXem"
+        @back="quayLaiDanhSach"
+        @openQR="(ma) => openQRModal(ma)"
+      />
 
     </aside>
 
     <!-- QR Modal -->
-    <QRModal :show="showQR" :qrValue="qrLink" @close="closeQRModal" />
+    <HomeQRModal 
+      :show="showQR"
+      :qrLink="qrLink"
+      @close="closeQRModal"
+    />
 
   </div>
 </template>
