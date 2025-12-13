@@ -30,15 +30,14 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                   :style="{ backgroundImage: `url(${vung.anh})` }">
                   <!-- Gradient overlay: tối dần từ dưới lên trên (từ đen sang trong suốt) -->
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-
+                  
                   <!-- Text content: tên và chứng nhận -->
                   <div class="relative z-10 w-full p-4 text-white">
                         <!-- Tên vùng trồng -->
                         <h2 class="text-2xl font-bold text-shadow">{{ vung.ten }}</h2>
-
+                        
                         <!-- Badge chứng nhận (VietGAP, GlobalGAP, etc) -->
-                        <span
-                              class="inline-block px-3 py-1 mt-2 text-xs font-bold text-gray-800 bg-yellow-400 rounded-md">
+                        <span class="inline-block px-3 py-1 mt-2 text-xs font-bold text-gray-800 bg-yellow-400 rounded-md">
                               <!-- Icon sao -->
                               <svg xmlns="http://www.w3.org/2000/svg" class="inline w-3 h-3 mr-1" viewBox="0 0 20 20"
                                     fill="currentColor">
@@ -61,7 +60,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                               <label class="block mb-1 text-xs text-gray-600">Mã số</label>
                               <strong class="text-gray-800">{{ vung.ma }}</strong>
                         </div>
-
+                        
                         <!-- Cột 2: Diện tích vùng trồng -->
                         <div class="p-3 border border-gray-200 rounded-lg bg-gray-50">
                               <label class="block mb-1 text-xs text-gray-600">Diện tích</label>
@@ -88,8 +87,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                               <!-- Mỗi mục nhật ký -->
                               <div v-for="(log, idx) in vung.nhatKy" :key="idx" class="relative">
                                     <!-- Dot indicator: điểm tròn xanh bên trái -->
-                                    <div
-                                          class="absolute w-3 h-3 bg-green-500 rounded-full -left-5 top-1.5 border-2 border-white">
+                                    <div class="absolute w-3 h-3 bg-green-500 rounded-full -left-5 top-1.5 border-2 border-white">
                                     </div>
 
                                     <!-- Nội dung nhật ký -->
@@ -106,7 +104,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
             </div>
 
             <!-- Action buttons: nút hành động ở cuối (sticky) -->
-            <div class="sticky bottom-0 flex-shrink-0 p-4 space-y-2 border-t border-gray-200 bg-white bg-opacity-90">
+            <div class="sticky bottom-0 flex-shrink-0 p-4 space-y-2 border-t border-gray-200 bg-white">
                   <!-- Nút Mã QR Truy xuất: emit event 'openQR' với mã vùng -->
                   <button @click="$emit('openQR', vung.ma)"
                         class="flex items-center justify-center w-full gap-2 py-3 font-semibold text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700">
@@ -117,7 +115,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                         </svg>
                         Mã QR Truy xuất
                   </button>
-
+                  
                   <!-- Nút Quay lại: emit event 'back' để trở lại danh sách -->
                   <button @click="$emit('back')"
                         class="w-full py-2 font-semibold text-gray-800 transition-colors bg-gray-200 rounded-lg hover:bg-gray-300">
