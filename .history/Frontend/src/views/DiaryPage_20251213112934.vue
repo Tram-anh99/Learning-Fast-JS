@@ -79,47 +79,10 @@ const removeImage = (index) => {
 };
 </script>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
-
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: 400;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Custom scrollbar cho toàn trang */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D7CCC8;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #8D6E63;
-}
-</style>
-
 <template>
-  <div class="font-sans antialiased h-screen flex flex-col bg-[#FAFAF5]">
+  <div class="font-sans antialiased min-h-screen flex flex-col bg-[#FAFAF5]">
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto py-6 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto pb-16">
+    <main class="flex-grow py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 class="text-3xl font-black text-[#2E7D32] mb-1">Hôm nay bác làm gì?</h2>
@@ -127,9 +90,7 @@ const removeImage = (index) => {
         </div>
         <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm border border-[#D7CCC8]/30">
           <span class="material-symbols-outlined text-[#8D6E63]">calendar_today</span>
-          <span class="font-medium text-gray-700">{{ new Date().toLocaleDateString('vi-VN', {
-            year: 'numeric', month:
-              'long', day: 'numeric' }) }}</span>
+          <span class="font-medium text-gray-700">{{ new Date().toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
         </div>
       </div>
 
@@ -146,30 +107,38 @@ const removeImage = (index) => {
               </h3>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              <button v-for="activity in activities" :key="activity.id" @click="selectActivity(activity.id)" :class="[
-                'group relative flex flex-col items-center justify-center p-6 rounded-3xl shadow-sm border transition-all duration-300 hover:-translate-y-1',
-                selectedActivity === activity.id
-                  ? 'bg-[#2E7D32] text-white shadow-[0_0_15px_rgba(76,175,80,0.3)] transform scale-[1.02] ring-4 ring-[#E8F5E9]'
-                  : 'bg-white border-transparent hover:border-[#2E7D32]/30 hover:shadow-[0_4px_20px_-2px_rgba(46,125,50,0.1)]'
-              ]">
-                <div v-if="selectedActivity === activity.id" class="absolute top-3 right-3">
+              <button 
+                v-for="activity in activities" 
+                :key="activity.id"
+                @click="selectActivity(activity.id)"
+                :class="[
+                  'group relative flex flex-col items-center justify-center p-6 rounded-3xl shadow-sm border transition-all duration-300 hover:-translate-y-1',
+                  selectedActivity === activity.id
+                    ? 'bg-[#2E7D32] text-white shadow-[0_0_15px_rgba(76,175,80,0.3)] transform scale-[1.02] ring-4 ring-[#E8F5E9]'
+                    : 'bg-white border-transparent hover:border-[#2E7D32]/30 hover:shadow-[0_4px_20px_-2px_rgba(46,125,50,0.1)]'
+                ]"
+              >
+                <div 
+                  v-if="selectedActivity === activity.id"
+                  class="absolute top-3 right-3"
+                >
                   <span class="material-symbols-outlined text-white/80 text-xl">check_circle</span>
                 </div>
-                <div :class="[
-                  'h-14 w-14 rounded-2xl flex items-center justify-center mb-3 transition-transform',
-                  selectedActivity === activity.id
-                    ? 'bg-white/20'
-                    : `bg-${activity.color}-100 text-${activity.color}-600`,
-                  !selectedActivity !== activity.id && 'group-hover:scale-110'
-                ]">
+                <div 
+                  :class="[
+                    'h-14 w-14 rounded-2xl flex items-center justify-center mb-3 transition-transform',
+                    selectedActivity === activity.id
+                      ? 'bg-white/20'
+                      : `bg-${activity.color}-100 text-${activity.color}-600`,
+                    !selectedActivity !== activity.id && 'group-hover:scale-110'
+                  ]"
+                >
                   <span class="material-symbols-outlined text-4xl">{{ activity.icon }}</span>
                 </div>
-                <span
-                  :class="['text-base font-bold', selectedActivity === activity.id ? 'text-white' : 'text-gray-700 group-hover:text-[#2E7D32]']">
+                <span :class="['text-base font-bold', selectedActivity === activity.id ? 'text-white' : 'text-gray-700 group-hover:text-[#2E7D32]']">
                   {{ activity.name }}
                 </span>
-                <span v-if="selectedActivity === activity.id"
-                  class="text-xs bg-white/20 px-2 py-0.5 rounded-full mt-1">Đang nhập...</span>
+                <span v-if="selectedActivity === activity.id" class="text-xs bg-white/20 px-2 py-0.5 rounded-full mt-1">Đang nhập...</span>
               </button>
             </div>
           </section>
@@ -184,10 +153,12 @@ const removeImage = (index) => {
               <a class="text-sm font-bold text-[#2E7D32] hover:underline" href="#">Xem tất cả</a>
             </div>
             <div class="space-y-3">
-              <div v-for="activity in recentActivities" :key="activity.id"
-                class="bg-white p-4 rounded-2xl border border-[#D7CCC8]/20 flex items-center shadow-sm hover:shadow-md transition-shadow">
-                <div
-                  :class="['h-12 w-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0', activity.bgColor, activity.iconColor]">
+              <div 
+                v-for="activity in recentActivities" 
+                :key="activity.id"
+                class="bg-white p-4 rounded-2xl border border-[#D7CCC8]/20 flex items-center shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div :class="['h-12 w-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0', activity.bgColor, activity.iconColor]">
                   <span class="material-symbols-outlined">{{ activity.icon }}</span>
                 </div>
                 <div class="flex-grow">
@@ -205,22 +176,20 @@ const removeImage = (index) => {
 
         <!-- Right Column: Form -->
         <div class="lg:col-span-5">
-          <div>
+          <div class="sticky top-24">
             <div class="bg-white rounded-3xl shadow-xl border border-[#2E7D32]/10 overflow-hidden relative">
               <div class="h-3 bg-[#2E7D32] w-full"></div>
               <div class="p-6 sm:p-8">
                 <!-- Form Header -->
                 <div class="flex items-center justify-between mb-6">
                   <div>
-                    <span class="text-xs font-bold text-[#8D6E63] uppercase tracking-wider mb-1 block">Hoạt động
-                      mới</span>
+                    <span class="text-xs font-bold text-[#8D6E63] uppercase tracking-wider mb-1 block">Hoạt động mới</span>
                     <h3 class="text-2xl font-black text-[#2E7D32] flex items-center gap-2">
-                      {{activities.find(a => a.id === selectedActivity)?.name || 'Bón phân'}}
+                      {{ activities.find(a => a.id === selectedActivity)?.name || 'Bón phân' }}
                     </h3>
                   </div>
                   <div class="bg-[#E8F5E9] p-2 rounded-full">
-                    <span class="material-symbols-outlined text-[#2E7D32] text-3xl">{{activities.find(a => a.id ===
-                      selectedActivity)?.icon || 'compost' }}</span>
+                    <span class="material-symbols-outlined text-[#2E7D32] text-3xl">{{ activities.find(a => a.id === selectedActivity)?.icon || 'compost' }}</span>
                   </div>
                 </div>
 
@@ -231,8 +200,7 @@ const removeImage = (index) => {
                     <div>
                       <label class="block text-sm font-bold text-[#5D4037] mb-2">Loại hoạt động</label>
                       <div class="relative">
-                        <select v-model="formData.activityType"
-                          class="block w-full rounded-xl border border-[#D7CCC8] bg-[#FAFAF5]/50 py-3 pl-4 pr-10 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm transition-colors cursor-pointer font-medium">
+                        <select v-model="formData.activityType" class="block w-full rounded-xl border border-[#D7CCC8] bg-[#FAFAF5]/50 py-3 pl-4 pr-10 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm transition-colors cursor-pointer font-medium">
                           <option>Bón phân - Đợt 1 (Bón lót)</option>
                           <option>Bón phân - Đợt 2 (Thúc chồi)</option>
                           <option>Bón phân - Đợt 3 (Thúc trái)</option>
@@ -241,9 +209,7 @@ const removeImage = (index) => {
                     </div>
                     <div>
                       <label class="block text-sm font-bold text-[#5D4037] mb-2">Thời gian thực hiện</label>
-                      <input v-model="formData.datetime"
-                        class="block w-full rounded-xl border border-[#D7CCC8] bg-[#FAFAF5]/50 py-3 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm font-medium"
-                        type="datetime-local" />
+                      <input v-model="formData.datetime" class="block w-full rounded-xl border border-[#D7CCC8] bg-[#FAFAF5]/50 py-3 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm font-medium" type="datetime-local" />
                     </div>
                   </div>
 
@@ -254,8 +220,7 @@ const removeImage = (index) => {
                         <span class="material-symbols-outlined text-sm">inventory_2</span>
                         Vật tư sử dụng
                       </label>
-                      <select v-model="formData.material"
-                        class="block w-full rounded-xl border border-[#D7CCC8] bg-white py-3 pl-4 pr-10 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm">
+                      <select v-model="formData.material" class="block w-full rounded-xl border border-[#D7CCC8] bg-white py-3 pl-4 pr-10 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm">
                         <option>Phân NPK 20-20-15 - Bình Điền</option>
                         <option>Phân Urê (Đạm Phú Mỹ)</option>
                         <option>Phân Kali</option>
@@ -267,11 +232,8 @@ const removeImage = (index) => {
                         Liều lượng / Số lượng
                       </label>
                       <div class="flex rounded-xl shadow-sm">
-                        <input v-model.number="formData.quantity"
-                          class="block w-full rounded-l-xl border border-[#D7CCC8] border-r-0 bg-white py-3 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm"
-                          type="number" />
-                        <span
-                          class="inline-flex items-center rounded-r-xl border border-l-0 border-[#D7CCC8] bg-white px-4 text-gray-500 font-bold sm:text-sm">
+                        <input v-model.number="formData.quantity" class="block w-full rounded-l-xl border border-[#D7CCC8] border-r-0 bg-white py-3 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm" type="number" />
+                        <span class="inline-flex items-center rounded-r-xl border border-l-0 border-[#D7CCC8] bg-white px-4 text-gray-500 font-bold sm:text-sm">
                           {{ formData.unit }}
                         </span>
                       </div>
@@ -282,18 +244,17 @@ const removeImage = (index) => {
                   <div>
                     <label class="block text-sm font-bold text-[#5D4037] mb-2">Hình ảnh thực tế</label>
                     <div class="grid grid-cols-4 gap-2">
-                      <button
-                        class="aspect-square flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#2E7D32]/40 bg-[#E8F5E9]/20 text-[#2E7D32] hover:bg-[#E8F5E9]/50 transition-colors"
-                        type="button">
+                      <button class="aspect-square flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#2E7D32]/40 bg-[#E8F5E9]/20 text-[#2E7D32] hover:bg-[#E8F5E9]/50 transition-colors" type="button">
                         <span class="material-symbols-outlined text-2xl mb-1">add_a_photo</span>
                         <span class="text-[10px] font-bold">Thêm</span>
                       </button>
-                      <div v-for="(image, index) in formData.images" :key="index" class="aspect-square relative group">
-                        <img :alt="`Preview ${index}`" class="w-full h-full object-cover rounded-xl shadow-sm"
-                          :src="image" />
-                        <button @click="removeImage(index)"
-                          class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-                          type="button">
+                      <div 
+                        v-for="(image, index) in formData.images" 
+                        :key="index"
+                        class="aspect-square relative group"
+                      >
+                        <img :alt="`Preview ${index}`" class="w-full h-full object-cover rounded-xl shadow-sm" :src="image" />
+                        <button @click="removeImage(index)" class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 shadow-md opacity-0 group-hover:opacity-100 transition-opacity" type="button">
                           <span class="material-symbols-outlined text-[14px] block">close</span>
                         </button>
                       </div>
@@ -302,14 +263,10 @@ const removeImage = (index) => {
 
                   <!-- Action Buttons -->
                   <div class="pt-2 flex items-center gap-3">
-                    <button @click="handleCancel"
-                      class="flex-1 py-3.5 px-6 rounded-xl border border-[#D7CCC8] text-[#8D6E63] font-bold hover:bg-[#FAFAF5] transition-colors"
-                      type="button">
+                    <button @click="handleCancel" class="flex-1 py-3.5 px-6 rounded-xl border border-[#D7CCC8] text-[#8D6E63] font-bold hover:bg-[#FAFAF5] transition-colors" type="button">
                       Hủy
                     </button>
-                    <button @click="handleSave"
-                      class="flex-[2] py-3.5 px-6 rounded-xl bg-[#2E7D32] text-white font-bold shadow-lg shadow-[#2E7D32]/30 hover:bg-green-800 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-                      type="button">
+                    <button @click="handleSave" class="flex-[2] py-3.5 px-6 rounded-xl bg-[#2E7D32] text-white font-bold shadow-lg shadow-[#2E7D32]/30 hover:bg-green-800 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2" type="button">
                       <span class="material-symbols-outlined">save</span>
                       Lưu hoạt động
                     </button>
@@ -329,13 +286,13 @@ const removeImage = (index) => {
           </div>
         </div>
       </div>
-
-      <!-- Footer -->
-      <footer class="py-6 bg-white border-t border-[#D7CCC8]/30 mt-8">
-        <div class="text-center">
-          <p class="text-sm text-[#5D4037] font-medium">© 2024 VN-AgriTrace. Hệ thống Quản lý & Truy xuất Nguồn gốc.</p>
-        </div>
-      </footer>
     </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-6 bg-white border-t border-[#D7CCC8]/30">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-sm text-[#5D4037] font-medium">© 2024 VN-AgriTrace. Hệ thống Quản lý & Truy xuất Nguồn gốc.</p>
+      </div>
+    </footer>
   </div>
 </template>
