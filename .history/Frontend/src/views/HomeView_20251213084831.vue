@@ -101,7 +101,10 @@ watch(danhSachTimKiem, veLaiBanDo);
     <aside class="floating-sidebar">
 
       <!-- Header component: search input hoặc back button -->
-      <SidebarHeader :isDetailMode="!!vungDangXem" :searchQuery="searchQuery" @update:searchQuery="searchQuery = $event"
+      <SidebarHeader
+        :isDetailMode="!!vungDangXem"
+        :searchQuery="searchQuery"
+        @update:searchQuery="searchQuery = $event"
         @back="quayLaiDanhSach" />
 
       <!-- ========== CONTENT AREA ========== -->
@@ -113,8 +116,11 @@ watch(danhSachTimKiem, veLaiBanDo);
         <FilterTabs :activeFilter="boLocHienTai" @filterChange="setLocFilter" />
 
         <!-- Product list component: danh sách sản phẩm hoặc empty state -->
-        <ProductList :items="danhSachTimKiem" :getClassTrangThai="getClassTrangThai"
-          :getTextTrangThai="getTextTrangThai" @select="chonVung" />
+        <ProductList
+          :items="danhSachTimKiem"
+          :getClassTrangThai="getClassTrangThai"
+          :getTextTrangThai="getTextTrangThai"
+          @select="chonVung" />
       </div>
 
       <!-- Detail view -->
@@ -177,5 +183,85 @@ watch(danhSachTimKiem, veLaiBanDo);
 
 .sidebar-header.detail-mode {
   padding: 0;
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.header-content.detail {
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.header-content.detail h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ========== LAYER SELECTOR ========== */
+.layer-selector {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.layer-dropdown {
+  background: white;
+  border-radius: 8px;
+  shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: 180px;
+}
+
+.layer-option {
+  width: 100%;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  color: #4b5563;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.layer-option:hover {
+  background-color: #f0f4f8;
+  color: #1b4332;
+}
+
+.layer-option.active {
+  background-color: #d1f2eb;
+  color: #1b4332;
+  font-weight: 600;
+}
+
+.layer-option:not(:last-child) {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Transition animation */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -311,26 +311,13 @@ export const initMap = () => {
      // Thêm zoom control ở góc dưới bên phải
      L.control.zoom({ position: "bottomright" }).addTo(map.value);
 
-     // Tile layer Satellite (ảnh vệ tinh)
-     tileLayers.value.satellite = L.tileLayer(
+     // Thêm Tile layer ảnh vệ tinh từ ArcGIS
+     L.tileLayer(
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
           {
-               maxZoom: 19,
-               attribution: "Tiles &copy; Esri",
+               maxZoom: 19, // Zoom tối đa
           }
-     );
-
-     // Tile layer Street (đường phố)
-     tileLayers.value.street = L.tileLayer(
-          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-          {
-               maxZoom: 19,
-               attribution: "© OpenStreetMap contributors",
-          }
-     );
-
-     // Thêm Satellite layer mặc định vào map
-     tileLayers.value.satellite.addTo(map.value);
+     ).addTo(map.value);
 
      // Thêm Tile layer ranh giới hành chính từ ArcGIS
      // Dùng để hiển thị đường biên giữa các vùng
@@ -344,21 +331,4 @@ export const initMap = () => {
 
      // Vẽ các polygon lên bản đồ
      veLaiBanDo();
-};
-
-/**
- * Thay đổi lớp tile layer
- * @param {string} layer - 'satellite' hoặc 'street'
- */
-export const changeTileLayer = (layer) => {
-     if (!map.value || !tileLayers.value[layer]) return;
-
-     // Xóa layer hiện tại
-     map.value.removeLayer(tileLayers.value[currentLayer.value]);
-
-     // Thêm layer mới
-     tileLayers.value[layer].addTo(map.value);
-
-     // Update trạng thái
-     currentLayer.value = layer;
 };

@@ -101,7 +101,10 @@ watch(danhSachTimKiem, veLaiBanDo);
     <aside class="floating-sidebar">
 
       <!-- Header component: search input hoặc back button -->
-      <SidebarHeader :isDetailMode="!!vungDangXem" :searchQuery="searchQuery" @update:searchQuery="searchQuery = $event"
+      <SidebarHeader
+        :isDetailMode="!!vungDangXem"
+        :searchQuery="searchQuery"
+        @update:searchQuery="searchQuery = $event"
         @back="quayLaiDanhSach" />
 
       <!-- ========== CONTENT AREA ========== -->
@@ -113,8 +116,11 @@ watch(danhSachTimKiem, veLaiBanDo);
         <FilterTabs :activeFilter="boLocHienTai" @filterChange="setLocFilter" />
 
         <!-- Product list component: danh sách sản phẩm hoặc empty state -->
-        <ProductList :items="danhSachTimKiem" :getClassTrangThai="getClassTrangThai"
-          :getTextTrangThai="getTextTrangThai" @select="chonVung" />
+        <ProductList
+          :items="danhSachTimKiem"
+          :getClassTrangThai="getClassTrangThai"
+          :getTextTrangThai="getTextTrangThai"
+          @select="chonVung" />
       </div>
 
       <!-- Detail view -->

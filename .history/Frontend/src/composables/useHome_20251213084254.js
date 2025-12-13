@@ -316,7 +316,7 @@ export const initMap = () => {
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
           {
                maxZoom: 19,
-               attribution: "Tiles &copy; Esri",
+               attribution: 'Tiles &copy; Esri',
           }
      );
 
@@ -325,7 +325,7 @@ export const initMap = () => {
           "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           {
                maxZoom: 19,
-               attribution: "© OpenStreetMap contributors",
+               attribution: '© OpenStreetMap contributors',
           }
      );
 
@@ -344,21 +344,4 @@ export const initMap = () => {
 
      // Vẽ các polygon lên bản đồ
      veLaiBanDo();
-};
-
-/**
- * Thay đổi lớp tile layer
- * @param {string} layer - 'satellite' hoặc 'street'
- */
-export const changeTileLayer = (layer) => {
-     if (!map.value || !tileLayers.value[layer]) return;
-
-     // Xóa layer hiện tại
-     map.value.removeLayer(tileLayers.value[currentLayer.value]);
-
-     // Thêm layer mới
-     tileLayers.value[layer].addTo(map.value);
-
-     // Update trạng thái
-     currentLayer.value = layer;
 };

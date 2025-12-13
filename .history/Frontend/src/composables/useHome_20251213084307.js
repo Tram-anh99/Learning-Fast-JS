@@ -316,7 +316,7 @@ export const initMap = () => {
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
           {
                maxZoom: 19,
-               attribution: "Tiles &copy; Esri",
+               attribution: 'Tiles &copy; Esri',
           }
      );
 
@@ -325,7 +325,7 @@ export const initMap = () => {
           "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           {
                maxZoom: 19,
-               attribution: "© OpenStreetMap contributors",
+               attribution: '© OpenStreetMap contributors',
           }
      );
 
