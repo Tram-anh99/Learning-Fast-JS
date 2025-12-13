@@ -42,7 +42,7 @@ const cropData = [
 
                   <div class="flex items-center justify-center flex-1 gap-4">
                         <!-- Pie Chart Circle -->
-                        <div class="relative flex-shrink-0 rounded-full shadow-inner w-28 h-28" :style="pieChartStyle">
+                        <div class="relative rounded-full shadow-inner shrink-0 w-28 h-28" :style="pieChartStyle">
                               <div class="absolute inset-0 m-auto bg-white rounded-full shadow-sm w-14 h-14"></div>
                         </div>
 
@@ -68,8 +68,11 @@ const cropData = [
                   </h3>
 
                   <div class="flex items-end justify-around flex-1 gap-3 pb-2 border-b border-slate-100">
-                        <div v-for="crop in cropData" :key="crop.label" class="flex flex-col items-center justify-end w-full h-full gap-1 group">
-                              <div class="text-[10px] font-bold text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity -mb-1">{{ crop.value }}</div>
+                        <div v-for="crop in cropData" :key="crop.label"
+                              class="flex flex-col items-center justify-end w-full h-full gap-1 group">
+                              <div
+                                    class="text-[10px] font-bold text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity -mb-1">
+                                    {{ crop.value }}</div>
                               <div class="w-full max-w-[30px] rounded-t-md transition-all duration-500 hover:opacity-80 relative shadow-sm"
                                     :class="crop.color" :style="{ height: `${crop.value}%` }">
                               </div>

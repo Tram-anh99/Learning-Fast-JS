@@ -99,65 +99,54 @@ watch(danhSachTimKiem, veLaiBanDo);
       <!-- ========== CONTENT AREA ========== -->
 
       <!-- List view -->
-      <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
+      <div v-if="!vungDangXem" class="flex flex-col overflow-hidden grow">
 
         <!-- Tabs - Modern style with proper state management -->
-        <div class="flex flex-shrink-0 gap-2 p-3 overflow-x-auto border-b border-slate-200/50 bg-gradient-to-r from-slate-50 to-blue-50">
+        <div
+          class="flex gap-2 p-3 overflow-x-auto border-b shrink-0 border-slate-200/50 bg-linear-to-r from-slate-50 to-blue-50">
           <!-- Tab All -->
-          <button 
-            @click="setLocFilter('all')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'all'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
+          <button @click="setLocFilter('all')" :class="[
+            'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+            boLocHienTai === 'all'
+              ? 'bg-linear-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
+              : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+          ]">
             Tất cả
           </button>
 
           <!-- Tab Canh tác -->
-          <button 
-            @click="setLocFilter('canh_tac')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'canh_tac'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
+          <button @click="setLocFilter('canh_tac')" :class="[
+            'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+            boLocHienTai === 'canh_tac'
+              ? 'bg-linear-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
+              : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+          ]">
             Canh tác
           </button>
 
           <!-- Tab Thu hoạch -->
-          <button 
-            @click="setLocFilter('thu_hoach')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'thu_hoach'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
+          <button @click="setLocFilter('thu_hoach')" :class="[
+            'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+            boLocHienTai === 'thu_hoach'
+              ? 'bg-linear-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
+              : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+          ]">
             Thu hoạch
           </button>
 
           <!-- Tab Đã thu hoạch -->
-          <button 
-            @click="setLocFilter('da_thu_hoach')" 
-            :class="[
-              'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
-              boLocHienTai === 'da_thu_hoach'
-                ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
-                : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
-            ]"
-          >
+          <button @click="setLocFilter('da_thu_hoach')" :class="[
+            'py-2.5 px-4 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap',
+            boLocHienTai === 'da_thu_hoach'
+              ? 'bg-linear-to-r from-green-600 to-emerald-700 text-white shadow-lg flex-1'
+              : 'text-gray-600 border-2 border-slate-300 hover:border-slate-400 hover:bg-white/50 flex-1'
+          ]">
             Đã thu hoạch
           </button>
         </div>
 
         <!-- Item list -->
-        <div class="flex-grow p-3 space-y-2 overflow-y-auto">
+        <div class="p-3 space-y-2 overflow-y-auto grow">
           <ul class="space-y-2">
             <HomeListItem v-for="item in danhSachTimKiem" :key="item.id" :item="item"
               :getClassTrangThai="getClassTrangThai" :getTextTrangThai="getTextTrangThai" @select="chonVung" />

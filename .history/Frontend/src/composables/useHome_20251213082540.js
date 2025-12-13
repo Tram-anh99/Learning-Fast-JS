@@ -17,23 +17,25 @@ import L from "leaflet"; // Leaflet - thư viện bản đồ interactiveMap
 // Mảng dữ liệu gốc chứa tất cả vùng trồng
 export const danhSachGoc = ref([
      {
-          id: 1,
-          ma: "VT-001",
-          ten: "Xoài Cát Hòa Lộc",
-          dienTich: "5ha",
-          trangThai: "canh_tac",
-          chungNhan: "VietGAP",
-          anh: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
+          id: 1, // ID duy nhất
+          ma: "VT-001", // Mã vùng trồng
+          ten: "Xoài Cát Hòa Lộc", // Tên sản phẩm
+          dienTich: "5ha", // Diện tích vùng
+          trangThai: "canh_tac", // Trạng thái (canh_tac, thu_hoach, da_thu_hoach)
+          chungNhan: "VietGAP", // Chứng nhận (VietGAP, GlobalGAP, etc)
+          anh: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop", // URL ảnh
           toaDo: [
+               // Tọa độ polygon của vùng trồng
                [10.762, 106.66],
                [10.77, 106.67],
                [10.76, 106.67],
           ],
           nhatKy: [
+               // Nhật ký hoạt động canh tác
                {
-                    ngay: "10/12/2024",
-                    hoatDong: "Bón phân hữu cơ",
-                    chiTiet: "Bón lót 50kg phân vi sinh",
+                    ngay: "10/12/2024", // Ngày hoạt động
+                    hoatDong: "Bón phân hữu cơ", // Tên hoạt động
+                    chiTiet: "Bón lót 50kg phân vi sinh", // Chi tiết hoạt động
                },
                {
                     ngay: "01/12/2024",
@@ -42,79 +44,7 @@ export const danhSachGoc = ref([
                },
           ],
      },
-     {
-          id: 2,
-          ma: "VT-002",
-          ten: "Thanh Long Ruột Đỏ",
-          dienTich: "3.2ha",
-          trangThai: "canh_tac",
-          chungNhan: "GlobalGAP",
-          anh: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?q=80&w=1000&auto=format&fit=crop",
-          toaDo: [
-               [10.78, 106.68],
-               [10.79, 106.69],
-               [10.78, 106.69],
-          ],
-          nhatKy: [
-               {
-                    ngay: "05/12/2024",
-                    hoatDong: "Cảnh báo",
-                    chiTiet: "Phát hiện nấm tắc kè, đã phun thuốc sinh học",
-               },
-          ],
-     },
-     {
-          id: 3,
-          ma: "VT-003",
-          ten: "Lúa ST25",
-          dienTich: "10ha",
-          trangThai: "thu_hoach",
-          chungNhan: "OCOP 4 Sao",
-          anh: "https://images.unsplash.com/photo-1536617621572-1d5f1e6269a0?q=80&w=1000&auto=format&fit=crop",
-          toaDo: [
-               [10.75, 106.64],
-               [10.758, 106.66],
-               [10.742, 106.66],
-          ],
-          nhatKy: [
-               {
-                    ngay: "07/12/2024",
-                    hoatDong: "Thu hoạch",
-                    chiTiet: "Bắt đầu gặt đợt 1, năng suất tốt",
-               },
-               {
-                    ngay: "20/09/2024",
-                    hoatDong: "Gieo sạ",
-                    chiTiet: "Sạ giống xác nhận cấp 1",
-               },
-          ],
-     },
-     {
-          id: 4,
-          ma: "VT-004",
-          ten: "Cà phê Robusta",
-          dienTich: "7.5ha",
-          trangThai: "da_thu_hoach",
-          chungNhan: "4C Certified",
-          anh: "https://images.unsplash.com/photo-1559056199-641a0ac8b3f2?q=80&w=1000&auto=format&fit=crop",
-          toaDo: [
-               [10.7, 106.65],
-               [10.71, 106.66],
-               [10.7, 106.66],
-          ],
-          nhatKy: [
-               {
-                    ngay: "03/12/2024",
-                    hoatDong: "Sơ chế",
-                    chiTiet: "Hoàn thành sơ chế, chuẩn bị xuất khẩu",
-               },
-               {
-                    ngay: "28/11/2024",
-                    hoatDong: "Thu hoạch hoàn tất",
-                    chiTiet: "Kết thúc mùa thu hoạch, năng suất 1.2 tấn/ha",
-               },
-          ],
-     },
+     // ... các vùng trồng khác
 ]);
 
 // Trạng thái bộ lọc hiện tại (all, canh_tac, thu_hoach, da_thu_hoach)

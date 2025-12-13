@@ -42,7 +42,7 @@ const cropData = [
 
                   <div class="flex items-center justify-center flex-1 gap-4">
                         <!-- Pie Chart Circle -->
-                        <div class="relative flex-shrink-0 rounded-full shadow-inner w-28 h-28" :style="pieChartStyle">
+                        <div class="relative rounded-full shadow-inner shrink-0 w-28 h-28" :style="pieChartStyle">
                               <div class="absolute inset-0 m-auto bg-white rounded-full shadow-sm w-14 h-14"></div>
                         </div>
 
