@@ -24,14 +24,12 @@ export const danhSachGoc = ref([
           trangThai: "canh_tac", // Trạng thái (canh_tac, thu_hoach, da_thu_hoach)
           chungNhan: "VietGAP", // Chứng nhận (VietGAP, GlobalGAP, etc)
           anh: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop", // URL ảnh
-          toaDo: [
-               // Tọa độ polygon của vùng trồng
+          toaDo: [ // Tọa độ polygon của vùng trồng
                [10.762, 106.66],
                [10.77, 106.67],
                [10.76, 106.67],
           ],
-          nhatKy: [
-               // Nhật ký hoạt động canh tác
+          nhatKy: [ // Nhật ký hoạt động canh tác
                {
                     ngay: "10/12/2024", // Ngày hoạt động
                     hoatDong: "Bón phân hữu cơ", // Tên hoạt động
@@ -154,65 +152,8 @@ export const chonVung = (vung) => {
 /**
  * Quay lại danh sách
  */
-// ========== HELPER FUNCTIONS ==========
-
-/**
- * Lấy class CSS theo trạng thái
- */
-export const getClassTrangThai = (tt) => {
-     const classes = {
-          canh_tac: "bg-green-500", // Xanh - đang canh tác
-          sau_benh: "bg-red-500", // Đỏ - bệnh hại
-          thu_hoach: "bg-yellow-500", // Vàng - sắp thu hoạch
-          da_thu_hoach: "bg-gray-500", // Xám - đã thu hoạch
-     };
-     return classes[tt] || "bg-gray-500";
-};
-
-/**
- * Lấy màu bản đồ theo trạng thái
- */
-export const getMapColor = (tt) => {
-     const colors = {
-          canh_tac: "#4caf50", // Xanh lá cây
-          sau_benh: "#ef5350", // Đỏ
-          thu_hoach: "#fdd835", // Vàng
-          da_thu_hoach: "#9e9e9e", // Xám
-     };
-     return colors[tt] || "#9e9e9e";
-};
-
-/**
- * Lấy text trạng thái hiển thị
- */
-export const getTextTrangThai = (tt) => {
-     const texts = {
-          canh_tac: "Đang canh tác",
-          sau_benh: "Sâu bệnh",
-          thu_hoach: "Sắp thu hoạch",
-          da_thu_hoach: "Đã thu hoạch",
-     };
-     return texts[tt] || "Không xác định";
-};
-
-/**
- * Chọn vùng trồng để xem chi tiết
- */
-export const chonVung = (vung) => {
-     vungDangXem.value = vung;
-     // Zoom vào vùng được chọn
-     if (map.value && vung.toaDo && vung.toaDo.length > 0) {
-          const bounds = L.latLngBounds(vung.toaDo);
-          map.value.fitBounds(bounds, { padding: [100, 100], duration: 0.8 });
-     }
-};
-
-/**
- * Quay lại danh sách từ view chi tiết
- */
 export const quayLaiDanhSach = () => {
      vungDangXem.value = null;
-     // Fly tới toạ độ mặc định
      if (map.value) {
           map.value.flyTo([10.762, 106.66], 13, { duration: 1 });
      }
@@ -220,27 +161,21 @@ export const quayLaiDanhSach = () => {
 
 /**
  * Vẽ lại bản đồ
- * Xóa các polygon cũ và thêm polygon mới cho từng vùng trồng
  */
 export const veLaiBanDo = () => {
      if (!map.value || !layerGroup.value) return;
-     // Xóa tất cả các layer cũ
      layerGroup.value.clearLayers();
 
-     // Lặp qua từng vùng trong danh sách tìm kiếm
      danhSachTimKiem.value.forEach((vung) => {
           if (vung.toaDo) {
-               // Lấy màu theo trạng thái
                const mauSac = getMapColor(vung.trangThai);
-               // Tạo polygon
                const poly = L.polygon(vung.toaDo, {
-                    color: mauSac, // Màu viền
-                    fillColor: mauSac, // Màu fill
-                    fillOpacity: 0.6, // Độ trong suốt
-                    weight: 2, // Độ dày viền
+                    color: mauSac,
+                    fillColor: mauSac,
+                    fillOpacity: 0.6,
+                    weight: 2,
                }).addTo(layerGroup.value);
 
-               // Click vào polygon để xem chi tiết
                poly.on("click", () => chonVung(vung));
           }
      });
@@ -248,10 +183,8 @@ export const veLaiBanDo = () => {
 
 /**
  * Mở Modal QR code
- * Tạo link truy xuất từ mã sản phẩm
  */
 export const openQRModal = (maSanPham) => {
-     // Tạo URL cho QR code
      qrLink.value = `${window.location.origin}/truy-xuat/${maSanPham}`;
      showQR.value = true;
 };
@@ -268,46 +201,30 @@ export const closeQRModal = () => {
 
 /**
  * Khởi tạo bản đồ Leaflet
- * - Tạo instance Leaflet map
- * - Set toạ độ mặc định (Mekong Delta)
- * - Thêm tile layer ảnh vệ tinh
- * - Thêm tile layer ranh giới hành chính
- * - Tạo layer group để chứa các polygon vùng trồng
- * - Vẽ bản đồ với danh sách hiện tại
  */
 export const initMap = () => {
-     // Kiểm tra container có được ref không
      if (!mapContainer.value) return;
 
-     // Tạo instance map với toạ độ center [10.762, 106.66] (Mekong Delta)
-     // Zoom level 13
-     // zoomControl: false để tự custom vị trí control
      map.value = L.map(mapContainer.value, { zoomControl: false }).setView(
           [10.762, 106.66],
           13
      );
 
-     // Thêm zoom control ở góc dưới bên phải
      L.control.zoom({ position: "bottomright" }).addTo(map.value);
 
-     // Thêm Tile layer ảnh vệ tinh từ ArcGIS
+     // Tile layer: Ảnh vệ tinh
      L.tileLayer(
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
           {
-               maxZoom: 19, // Zoom tối đa
+               maxZoom: 19,
           }
      ).addTo(map.value);
 
-     // Thêm Tile layer ranh giới hành chính từ ArcGIS
-     // Dùng để hiển thị đường biên giữa các vùng
+     // Tile layer: Ranh giới hành chính
      L.tileLayer(
           "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
      ).addTo(map.value);
 
-     // Tạo layer group để chứa các polygon vùng trồng
-     // Làm riêng để dễ clear khi lọc dữ liệu
      layerGroup.value = L.layerGroup().addTo(map.value);
-
-     // Vẽ các polygon lên bản đồ
      veLaiBanDo();
 };

@@ -24,14 +24,12 @@ export const danhSachGoc = ref([
           trangThai: "canh_tac", // Trạng thái (canh_tac, thu_hoach, da_thu_hoach)
           chungNhan: "VietGAP", // Chứng nhận (VietGAP, GlobalGAP, etc)
           anh: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop", // URL ảnh
-          toaDo: [
-               // Tọa độ polygon của vùng trồng
+          toaDo: [ // Tọa độ polygon của vùng trồng
                [10.762, 106.66],
                [10.77, 106.67],
                [10.76, 106.67],
           ],
-          nhatKy: [
-               // Nhật ký hoạt động canh tác
+          nhatKy: [ // Nhật ký hoạt động canh tác
                {
                     ngay: "10/12/2024", // Ngày hoạt động
                     hoatDong: "Bón phân hữu cơ", // Tên hoạt động
@@ -164,7 +162,7 @@ export const getClassTrangThai = (tt) => {
           canh_tac: "bg-green-500", // Xanh - đang canh tác
           sau_benh: "bg-red-500", // Đỏ - bệnh hại
           thu_hoach: "bg-yellow-500", // Vàng - sắp thu hoạch
-          da_thu_hoach: "bg-gray-500", // Xám - đã thu hoạch
+          da_thu_hoach: "bg-gray-500" // Xám - đã thu hoạch
      };
      return classes[tt] || "bg-gray-500";
 };
@@ -177,7 +175,7 @@ export const getMapColor = (tt) => {
           canh_tac: "#4caf50", // Xanh lá cây
           sau_benh: "#ef5350", // Đỏ
           thu_hoach: "#fdd835", // Vàng
-          da_thu_hoach: "#9e9e9e", // Xám
+          da_thu_hoach: "#9e9e9e" // Xám
      };
      return colors[tt] || "#9e9e9e";
 };
@@ -190,7 +188,7 @@ export const getTextTrangThai = (tt) => {
           canh_tac: "Đang canh tác",
           sau_benh: "Sâu bệnh",
           thu_hoach: "Sắp thu hoạch",
-          da_thu_hoach: "Đã thu hoạch",
+          da_thu_hoach: "Đã thu hoạch"
      };
      return texts[tt] || "Không xác định";
 };
@@ -268,46 +266,30 @@ export const closeQRModal = () => {
 
 /**
  * Khởi tạo bản đồ Leaflet
- * - Tạo instance Leaflet map
- * - Set toạ độ mặc định (Mekong Delta)
- * - Thêm tile layer ảnh vệ tinh
- * - Thêm tile layer ranh giới hành chính
- * - Tạo layer group để chứa các polygon vùng trồng
- * - Vẽ bản đồ với danh sách hiện tại
  */
 export const initMap = () => {
-     // Kiểm tra container có được ref không
      if (!mapContainer.value) return;
 
-     // Tạo instance map với toạ độ center [10.762, 106.66] (Mekong Delta)
-     // Zoom level 13
-     // zoomControl: false để tự custom vị trí control
      map.value = L.map(mapContainer.value, { zoomControl: false }).setView(
           [10.762, 106.66],
           13
      );
 
-     // Thêm zoom control ở góc dưới bên phải
      L.control.zoom({ position: "bottomright" }).addTo(map.value);
 
-     // Thêm Tile layer ảnh vệ tinh từ ArcGIS
+     // Tile layer: Ảnh vệ tinh
      L.tileLayer(
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
           {
-               maxZoom: 19, // Zoom tối đa
+               maxZoom: 19,
           }
      ).addTo(map.value);
 
-     // Thêm Tile layer ranh giới hành chính từ ArcGIS
-     // Dùng để hiển thị đường biên giữa các vùng
+     // Tile layer: Ranh giới hành chính
      L.tileLayer(
           "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
      ).addTo(map.value);
 
-     // Tạo layer group để chứa các polygon vùng trồng
-     // Làm riêng để dễ clear khi lọc dữ liệu
      layerGroup.value = L.layerGroup().addTo(map.value);
-
-     // Vẽ các polygon lên bản đồ
      veLaiBanDo();
 };
