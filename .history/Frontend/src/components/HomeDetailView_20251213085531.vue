@@ -75,9 +75,8 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                         <h4 class="mb-3 text-sm font-bold text-gray-800 flex items-center gap-2">
                               <!-- Icon nhà -->
                               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-600" fill="currentColor"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                          d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                   viewBox="0 0 20 20">
+                                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                               </svg>
                               Chủ thể canh tác
                         </h4>
@@ -92,8 +91,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                               <!-- Địa chỉ -->
                               <div class="flex justify-between">
                                     <span class="text-gray-600">Địa chỉ:</span>
-                                    <strong class="text-gray-800">{{ vung.diaChi || 'Khu vực Đồng bằng Sông Cửu Long'
-                                          }}</strong>
+                                    <strong class="text-gray-800">{{ vung.diaChi || 'Khu vực Đồng bằng Sông Cửu Long' }}</strong>
                               </div>
                               <!-- Hợp tác xã -->
                               <div class="flex justify-between">

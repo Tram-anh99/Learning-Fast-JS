@@ -72,19 +72,19 @@ const showQRScanner = ref(false);
  * Lọc dựa trên searchQuery từ tất cả sản phẩm
  */
 const autocompleteSuggestions = computed(() => {
-  // Nếu searchQuery trống, return mảng rỗng
-  if (!searchQuery.value.trim()) return [];
+     // Nếu searchQuery trống, return mảng rỗng
+     if (!searchQuery.value.trim()) return [];
 
-  // Lấy từ khóa viết thường để so sánh
-  const query = searchQuery.value.toLowerCase();
+     // Lấy từ khóa viết thường để so sánh
+     const query = searchQuery.value.toLowerCase();
 
-  // Lọc sản phẩm có tên hoặc mã chứa từ khóa
-  return danhSachGoc.value
-    .filter(item =>
-      item.ten.toLowerCase().includes(query) ||
-      item.ma.toLowerCase().includes(query)
-    )
-    .slice(0, 5); // Giới hạn 5 gợi ý
+     // Lọc sản phẩm có tên hoặc mã chứa từ khóa
+     return danhSachGoc.value
+          .filter(item => 
+               item.ten.toLowerCase().includes(query) || 
+               item.ma.toLowerCase().includes(query)
+          )
+          .slice(0, 5); // Giới hạn 5 gợi ý
 });
 
 // ========== HANDLERS ==========
@@ -109,24 +109,24 @@ const handleLayerChange = (layer) => {
  * @param {Object} suggestion - Sản phẩm được chọn
  */
 const handleSelectSuggestion = (suggestion) => {
-  // Cập nhật searchQuery với tên sản phẩm
-  searchQuery.value = suggestion.ten;
-  // Chọn vùng này để xem chi tiết
-  chonVung(suggestion);
+     // Cập nhật searchQuery với tên sản phẩm
+     searchQuery.value = suggestion.ten;
+     // Chọn vùng này để xem chi tiết
+     chonVung(suggestion);
 };
 
 /**
  * Handler: Mở QR Scanner modal
  */
 const handleOpenQRScanner = () => {
-  showQRScanner.value = true;
+     showQRScanner.value = true;
 };
 
 /**
  * Handler: Đóng QR Scanner modal
  */
 const handleCloseQRScanner = () => {
-  showQRScanner.value = false;
+     showQRScanner.value = false;
 };
 
 /**
@@ -134,18 +134,18 @@ const handleCloseQRScanner = () => {
  * @param {string} qrCode - Mã QR được quét
  */
 const handleQRScan = (qrCode) => {
-  // Tìm sản phẩm theo mã QR (mã lô)
-  const product = danhSachGoc.value.find(item => item.ma === qrCode);
+     // Tìm sản phẩm theo mã QR (mã lô)
+     const product = danhSachGoc.value.find(item => item.ma === qrCode);
 
-  if (product) {
-    // Nếu tìm thấy, chọn và xem chi tiết
-    chonVung(product);
-    // Đóng scanner
-    showQRScanner.value = false;
-  } else {
-    // TODO: Hiển thị notification "không tìm thấy sản phẩm"
-    console.warn('Không tìm thấy sản phẩm với mã:', qrCode);
-  }
+     if (product) {
+          // Nếu tìm thấy, chọn và xem chi tiết
+          chonVung(product);
+          // Đóng scanner
+          showQRScanner.value = false;
+     } else {
+          // TODO: Hiển thị notification "không tìm thấy sản phẩm"
+          console.warn('Không tìm thấy sản phẩm với mã:', qrCode);
+     }
 };
 
 // ========== LIFECYCLE ==========
@@ -177,9 +177,8 @@ watch(danhSachTimKiem, veLaiBanDo);
     <aside class="floating-sidebar">
 
       <!-- Header component: search input hoặc back button -->
-      <SidebarHeader :isDetailMode="!!vungDangXem" :searchQuery="searchQuery" :suggestions="autocompleteSuggestions"
-        @update:searchQuery="searchQuery = $event" @selectSuggestion="handleSelectSuggestion" @back="quayLaiDanhSach"
-        @scanQR="handleOpenQRScanner" />
+      <SidebarHeader :isDetailMode="!!vungDangXem" :searchQuery="searchQuery" @update:searchQuery="searchQuery = $event"
+        @back="quayLaiDanhSach" />
 
       <!-- ========== CONTENT AREA ========== -->
 
@@ -199,10 +198,7 @@ watch(danhSachTimKiem, veLaiBanDo);
 
     </aside>
 
-    <!-- QR Scanner component: modal quét mã QR -->
-    <QRScanner :show="showQRScanner" @close="handleCloseQRScanner" @scan="handleQRScan" />
-
-    <!-- QR Modal component: hiển thị QR code share -->
+    <!-- QR Modal -->
     <QRModal :show="showQR" :qrValue="qrLink" @close="closeQRModal" />
 
   </div>

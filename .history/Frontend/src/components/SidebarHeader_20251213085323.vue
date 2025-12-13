@@ -57,10 +57,10 @@ const showSuggestions = ref(false);
  * @param {Object} suggestion - Gợi ý được chọn
  */
 const selectSuggestion = (suggestion) => {
-      // Phát event selectSuggestion lên parent
-      emit('selectSuggestion', suggestion);
-      // Đóng danh sách gợi ý
-      showSuggestions.value = false;
+     // Phát event selectSuggestion lên parent
+     emit('selectSuggestion', suggestion);
+     // Đóng danh sách gợi ý
+     showSuggestions.value = false;
 };
 
 /**
@@ -68,9 +68,9 @@ const selectSuggestion = (suggestion) => {
  * Hiển thị danh sách gợi ý nếu có
  */
 const handleInputFocus = () => {
-      if (props.suggestions.length > 0) {
-            showSuggestions.value = true;
-      }
+     if (props.suggestions.length > 0) {
+          showSuggestions.value = true;
+     }
 };
 
 /**
@@ -78,10 +78,10 @@ const handleInputFocus = () => {
  * Ẩn danh sách gợi ý sau 200ms
  */
 const handleInputBlur = () => {
-      // Delay để cho phép click vào suggestion trước
-      setTimeout(() => {
-            showSuggestions.value = false;
-      }, 200);
+     // Delay để cho phép click vào suggestion trước
+     setTimeout(() => {
+          showSuggestions.value = false;
+     }, 200);
 };
 </script>
 
@@ -106,10 +106,14 @@ const handleInputBlur = () => {
                                     </svg>
 
                                     <!-- Input search: v-model binding với searchQuery -->
-                                    <input :value="searchQuery"
+                                    <input
+                                          :value="searchQuery"
                                           @input="$emit('update:searchQuery', $event.target.value)"
-                                          @focus="handleInputFocus" @blur="handleInputBlur" type="text"
-                                          placeholder="Tìm nông sản..." autocomplete="off"
+                                          @focus="handleInputFocus"
+                                          @blur="handleInputBlur"
+                                          type="text"
+                                          placeholder="Tìm nông sản..."
+                                          autocomplete="off"
                                           class="w-full py-2 pl-10 pr-3 text-white placeholder-green-300 transition-colors bg-green-800 rounded-lg focus:outline-none focus:bg-green-700 focus:ring-1 focus:ring-green-400">
 
                                     <!-- Autocomplete suggestions dropdown: hiển thị khi có gợi ý -->
@@ -117,7 +121,9 @@ const handleInputBlur = () => {
                                           <div v-if="showSuggestions && suggestions.length > 0"
                                                 class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto z-10">
                                                 <!-- Suggestion items: từng gợi ý -->
-                                                <button v-for="(suggestion, index) in suggestions" :key="index"
+                                                <button
+                                                      v-for="(suggestion, index) in suggestions"
+                                                      :key="index"
                                                       @click="selectSuggestion(suggestion)"
                                                       class="w-full px-3 py-2 text-left text-sm text-gray-800 hover:bg-green-50 border-b border-gray-100 last:border-b-0 transition-colors">
                                                       <!-- Suggestion text: tên + mã -->
@@ -129,7 +135,9 @@ const handleInputBlur = () => {
                               </div>
 
                               <!-- QR Scanner button: nút quét mã QR -->
-                              <button @click="$emit('scanQR')" title="Quét mã QR"
+                              <button
+                                    @click="$emit('scanQR')"
+                                    title="Quét mã QR"
                                     class="flex items-center justify-center px-3 py-2 text-white transition-colors bg-green-700 rounded-lg hover:bg-green-600">
                                     <!-- Icon QR: biểu tượng QR code -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor"
@@ -180,22 +188,6 @@ const handleInputBlur = () => {
       align-items: center;
       /* Transition: hoạt ảnh mượt mà */
       transition: all 0.3s;
-}
-
-/* Transition animation: slide in/out */
-.slide-enter-active,
-.slide-leave-active {
-      transition: all 0.2s ease;
-}
-
-.slide-enter-from {
-      opacity: 0;
-      transform: translateY(-10px);
-}
-
-.slide-leave-to {
-      opacity: 0;
-      transform: translateY(-10px);
 }
 
 /* Detail mode: chế độ chi tiết */
