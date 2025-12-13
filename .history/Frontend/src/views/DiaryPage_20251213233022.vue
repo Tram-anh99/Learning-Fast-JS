@@ -31,12 +31,11 @@ const activities = ref([
 ]);
 
 // Danh sách thửa đất của nông dân
-// Chứa thông tin: id, ma (mã số vùng trồng - đồng bộ với WebGIS), tên, diện tích, loại cây, tình trạng
-// Ma số phải thống nhất với `danhSachGoc` trong HomeView để tích hợp bản đồ
+// Chứa thông tin: id, tên, diện tích, loại cây, tình trạng
 const fields = ref([
-  { id: 'field-001', ma: 'VT-003', name: 'Thửa 1 - Lúa ST25', area: 10, crop: 'Lúa ST25', status: 'Thu hoạch' },
-  { id: 'field-002', ma: 'VT-001', name: 'Thửa 2 - Xoài Cát Hòa Lộc', area: 5, crop: 'Xoài', status: 'Đang canh tác' },
-  { id: 'field-003', ma: 'VT-002', name: 'Thửa 3 - Thanh Long Ruột Đỏ', area: 3.2, crop: 'Thanh long', status: 'Đang canh tác' }
+  { id: 'field-001', name: 'Thửa 1 - Lúa', area: 2.5, crop: 'Lúa tưới', status: 'Đang canh tác' },
+  { id: 'field-002', name: 'Thửa 2 - Rau', area: 1.8, crop: 'Rau cải', status: 'Đang canh tác' },
+  { id: 'field-003', name: 'Thửa 3 - Dưa', area: 3.2, crop: 'Dưa leo', status: 'Đang canh tác' }
 ]);
 
 // Dữ liệu form nhập liệu hoạt động
@@ -114,20 +113,13 @@ const handleCancel = () => {
 
 /**
  * Lưu hoạt động canh tác
- * Ghi nhật ký với mã số vùng trồng để liên kết với bản đồ WebGIS
  * TODO: Kết nối API để lưu vào database
  */
 const handleSave = () => {
-  // Lấy thông tin thửa đất được chọn (bao gồm mã số vùng trồng)
-  const selectedFieldData = fields.value.find(f => f.id === selectedField.value);
-
   console.log('Lưu hoạt động:', {
-    fieldId: selectedField.value,
-    fieldCode: selectedFieldData?.ma, // Mã số vùng trồng (VT-001, VT-002, v.v.)
-    fieldName: selectedFieldData?.name,
+    field: selectedField.value,
     activity: selectedActivity.value,
-    data: formData.value,
-    timestamp: new Date().toISOString()
+    data: formData.value
   });
   alert('Hoạt động đã được lưu!');
 };
@@ -212,13 +204,8 @@ const removeImage = (index) => {
               ? 'border-[#2E7D32] bg-[#E8F5E9] shadow-md'
               : 'border-[#D7CCC8]/30 bg-white hover:border-[#D7CCC8] hover:shadow-sm'
           ]">
-            <!-- Mã số vùng trồng (đồng bộ với bản đồ WebGIS) -->
-            <div class="flex items-center justify-between mb-2">
-              <h4 class="font-bold text-gray-800">{{ field.name }}</h4>
-              <span class="px-2 py-1 text-xs font-bold rounded-lg bg-[#FFF3E0] text-[#E65100]">
-                {{ field.ma }}
-              </span>
-            </div>
+            <!-- Tiêu đề thửa đất -->
+            <h4 class="mb-2 font-bold text-gray-800">{{ field.name }}</h4>
             <!-- Thông tin thửa đất -->
             <div class="space-y-1 text-sm">
               <p class="text-gray-600">
@@ -253,8 +240,8 @@ const removeImage = (index) => {
         <div class="lg:col-span-5">
           <!-- Component form nhập liệu -->
           <DiaryActivityForm :selectedActivity="selectedActivity" :activities="activities" :formData="formData"
-            :selectedField="fields.find(f => f.id === selectedField)" @update:formData="(newData) => formData = newData"
-            @save="handleSave" @cancel="handleCancel" @removeImage="removeImage" />
+            @update:formData="(newData) => formData = newData" @save="handleSave" @cancel="handleCancel"
+            @removeImage="removeImage" />
         </div>
       </div>
 

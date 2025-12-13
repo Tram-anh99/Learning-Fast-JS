@@ -120,7 +120,7 @@ const handleCancel = () => {
 const handleSave = () => {
   // Lấy thông tin thửa đất được chọn (bao gồm mã số vùng trồng)
   const selectedFieldData = fields.value.find(f => f.id === selectedField.value);
-
+  
   console.log('Lưu hoạt động:', {
     fieldId: selectedField.value,
     fieldCode: selectedFieldData?.ma, // Mã số vùng trồng (VT-001, VT-002, v.v.)
@@ -252,9 +252,16 @@ const removeImage = (index) => {
         <!-- Right Column: Form -->
         <div class="lg:col-span-5">
           <!-- Component form nhập liệu -->
-          <DiaryActivityForm :selectedActivity="selectedActivity" :activities="activities" :formData="formData"
-            :selectedField="fields.find(f => f.id === selectedField)" @update:formData="(newData) => formData = newData"
-            @save="handleSave" @cancel="handleCancel" @removeImage="removeImage" />
+          <DiaryActivityForm 
+            :selectedActivity="selectedActivity" 
+            :activities="activities" 
+            :formData="formData"
+            :selectedField="fields.find(f => f.id === selectedField)"
+            @update:formData="(newData) => formData = newData" 
+            @save="handleSave" 
+            @cancel="handleCancel"
+            @removeImage="removeImage" 
+          />
         </div>
       </div>
 

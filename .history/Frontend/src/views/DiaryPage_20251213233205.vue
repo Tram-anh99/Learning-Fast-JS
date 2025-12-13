@@ -114,20 +114,13 @@ const handleCancel = () => {
 
 /**
  * Lưu hoạt động canh tác
- * Ghi nhật ký với mã số vùng trồng để liên kết với bản đồ WebGIS
  * TODO: Kết nối API để lưu vào database
  */
 const handleSave = () => {
-  // Lấy thông tin thửa đất được chọn (bao gồm mã số vùng trồng)
-  const selectedFieldData = fields.value.find(f => f.id === selectedField.value);
-
   console.log('Lưu hoạt động:', {
-    fieldId: selectedField.value,
-    fieldCode: selectedFieldData?.ma, // Mã số vùng trồng (VT-001, VT-002, v.v.)
-    fieldName: selectedFieldData?.name,
+    field: selectedField.value,
     activity: selectedActivity.value,
-    data: formData.value,
-    timestamp: new Date().toISOString()
+    data: formData.value
   });
   alert('Hoạt động đã được lưu!');
 };
@@ -212,13 +205,8 @@ const removeImage = (index) => {
               ? 'border-[#2E7D32] bg-[#E8F5E9] shadow-md'
               : 'border-[#D7CCC8]/30 bg-white hover:border-[#D7CCC8] hover:shadow-sm'
           ]">
-            <!-- Mã số vùng trồng (đồng bộ với bản đồ WebGIS) -->
-            <div class="flex items-center justify-between mb-2">
-              <h4 class="font-bold text-gray-800">{{ field.name }}</h4>
-              <span class="px-2 py-1 text-xs font-bold rounded-lg bg-[#FFF3E0] text-[#E65100]">
-                {{ field.ma }}
-              </span>
-            </div>
+            <!-- Tiêu đề thửa đất -->
+            <h4 class="mb-2 font-bold text-gray-800">{{ field.name }}</h4>
             <!-- Thông tin thửa đất -->
             <div class="space-y-1 text-sm">
               <p class="text-gray-600">
@@ -253,8 +241,8 @@ const removeImage = (index) => {
         <div class="lg:col-span-5">
           <!-- Component form nhập liệu -->
           <DiaryActivityForm :selectedActivity="selectedActivity" :activities="activities" :formData="formData"
-            :selectedField="fields.find(f => f.id === selectedField)" @update:formData="(newData) => formData = newData"
-            @save="handleSave" @cancel="handleCancel" @removeImage="removeImage" />
+            @update:formData="(newData) => formData = newData" @save="handleSave" @cancel="handleCancel"
+            @removeImage="removeImage" />
         </div>
       </div>
 

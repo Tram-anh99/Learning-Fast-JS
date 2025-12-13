@@ -31,12 +31,11 @@ const activities = ref([
 ]);
 
 // Danh sách thửa đất của nông dân
-// Chứa thông tin: id, ma (mã số vùng trồng - đồng bộ với WebGIS), tên, diện tích, loại cây, tình trạng
-// Ma số phải thống nhất với `danhSachGoc` trong HomeView để tích hợp bản đồ
+// Chứa thông tin: id, tên, diện tích, loại cây, tình trạng
 const fields = ref([
-  { id: 'field-001', ma: 'VT-003', name: 'Thửa 1 - Lúa ST25', area: 10, crop: 'Lúa ST25', status: 'Thu hoạch' },
-  { id: 'field-002', ma: 'VT-001', name: 'Thửa 2 - Xoài Cát Hòa Lộc', area: 5, crop: 'Xoài', status: 'Đang canh tác' },
-  { id: 'field-003', ma: 'VT-002', name: 'Thửa 3 - Thanh Long Ruột Đỏ', area: 3.2, crop: 'Thanh long', status: 'Đang canh tác' }
+  { id: 'field-001', name: 'Thửa 1 - Lúa', area: 2.5, crop: 'Lúa tưới', status: 'Đang canh tác' },
+  { id: 'field-002', name: 'Thửa 2 - Rau', area: 1.8, crop: 'Rau cải', status: 'Đang canh tác' },
+  { id: 'field-003', name: 'Thửa 3 - Dưa', area: 3.2, crop: 'Dưa leo', status: 'Đang canh tác' }
 ]);
 
 // Dữ liệu form nhập liệu hoạt động
@@ -53,8 +52,7 @@ const formData = ref({
   ]
 });
 
-// Lịch sử hoạt động gần đây
-// Hiển thị các hoạt động vừa thực hiện để người dùng có thể tra cứu
+// Hoạt động gần đây
 const recentActivities = ref([
   {
     id: 1,
@@ -78,29 +76,12 @@ const recentActivities = ref([
   }
 ]);
 
-// ============================================
-// METHODS - Các hàm xử lý sự kiện
-// ============================================
-
-/**
- * Chọn loại hoạt động canh tác
- * @param {string} activityId - ID của hoạt động được chọn
- */
+// Hàm chọn hoạt động
 const selectActivity = (activityId) => {
   selectedActivity.value = activityId;
 };
 
-/**
- * Chọn thửa đất để ghi nhật ký
- * @param {string} fieldId - ID của thửa đất được chọn
- */
-const selectField = (fieldId) => {
-  selectedField.value = fieldId;
-};
-
-/**
- * Hủy nhập liệu và reset form về trạng thái ban đầu
- */
+// Hàm xử lý form
 const handleCancel = () => {
   formData.value = {
     activityType: 'Bón phân - Đợt 1 (Bón lót)',
@@ -112,30 +93,11 @@ const handleCancel = () => {
   };
 };
 
-/**
- * Lưu hoạt động canh tác
- * Ghi nhật ký với mã số vùng trồng để liên kết với bản đồ WebGIS
- * TODO: Kết nối API để lưu vào database
- */
 const handleSave = () => {
-  // Lấy thông tin thửa đất được chọn (bao gồm mã số vùng trồng)
-  const selectedFieldData = fields.value.find(f => f.id === selectedField.value);
-
-  console.log('Lưu hoạt động:', {
-    fieldId: selectedField.value,
-    fieldCode: selectedFieldData?.ma, // Mã số vùng trồng (VT-001, VT-002, v.v.)
-    fieldName: selectedFieldData?.name,
-    activity: selectedActivity.value,
-    data: formData.value,
-    timestamp: new Date().toISOString()
-  });
+  console.log('Lưu hoạt động:', formData.value);
   alert('Hoạt động đã được lưu!');
 };
 
-/**
- * Xóa hình ảnh khỏi form
- * @param {number} index - Vị trí ảnh cần xóa
- */
 const removeImage = (index) => {
   formData.value.images.splice(index, 1);
 };
@@ -192,50 +154,9 @@ const removeImage = (index) => {
           <span class="material-symbols-outlined text-[#8D6E63]">calendar_today</span>
           <span class="font-medium text-gray-700">{{ new Date().toLocaleDateString('vi-VN', {
             year: 'numeric', month:
-              'long', day: 'numeric'
-          }) }}</span>
+              'long', day: 'numeric' }) }}</span>
         </div>
       </div>
-
-      <!-- Chọn Thửa Đất Section -->
-      <section class="mb-8 bg-white rounded-2xl shadow-sm border border-[#D7CCC8]/20 p-6">
-        <h3 class="flex items-center gap-2 mb-4 text-lg font-bold text-gray-800">
-          <span class="material-symbols-outlined text-[#2E7D32]">agriculture</span>
-          Chọn thửa đất canh tác
-        </h3>
-        <!-- Danh sách thửa đất -->
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Loop qua từng thửa đất -->
-          <button v-for="field in fields" :key="field.id" @click="selectField(field.id)" :class="[
-            'p-4 rounded-xl border-2 text-left transition-all duration-300',
-            selectedField === field.id
-              ? 'border-[#2E7D32] bg-[#E8F5E9] shadow-md'
-              : 'border-[#D7CCC8]/30 bg-white hover:border-[#D7CCC8] hover:shadow-sm'
-          ]">
-            <!-- Mã số vùng trồng (đồng bộ với bản đồ WebGIS) -->
-            <div class="flex items-center justify-between mb-2">
-              <h4 class="font-bold text-gray-800">{{ field.name }}</h4>
-              <span class="px-2 py-1 text-xs font-bold rounded-lg bg-[#FFF3E0] text-[#E65100]">
-                {{ field.ma }}
-              </span>
-            </div>
-            <!-- Thông tin thửa đất -->
-            <div class="space-y-1 text-sm">
-              <p class="text-gray-600">
-                <span class="font-semibold">Loại cây:</span>
-                {{ field.crop }}
-              </p>
-              <p class="text-gray-600">
-                <span class="font-semibold">Diện tích:</span>
-                {{ field.area }} ha
-              </p>
-              <p :class="['text-xs font-bold', selectedField === field.id ? 'text-[#2E7D32]' : 'text-gray-500']">
-                {{ field.status }}
-              </p>
-            </div>
-          </button>
-        </div>
-      </section>
 
       <!-- Main Grid -->
       <div class="grid items-start grid-cols-1 gap-8 lg:grid-cols-12">
@@ -253,8 +174,8 @@ const removeImage = (index) => {
         <div class="lg:col-span-5">
           <!-- Component form nhập liệu -->
           <DiaryActivityForm :selectedActivity="selectedActivity" :activities="activities" :formData="formData"
-            :selectedField="fields.find(f => f.id === selectedField)" @update:formData="(newData) => formData = newData"
-            @save="handleSave" @cancel="handleCancel" @removeImage="removeImage" />
+            @update:formData="(newData) => formData = newData" @save="handleSave" @cancel="handleCancel"
+            @removeImage="removeImage" />
         </div>
       </div>
 

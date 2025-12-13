@@ -114,20 +114,13 @@ const handleCancel = () => {
 
 /**
  * Lưu hoạt động canh tác
- * Ghi nhật ký với mã số vùng trồng để liên kết với bản đồ WebGIS
  * TODO: Kết nối API để lưu vào database
  */
 const handleSave = () => {
-  // Lấy thông tin thửa đất được chọn (bao gồm mã số vùng trồng)
-  const selectedFieldData = fields.value.find(f => f.id === selectedField.value);
-
   console.log('Lưu hoạt động:', {
-    fieldId: selectedField.value,
-    fieldCode: selectedFieldData?.ma, // Mã số vùng trồng (VT-001, VT-002, v.v.)
-    fieldName: selectedFieldData?.name,
+    field: selectedField.value,
     activity: selectedActivity.value,
-    data: formData.value,
-    timestamp: new Date().toISOString()
+    data: formData.value
   });
   alert('Hoạt động đã được lưu!');
 };
@@ -253,8 +246,8 @@ const removeImage = (index) => {
         <div class="lg:col-span-5">
           <!-- Component form nhập liệu -->
           <DiaryActivityForm :selectedActivity="selectedActivity" :activities="activities" :formData="formData"
-            :selectedField="fields.find(f => f.id === selectedField)" @update:formData="(newData) => formData = newData"
-            @save="handleSave" @cancel="handleCancel" @removeImage="removeImage" />
+            @update:formData="(newData) => formData = newData" @save="handleSave" @cancel="handleCancel"
+            @removeImage="removeImage" />
         </div>
       </div>
 
