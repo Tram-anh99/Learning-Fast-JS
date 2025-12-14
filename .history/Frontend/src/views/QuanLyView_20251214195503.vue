@@ -146,16 +146,16 @@ const danhSachVung = ref(mockDataVung);
             </div>
 
             <!-- ========== SECTION 3: BAR CHART ========== -->
-            <!-- Biểu đồ cột: Năng suất cây trồng - hiển thị hết nội dung -->
-            <!-- h-96: Fixed height 384px (24rem) - tăng từ h-72 để hiển thị hết -->
-            <div class="bg-white border border-white shadow-md rounded-xl p-4 h-96 overflow-hidden">
+            <!-- Biểu đồ cột: Năng suất cây trồng - cố định chiều cao -->
+            <!-- h-72: Fixed height 288px (18rem) -->
+            <div class="bg-white border border-white shadow-md rounded-xl p-4 h-72 overflow-hidden">
                   <!-- Component biểu đồ cột -->
                   <BarChartComponent />
             </div>
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->
-            <!-- Bảng danh sách vùng - hiển thị hết nội dung -->
-            <!-- h-80: Fixed height 320px (20rem) - tăng từ h-64 để hiển thị hết dòng -->
+            <!-- Bảng danh sách vùng ở dưới - Chiều cao cố định -->
+            <!-- h-64: Fixed height 256px (16rem) -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline

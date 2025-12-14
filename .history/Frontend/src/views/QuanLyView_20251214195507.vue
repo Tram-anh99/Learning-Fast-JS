@@ -154,8 +154,8 @@ const danhSachVung = ref(mockDataVung);
             </div>
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->
-            <!-- Bảng danh sách vùng - hiển thị hết nội dung -->
-            <!-- h-80: Fixed height 320px (20rem) - tăng từ h-64 để hiển thị hết dòng -->
+            <!-- Bảng danh sách vùng ở dưới - Chiều cao cố định -->
+            <!-- h-64: Fixed height 256px (16rem) -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline

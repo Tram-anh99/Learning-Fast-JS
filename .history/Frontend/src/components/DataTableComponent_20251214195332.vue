@@ -21,7 +21,7 @@ defineProps({
 </script>
 
 <template>
-      <div class="panel flex flex-col h-80 overflow-hidden">
+      <div class="panel flex flex-col h-64 overflow-hidden">
             <div class="panel-header">
                   <h3 class="panel-title">Danh sách Vùng trồng & Giám sát</h3>
                   <button class="btn-primary">
