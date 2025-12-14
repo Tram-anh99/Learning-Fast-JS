@@ -149,8 +149,8 @@ const danhSachVung = ref(mockDataVung);
             <!-- ========== SECTION 3: BAR CHART ========== -->
             <!-- Biểu đồ cột: Năng suất cây trồng -->
             <!-- Chiều cao tự động theo nội dung -->
-            <!-- w-2/5: Chiều rộng 40% (ngắn hơn pie chart) -->
-            <div class="w-2/5 bg-white border border-white shadow-md rounded-xl p-4 min-h-[350px]">
+            <!-- Chiều rộng bằng biểu đồ tròn (flex-1) -->
+            <div class="flex-1 min-w-[300px] bg-white border border-white shadow-md rounded-xl p-4 min-h-[350px]">
                   <!-- Component biểu đồ cột -->
                   <BarChartComponent />
             </div>
