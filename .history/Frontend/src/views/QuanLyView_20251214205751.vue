@@ -182,10 +182,8 @@ const danhSachVung = ref(mockDataVung);
 
             <!-- ========== FOOTER ========== -->
             <footer class="mt-8 pt-6 pb-4 border-t border-gray-200 text-center text-gray-600 text-sm">
-                  <p>&copy; 2024 Hệ thống Quản lý Nông nghiệp. Phát triển bởi <span
-                              class="font-semibold text-gray-800">Dev Team</span></p>
-                  <p class="mt-2 text-xs text-gray-500">Cập nhật lần cuối: <span class="font-medium">{{ new
-                        Date().toLocaleDateString('vi-VN') }}</span></p>
+                  <p>&copy; 2024 Hệ thống Quản lý Nông nghiệp. Phát triển bởi <span class="font-semibold text-gray-800">Dev Team</span></p>
+                  <p class="mt-2 text-xs text-gray-500">Cập nhật lần cuối: <span class="font-medium">{{ new Date().toLocaleDateString('vi-VN') }}</span></p>
             </footer>
       </div>
 </template>
