@@ -45,7 +45,7 @@ import {
             <!-- Hiển thị phân bổ thị trường xuất khẩu -->
             <!-- flex-1 = chiếm 50% height, p-4 = padding bên trong -->
             <div
-                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto scrollbar-custom">
+                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
                   <!-- Tiêu đề: "Thị trường Xuất khẩu" -->
                   <!-- text-xs font-bold = font chữ nhỏ, in đậm -->
                   <!-- uppercase = chữ in hoa, tracking-wider = giãn cách chữ -->
@@ -93,7 +93,7 @@ import {
             <!-- Hiển thị sản lượng theo loại cây trồng -->
             <!-- flex-1 = chiếm 50% height còn lại -->
             <div
-                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto scrollbar-custom">
+                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
                   <!-- Tiêu đề: "Sản lượng Cây trồng" -->
                   <h3 class="mb-4 text-xs font-bold tracking-wider uppercase text-slate-500">
                         <!-- Icon: biểu tượng cây nhỏ (seedling) -->

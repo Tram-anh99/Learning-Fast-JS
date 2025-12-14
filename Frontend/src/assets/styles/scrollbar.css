@@ -1,0 +1,86 @@
+/**
+ * ========== SCROLLBAR STYLES ==========
+ * Global scrollbar styling for better UX
+ * 
+ * Usage:
+ *   - Add class="scrollbar-custom" to any element with overflow
+ *   - Works with overflow-y-auto and overflow-x-auto
+ * 
+ * Features:
+ *   - Subtle green color matching theme
+ *   - Smooth scrolling
+ *   - Rounded corners
+ *   - Hover effect
+ */
+
+/* Main scrollbar track (background) */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;           /* Width for vertical scrollbar */
+  height: 8px;          /* Height for horizontal scrollbar */
+}
+
+/* Scrollbar thumb (the draggable part) */
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background 0.3s ease;
+}
+
+/* Scrollbar thumb on hover */
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #059669 0%, #047857 100%);
+  background-clip: content-box;
+}
+
+/* Scrollbar track (the background area) */
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.3);
+  border-radius: 4px;
+}
+
+/* Scrollbar corner (where horizontal and vertical meet) */
+.scrollbar-custom::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox scrollbar styling */
+.scrollbar-custom {
+  scrollbar-color: #10b981 rgba(226, 232, 240, 0.3);
+  scrollbar-width: thin;
+}
+
+/* Smooth scrolling behavior */
+.scrollbar-custom {
+  scroll-behavior: smooth;
+}
+
+/* Alternative: Thin scrollbar variant (for smaller spaces) */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+  transition: background 0.3s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Firefox thin variant */
+.scrollbar-thin {
+  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-width: thin;
+}

@@ -7,45 +7,74 @@
  *   - Biểu đồ tròn: Phân bổ thị trường xuất khẩu
  *   - Biểu đồ cột: Sản lượng theo loại cây
  *   - Responsive layout cho desktop/mobile
- *   - Dễ mở rộng: Thêm Line Chart, Scatter, v.v.
  * 
  * Related Files:
  *   - src/views/QuanLyView.vue - Parent component
- *   - src/composables/useCharts.js - Data & logic
  */
 
 // ========== IMPORTS ==========
 // Import computed từ Vue 3 Composition API để tính toán style động
 import { computed } from 'vue';
 
-// Import dữ liệu & logic từ composable
-import {
-      exportData,
-      cropData,
-      pieChartStyle,
-      totalExportValue,
-      getTopCrop,
-      getAverageProductivity,
-} from '../composables/useCharts';
+// ========== DATA: Thị trường xuất khẩu ==========
+/**
+ * Mock data cho biểu đồ tròn (conic-gradient)
+ * Mỗi item chứa: label (tên thị trường), value (%), color (hex)
+ */
+const exportData = [
+      { label: 'Trung Quốc', value: 45, color: '#ef4444' }, // red-500
+      { label: 'Hoa Kỳ', value: 25, color: '#3b82f6' },     // blue-500
+      { label: 'Châu Âu', value: 20, color: '#10b981' },    // emerald-500
+      { label: 'Khác', value: 10, color: '#f59e0b' },       // amber-500
+];
 
-// Import new chart components (uncomment to add to dashboard)
-// import ProductivityLineChart from './ProductivityLineChart.vue';
+// ========== COMPUTED ==========
+/**
+ * Computed: Tính toán style gradient conic cho biểu đồ tròn
+ * Chuyển đổi data array thành conic-gradient string
+ * VD: "red 0deg 162deg, blue 162deg 252deg, ..."
+ */
+const pieChartStyle = computed(() => {
+      // Theo dõi angle hiện tại để tính segment tiếp theo
+      let currentAngle = 0;
+      // Map mỗi item thành phần gradient
+      const gradientParts = exportData.map(item => {
+            // Góc bắt đầu segment hiện tại
+            const start = currentAngle;
+            // Góc kết thúc = bắt đầu + (giá trị / 100) * 360 độ
+            const end = currentAngle + (item.value / 100) * 360;
+            // Cập nhật currentAngle cho item tiếp theo
+            currentAngle = end;
+            // Trả về chuỗi gradient cho segment này
+            return `${item.color} ${start}deg ${end}deg`;
+      });
+      // Trả về object style với conic-gradient background
+      return {
+            background: `conic-gradient(${gradientParts.join(', ')})`
+      };
+});
 
-// ========== COMPONENT SETUP ==========
-// Tất cả dữ liệu đã import từ useCharts, không cần định nghĩa lại ở đây
-
+// ========== DATA: Loại cây trồng ==========
+/**
+ * Mock data cho biểu đồ cột (bar chart)
+ * Mỗi item chứa: label (tên cây), value (sản lượng %), color (Tailwind class)
+ */
+const cropData = [
+      { label: 'Lúa', value: 85, color: 'bg-yellow-400' },
+      { label: 'Xoài', value: 65, color: 'bg-green-500' },
+      { label: 'Thanh Long', value: 45, color: 'bg-red-500' },
+      { label: 'Sầu Riêng', value: 30, color: 'bg-orange-400' },
+];
 </script>
 
 <template>
-      <!-- Container chính: flex column, chiếm hết không gian và chia phần bằng -->
-      <!-- h-full = 100% height, gap-5 = khoảng cách giữa các biểu đồ -->
-      <!-- NOTE: Dễ dàng mở rộng thêm biểu đồ (Line, Scatter, v.v.) bằng cách thêm div mới -->
+      <!-- Container chính: flex column, chiếm hết không gian và chia 2 phần bằng -->
+      <!-- h-full = 100% height, gap-5 = khoảng cách giữa 2 biểu đồ -->
       <div class="flex flex-col h-full gap-5">
             <!-- ========== SECTION 1: Biểu đồ Tròn (Pie Chart) ========== -->
             <!-- Hiển thị phân bổ thị trường xuất khẩu -->
             <!-- flex-1 = chiếm 50% height, p-4 = padding bên trong -->
-            <div
-                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto scrollbar-custom">
+            <div class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
                   <!-- Tiêu đề: "Thị trường Xuất khẩu" -->
                   <!-- text-xs font-bold = font chữ nhỏ, in đậm -->
                   <!-- uppercase = chữ in hoa, tracking-wider = giãn cách chữ -->
@@ -92,8 +121,7 @@ import {
             <!-- ========== SECTION 2: Biểu đồ Cột (Bar Chart) ========== -->
             <!-- Hiển thị sản lượng theo loại cây trồng -->
             <!-- flex-1 = chiếm 50% height còn lại -->
-            <div
-                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto scrollbar-custom">
+            <div class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
                   <!-- Tiêu đề: "Sản lượng Cây trồng" -->
                   <h3 class="mb-4 text-xs font-bold tracking-wider uppercase text-slate-500">
                         <!-- Icon: biểu tượng cây nhỏ (seedling) -->
@@ -128,19 +156,5 @@ import {
                         </div>
                   </div>
             </div>
-
-            <!-- ========== SECTION 3: PLACEHOLDER FOR FUTURE CHARTS ========== -->
-            <!-- Các biểu đồ khác có thể thêm ở đây (Line Chart, Area Chart, Scatter, v.v.) -->
-            <!-- Uncomment và thêm component khi cần -->
-            <!--
-            <div class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
-                  <h3 class="mb-4 text-xs font-bold tracking-wider uppercase text-slate-500">
-                        <i class="mr-1 fas fa-chart-line"></i> Xu hướng Năng suất
-                  </h3>
-                  <div class="flex-1 flex items-center justify-center text-slate-400">
-                        <p>Line Chart sẽ được thêm ở đây</p>
-                  </div>
-            </div>
-            -->
       </div>
 </template>

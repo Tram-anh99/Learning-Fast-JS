@@ -27,9 +27,6 @@ import { ref } from 'vue';
 // CSS từ Leaflet (bản đồ) - Cần thiết để hiển thị bản đồ chính xác
 import 'leaflet/dist/leaflet.css';
 
-// CSS scrollbar custom - Dùng cho các element có scroll
-import '../assets/styles/scrollbar.css';
-
 // ========== IMPORTS: Components ==========
 // Thành phần thanh thống kê hiển thị số liệu tổng quát hệ thống
 import StatsBarComponent from '../components/StatsBarComponent.vue';

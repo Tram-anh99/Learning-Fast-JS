@@ -29,10 +29,9 @@ defineProps({
                   </button>
             </div>
 
-            <!-- Scrollable table container with custom scrollbar -->
-            <div class="overflow-y-auto flex-grow scrollbar-custom">
+            <div class="overflow-y-auto flex-grow">
                   <table class="w-full border-collapse">
-                        <thead class="sticky top-0 z-10 bg-white shadow-sm">
+                        <thead>
                               <tr>
                                     <th class="table-header">Mã số</th>
                                     <th class="table-header">Tên vùng</th>

@@ -20,16 +20,13 @@ import { computed } from 'vue';
 
 // Import dữ liệu & logic từ composable
 import {
-      exportData,
-      cropData,
-      pieChartStyle,
-      totalExportValue,
-      getTopCrop,
-      getAverageProductivity,
+  exportData,
+  cropData,
+  pieChartStyle,
+  totalExportValue,
+  getTopCrop,
+  getAverageProductivity,
 } from '../composables/useCharts';
-
-// Import new chart components (uncomment to add to dashboard)
-// import ProductivityLineChart from './ProductivityLineChart.vue';
 
 // ========== COMPONENT SETUP ==========
 // Tất cả dữ liệu đã import từ useCharts, không cần định nghĩa lại ở đây
@@ -37,15 +34,13 @@ import {
 </script>
 
 <template>
-      <!-- Container chính: flex column, chiếm hết không gian và chia phần bằng -->
-      <!-- h-full = 100% height, gap-5 = khoảng cách giữa các biểu đồ -->
-      <!-- NOTE: Dễ dàng mở rộng thêm biểu đồ (Line, Scatter, v.v.) bằng cách thêm div mới -->
+      <!-- Container chính: flex column, chiếm hết không gian và chia 2 phần bằng -->
+      <!-- h-full = 100% height, gap-5 = khoảng cách giữa 2 biểu đồ -->
       <div class="flex flex-col h-full gap-5">
             <!-- ========== SECTION 1: Biểu đồ Tròn (Pie Chart) ========== -->
             <!-- Hiển thị phân bổ thị trường xuất khẩu -->
             <!-- flex-1 = chiếm 50% height, p-4 = padding bên trong -->
-            <div
-                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto scrollbar-custom">
+            <div class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
                   <!-- Tiêu đề: "Thị trường Xuất khẩu" -->
                   <!-- text-xs font-bold = font chữ nhỏ, in đậm -->
                   <!-- uppercase = chữ in hoa, tracking-wider = giãn cách chữ -->
@@ -92,8 +87,7 @@ import {
             <!-- ========== SECTION 2: Biểu đồ Cột (Bar Chart) ========== -->
             <!-- Hiển thị sản lượng theo loại cây trồng -->
             <!-- flex-1 = chiếm 50% height còn lại -->
-            <div
-                  class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto scrollbar-custom">
+            <div class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
                   <!-- Tiêu đề: "Sản lượng Cây trồng" -->
                   <h3 class="mb-4 text-xs font-bold tracking-wider uppercase text-slate-500">
                         <!-- Icon: biểu tượng cây nhỏ (seedling) -->
@@ -128,19 +122,5 @@ import {
                         </div>
                   </div>
             </div>
-
-            <!-- ========== SECTION 3: PLACEHOLDER FOR FUTURE CHARTS ========== -->
-            <!-- Các biểu đồ khác có thể thêm ở đây (Line Chart, Area Chart, Scatter, v.v.) -->
-            <!-- Uncomment và thêm component khi cần -->
-            <!--
-            <div class="flex flex-col flex-1 p-4 bg-white border border-white shadow-md rounded-xl min-h-0 overflow-y-auto">
-                  <h3 class="mb-4 text-xs font-bold tracking-wider uppercase text-slate-500">
-                        <i class="mr-1 fas fa-chart-line"></i> Xu hướng Năng suất
-                  </h3>
-                  <div class="flex-1 flex items-center justify-center text-slate-400">
-                        <p>Line Chart sẽ được thêm ở đây</p>
-                  </div>
-            </div>
-            -->
       </div>
 </template>
