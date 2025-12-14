@@ -104,14 +104,14 @@ const danhSachVung = ref(mockDataVung);
 
 <template>
       <!-- ========== MAIN CONTAINER ========== -->
-      <!-- Layout chính: Chiếm toàn màn hình với scroll support -->
-      <!-- h-screen: Chiều cao bằng viewport height -->
+      <!-- Layout chính: Toàn màn hình với scroll support -->
+      <!-- min-h-screen: Tối thiểu chiều cao viewport -->
       <!-- flex flex-col: Bố cục dọc (các phần xếp từ trên xuống) -->
       <!-- p-5: Padding 20px xung quanh -->
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="flex flex-col w-full h-screen gap-5 p-5 overflow-y-auto bg-slate-100 scrollbar-custom">
+      <div class="flex flex-col w-full gap-5 p-5 overflow-y-auto bg-slate-100 scrollbar-custom">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
             <!-- Thanh thống kê ở trên cùng - Chiều cao tự động -->
