@@ -149,27 +149,13 @@ const danhSachVung = ref(mockDataVung);
                   <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
             </div>
 
-            <!-- ========== SECTION 3: BAR CHART & LINE CHART ========== -->
-            <!-- Khu vực: Biểu đồ cột (trái) & Biểu đồ đường (phải) -->
-            <!-- gap-5: Khoảng cách 20px giữa hai biểu đồ -->
-            <div class="flex gap-5 min-h-[350px]">
-
-                  <!-- ========== BAR CHART SECTION ========== -->
-                  <!-- Biểu đồ cột bên trái: Năng suất cây trồng -->
-                  <!-- w-2/5: Chiều rộng 40% -->
-                  <div class="w-2/5 bg-white border border-white shadow-md rounded-xl p-4">
-                        <!-- Component biểu đồ cột -->
-                        <BarChartComponent />
-                  </div>
-
-                  <!-- ========== LINE CHART SECTION ========== -->
-                  <!-- Biểu đồ đường bên phải: Mối quan hệ thị trường & loại cây -->
-                  <!-- flex-1: Chiếm không gian còn lại -->
-                  <div class="flex-1 bg-white border border-white shadow-md rounded-xl p-4">
-                        <!-- Component biểu đồ đường -->
-                        <LineChartComponent />
-                  </div>
-
+            <!-- ========== SECTION 3: BAR CHART ========== -->
+            <!-- Biểu đồ cột: Năng suất cây trồng -->
+            <!-- Chiều cao tự động theo nội dung -->
+            <!-- w-2/5: Chiều rộng 40% (ngắn hơn pie chart) -->
+            <div class="w-2/5 bg-white border border-white shadow-md rounded-xl p-4 min-h-[350px]">
+                  <!-- Component biểu đồ cột -->
+                  <BarChartComponent />
             </div>
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->
