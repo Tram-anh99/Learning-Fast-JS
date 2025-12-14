@@ -157,7 +157,7 @@ const danhSachVung = ref(mockDataVung);
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->
             <!-- Bảng danh sách vùng ở dưới - Chiều cao cố định, scrollable -->
-            <!-- flex-[1.8]: Chiều cao cho bảng danh sách (tăng từ 1.2) -->
+            <!-- flex-[1.2]: Chiều cao cho bảng danh sách -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline

@@ -148,16 +148,16 @@ const danhSachVung = ref(mockDataVung);
 
             <!-- ========== SECTION 3: BAR CHART ========== -->
             <!-- Biểu đồ cột: Năng suất cây trồng - dài xuống, ngăn cách từ biểu đồ tròn -->
-            <!-- flex flex-[2]: Flex row, chiếm 2 phần trong grid layout chính (tăng từ 1.5) -->
+            <!-- flex flex-[1.5]: Flex row, chiếm 1.5 phần trong grid layout chính -->
             <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung -->
-            <div class="bg-white border border-white shadow-md rounded-xl p-4 overflow-y-auto scrollbar-custom flex-[2] min-h-0">
+            <div class="bg-white border border-white shadow-md rounded-xl p-4 overflow-y-auto scrollbar-custom flex-[1.5] min-h-0">
                   <!-- Component biểu đồ cột -->
                   <BarChartComponent />
             </div>
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->
             <!-- Bảng danh sách vùng ở dưới - Chiều cao cố định, scrollable -->
-            <!-- flex-[1.8]: Chiều cao cho bảng danh sách (tăng từ 1.2) -->
+            <!-- flex-[1.2]: Chiều cao cho bảng danh sách -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
