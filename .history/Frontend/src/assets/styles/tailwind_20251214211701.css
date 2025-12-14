@@ -1,0 +1,359 @@
+/* ==========================================
+   TAILWIND CSS DIRECTIVES
+   ========================================== */
+/* Thêm base styles (reset, typography mặc định) */
+@tailwind base;
+/* Thêm component classes (@layer components định nghĩa custom class) */
+@tailwind components;
+/* Thêm utility classes (padding, margin, color, etc.) */
+@tailwind utilities;
+
+/* ==========================================
+   GLOBAL ANIMATIONS
+   Hiệu ứng chuyển động toàn ứng dụng (Modern & Trendy)
+   ========================================== */
+@layer utilities {
+
+      /* Hiệu ứng fade in mượt (mờ dần xuất hiện) */
+      .animate-fade-in {
+            animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Hiệu ứng scale up elasticity (phóng to hoàn hảo) */
+      .animate-scale-up {
+            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      /* Hiệu ứng slide up (trượt lên) */
+      .animate-slide-up {
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Hiệu ứng bounce (nảy) */
+      .animate-bounce-in {
+            animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      /* Hiệu ứng fade in up (mờ dần + trượt lên) */
+      .animate-fade-in-up {
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Keyframe fade in */
+      @keyframes fadeIn {
+            from {
+                  opacity: 0;
+            }
+
+            to {
+                  opacity: 1;
+            }
+      }
+
+      /* Keyframe scale up */
+      @keyframes scaleUp {
+            from {
+                  opacity: 0;
+                  transform: scale(0.85);
+            }
+
+            to {
+                  opacity: 1;
+                  transform: scale(1);
+            }
+      }
+
+      /* Keyframe slide up */
+      @keyframes slideUp {
+            from {
+                  opacity: 0;
+                  transform: translateY(20px);
+            }
+
+            to {
+                  opacity: 1;
+                  transform: translateY(0);
+            }
+      }
+
+      /* Keyframe bounce in */
+      @keyframes bounceIn {
+            0% {
+                  opacity: 0;
+                  transform: scale(0.3);
+            }
+
+            50% {
+                  opacity: 1;
+                  transform: scale(1.05);
+            }
+
+            100% {
+                  opacity: 1;
+                  transform: scale(1);
+            }
+      }
+
+      /* Keyframe fade in up */
+      @keyframes fadeInUp {
+            from {
+                  opacity: 0;
+                  transform: translateY(30px);
+            }
+
+            to {
+                  opacity: 1;
+                  transform: translateY(0);
+            }
+      }
+
+      /* Hiệu ứng pulse gentle (nhấp nháy nhẹ) */
+      .animate-pulse-gentle {
+            animation: pulseGentle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulseGentle {
+            0%, 100% {
+                  opacity: 1;
+            }
+
+            50% {
+                  opacity: 0.7;
+            }
+      }
+
+      /* Hiệu ứng glow (phát sáng) */
+      .animate-glow {
+            animation: glow 2s ease-in-out infinite;
+      }
+
+      @keyframes glow {
+            0%, 100% {
+                  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+            }
+
+            50% {
+                  box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+            }
+      }
+
+      /* Hiệu ứng shimmer (nhấp nháy kim loại) */
+      .animate-shimmer {
+            animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+            0% {
+                  background-position: -1000px 0;
+            }
+
+            100% {
+                  background-position: 1000px 0;
+            }
+      }
+}
+
+
+/* ==========================================
+   CUSTOM COMPONENT UTILITIES
+   Các component tái sử dụng được (Modern Design)
+   ========================================== */
+@layer components {
+
+      /* ========== STAT CARD COMPONENT ========== */
+      /* Thẻ hiển thị thống kê - Modern glassmorphism */
+      .stat-card {
+            @apply flex items-center flex-1 gap-4 px-6 py-5 transition-all duration-300 border shadow-md bg-gradient-to-br from-white to-slate-50 rounded-2xl border-white/50 backdrop-blur-sm;
+      }
+
+      .stat-card:hover {
+            @apply shadow-lg border-white/80;
+      }
+
+      /* ========== ICON BOX COMPONENT ========== */
+      /* Hộp chứa icon với nền màu - Modern gradient */
+      .icon-box {
+            @apply flex items-center justify-center text-2xl font-bold text-white transition-all duration-300 shadow-lg w-14 h-14 rounded-xl;
+      }
+
+      /* Icon box màu success (xanh lá) - Gradient */
+      .icon-box-success {
+            @apply icon-box;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+
+      .icon-box-success:hover {
+            @apply scale-110 shadow-xl;
+      }
+
+      /* Icon box màu primary (xanh đậm) - Gradient */
+      .icon-box-primary {
+            @apply icon-box;
+            background: linear-gradient(135deg, #1b4332 0%, #0f2818 100%);
+      }
+
+      .icon-box-primary:hover {
+            @apply scale-110 shadow-xl;
+      }
+
+      /* Icon box màu warning (vàng cam) - Gradient */
+      .icon-box-warning {
+            @apply icon-box;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      }
+
+      .icon-box-warning:hover {
+            @apply scale-110 shadow-xl;
+      }
+
+      /* Icon box màu danger (đỏ) - Gradient */
+      .icon-box-danger {
+            @apply icon-box;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      }
+
+      .icon-box-danger:hover {
+            @apply scale-110 shadow-xl;
+      }
+
+      /* ========== STAT INFO TEXT ========== */
+      /* Tiêu đề số liệu thống kê (lớn, đậm) */
+      .stat-info-title {
+            @apply m-0 text-2xl font-bold text-gray-900;
+      }
+
+      /* Mô tả dưới tiêu đề (nhỏ, nhạt) */
+      .stat-info-desc {
+            @apply m-0 text-sm text-gray-600;
+      }
+
+      /* ========== BUTTON STYLES - Modern ========== */
+      /* Nút chính (primary button) - Gradient */
+      .btn-primary {
+            @apply cursor-pointer text-sm font-semibold transition-all duration-200 px-4 py-2.5 rounded-xl active: scale-95;
+            background: linear-gradient(135deg, #1b4332 0%, #0f2818 100%);
+            color: white;
+      }
+
+      .btn-primary:hover {
+            box-shadow: 0 10px 25px rgba(27, 67, 50, 0.3);
+      }
+
+      /* Nút nhỏ chỉnh sửa - Modern */
+      .btn-primary-sm {
+            @apply transition-all duration-200 cursor-pointer w-9 h-9 rounded-xl active: scale-90;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: #0284c7;
+            font-weight: 600;
+      }
+
+      .btn-primary-sm:hover {
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+      }
+
+      /* Nút nhỏ cảnh báo - Modern */
+      .btn-primary-warn {
+            @apply transition-all duration-200 cursor-pointer w-9 h-9 rounded-xl active: scale-90;
+            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+            color: #ea580c;
+            font-weight: 600;
+      }
+
+      .btn-primary-warn:hover {
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+      }
+
+      /* ========== BADGE STYLES - Modern ========== */
+      /* Badge trạng thái - hoạt động (xanh lục) */
+      .badge-active {
+            @apply inline-block px-3 py-1.5 rounded-full text-xs font-bold shadow-sm;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+      }
+
+      /* Badge trạng thái - cảnh báo (vàng) */
+      .badge-warning {
+            @apply inline-block px-3 py-1.5 rounded-full text-xs font-bold shadow-sm;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+      }
+
+      /* Badge trạng thái - nguy hiểm (đỏ) */
+      .badge-danger {
+            @apply inline-block px-3 py-1.5 rounded-full text-xs font-bold shadow-sm;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+      }
+
+      /* ========== PANEL STYLES - Modern ========== */
+      /* Panel container - Glassmorphism style */
+      .panel {
+            @apply border shadow-md bg-gradient-to-br from-white to-slate-50 rounded-2xl border-white/50 backdrop-blur-sm;
+      }
+
+      /* Panel header - Modern */
+      .panel-header {
+            @apply flex items-center justify-between px-6 py-5 border-b border-slate-200/50;
+      }
+
+      /* Tiêu đề panel */
+      .panel-title {
+            @apply m-0 text-lg font-bold text-gray-900;
+      }
+
+      /* ========== TABLE STYLES - Modern ========== */
+      /* Header cột bảng (sticky top) */
+      .table-header {
+            @apply sticky top-0 px-5 py-3 text-sm font-bold text-left text-gray-700 border-b bg-gradient-to-r from-slate-100 to-slate-50 border-slate-200;
+      }
+
+      /* Ô dữ liệu bảng */
+      .table-cell {
+            @apply px-5 py-3 text-sm text-gray-700 border-b border-slate-100;
+      }
+
+      /* Hover effect cho dòng bảng */
+      .table-row-hover {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .table-row-hover:hover {
+            @apply bg-blue-50/50 scale-[1.01];
+      }
+
+      /* ========== MAP CONTROL STYLES - Modern ========== */
+      /* Nút điều khiển bản đồ (mặc định) */
+      .map-control-btn {
+            @apply w-full border-2 rounded-xl text-left cursor-pointer text-sm transition-all duration-200 font-medium px-3 py-2.5;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-color: #e2e8f0;
+            color: #1f2937;
+      }
+
+      /* Hover effect cho control button */
+      .map-control-btn:hover {
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            border-color: #94a3b8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Nút điều khiển bản đồ khi active (xanh đậm) */
+      .map-control-btn-active {
+            @apply map-control-btn;
+            background: linear-gradient(135deg, #1b4332 0%, #0f2818 100%);
+            color: white;
+            border-color: #0f2818;
+            box-shadow: 0 4px 12px rgba(27, 67, 50, 0.3);
+      }
+
+      /* ========== UTILITY CLASSES ========== */
+      /* Text gradient effect */
+      .text-gradient {
+            @apply text-transparent bg-gradient-to-r bg-clip-text;
+      }
+
+      /* Smooth transition */
+      .transition-smooth {
+            @apply transition-all duration-300 ease-out;
+      }
+}
