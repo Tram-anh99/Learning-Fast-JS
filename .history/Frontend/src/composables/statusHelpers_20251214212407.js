@@ -132,15 +132,6 @@ export const mockDataVung = [
           trangThaiMa: "hoat_dong",
           toaDo: [10.78, 106.64],
      },
-     {
-          id: 5,
-          ma: "VT-005",
-          ten: "Tiêu đen Chất lượng",
-          chu: "Võ Văn D",
-          trangThai: "canh_tac",
-          trangThaiMa: "bi_thu_hoi",
-          toaDo: [10.76, 106.66],
-     },
 ];
 
 /**
