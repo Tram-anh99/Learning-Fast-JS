@@ -101,17 +101,18 @@ const handleFilterClick = (filterType) => {
             </div>
 
             <!-- ========== CARD 4: Mã bị thu hồi ========== -->
-            <!-- Bấm để lọc theo mã bị thu hồi -->
-            <div class="stat-card cursor-pointer transition-all" 
-                  :class="{ 'ring-2 ring-red-500 scale-105': activeFilter === 'danger' }"
-                  @click="handleFilterClick('danger')">
+            <!-- Số lượng mã vùng bị thu hồi -->
+            <div class="stat-card">
                   <!-- Icon box: nền đỏ (danger color) -->
                   <div class="icon-box-danger">
+                        <!-- Icon: biểu tượng ban/block -->
                         <i class="fas fa-ban"></i>
                   </div>
                   <!-- Nội dung text card -->
                   <div>
+                        <!-- Tiêu đề: số mã bị thu hồi -->
                         <h3 class="stat-info-title">{{ thongKe.maBiThuHoi || 0 }}</h3>
+                        <!-- Mô tả: "Mã bị thu hồi" -->
                         <p class="stat-info-desc">Mã bị thu hồi</p>
                   </div>
             </div>
