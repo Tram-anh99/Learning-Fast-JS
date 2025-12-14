@@ -206,17 +206,17 @@ const getMarketShare = (marketLabel) => {
 
 /**
  * ========== FUNCTION: Get average productivity ==========
- * Tính năng suất trung bình của các cây trồng
+ * Tính năng suất trung bình
  *
- * @returns {Number} Năng suất trung bình (tạ/ha)
+ * @returns {Number} Năng suất trung bình
  */
 const getAverageProductivity = () => {
-     if (cropData.value.length === 0) return 0;
-     const total = cropData.value.reduce(
+     if (productivityTrendData.value.length === 0) return 0;
+     const total = productivityTrendData.value.reduce(
           (sum, item) => sum + item.productivity,
           0
      );
-     return total / cropData.value.length;
+     return (total / productivityTrendData.value.length).toFixed(2);
 };
 
 export {

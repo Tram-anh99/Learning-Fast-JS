@@ -62,17 +62,25 @@ const productivityTrendData = ref([
 
 /**
  * ========== COMPUTED: Pie Chart Gradient Style ==========
- * Tính toán conic-gradient style cho biểu đồ tròn (không dùng cho Chart.js)
+ * Tính toán conic-gradient style cho biểu đồ tròn
+ *
+ * Logic:
+ *   1. Loop qua từng segment của exportData
+ *   2. Tính góc bắt đầu và góc kết thúc dựa vào tỉ lệ %
+ *   3. Tạo chuỗi gradient: "color start deg end deg"
+ *   4. Trả về object style {background: 'conic-gradient(...)'}
+ *
+ * Example:
+ *   Nếu Trung Quốc = 45%, kết quả: "red 0deg 162deg"
+ *   Nếu Hoa Kỳ = 25%, kết quả: "blue 162deg 252deg"
  */
 const pieChartStyle = computed(() => {
-     const total = totalExportValue.value;
      let currentAngle = 0;
      const gradientParts = exportData.value.map((item) => {
           const start = currentAngle;
-          const end = currentAngle + (item.value / total) * 360;
+          const end = currentAngle + (item.value / 100) * 360;
           currentAngle = end;
-          const color = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
-          return `${color[0]} ${start}deg ${end}deg`;
+          return `${item.color} ${start}deg ${end}deg`;
      });
      return {
           background: `conic-gradient(${gradientParts.join(", ")})`,
@@ -81,7 +89,7 @@ const pieChartStyle = computed(() => {
 
 /**
  * ========== COMPUTED: Total Export Value ==========
- * Tính tổng giá trị xuất khẩu (USD)
+ * Tính tổng giá trị phần trăm (kiểm tra hợp lệ = 100%)
  */
 const totalExportValue = computed(() => {
      return exportData.value.reduce((sum, item) => sum + item.value, 0);
@@ -89,10 +97,10 @@ const totalExportValue = computed(() => {
 
 /**
  * ========== COMPUTED: Crops sorted by production ==========
- * Sắp xếp cây trồng theo năng suất (cao nhất trước)
+ * Sắp xếp cây trồng theo sản lượng (cao nhất trước)
  */
 const sortedCropData = computed(() => {
-     return [...cropData.value].sort((a, b) => b.productivity - a.productivity);
+     return [...cropData.value].sort((a, b) => b.value - a.value);
 });
 
 /**
@@ -183,13 +191,12 @@ const fetchProductivityTrend = async () => {
 
 /**
  * ========== FUNCTION: Get highest producing crop ==========
- * Tìm cây trồng có năng suất cao nhất
+ * Tìm cây trồng có sản lượng cao nhất
  *
- * @returns {String} Tên cây trồng với năng suất cao nhất
+ * @returns {Object} Cây trồng với sản lượng cao nhất
  */
 const getTopCrop = () => {
-     const top = sortedCropData.value[0];
-     return top ? top.crop : 'N/A';
+     return sortedCropData.value[0] || null;
 };
 
 /**
@@ -206,17 +213,17 @@ const getMarketShare = (marketLabel) => {
 
 /**
  * ========== FUNCTION: Get average productivity ==========
- * Tính năng suất trung bình của các cây trồng
+ * Tính năng suất trung bình
  *
- * @returns {Number} Năng suất trung bình (tạ/ha)
+ * @returns {Number} Năng suất trung bình
  */
 const getAverageProductivity = () => {
-     if (cropData.value.length === 0) return 0;
-     const total = cropData.value.reduce(
+     if (productivityTrendData.value.length === 0) return 0;
+     const total = productivityTrendData.value.reduce(
           (sum, item) => sum + item.productivity,
           0
      );
-     return total / cropData.value.length;
+     return (total / productivityTrendData.value.length).toFixed(2);
 };
 
 export {

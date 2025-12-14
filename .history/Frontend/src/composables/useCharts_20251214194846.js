@@ -183,13 +183,12 @@ const fetchProductivityTrend = async () => {
 
 /**
  * ========== FUNCTION: Get highest producing crop ==========
- * Tìm cây trồng có năng suất cao nhất
+ * Tìm cây trồng có sản lượng cao nhất
  *
- * @returns {String} Tên cây trồng với năng suất cao nhất
+ * @returns {Object} Cây trồng với sản lượng cao nhất
  */
 const getTopCrop = () => {
-     const top = sortedCropData.value[0];
-     return top ? top.crop : 'N/A';
+     return sortedCropData.value[0] || null;
 };
 
 /**
@@ -206,17 +205,17 @@ const getMarketShare = (marketLabel) => {
 
 /**
  * ========== FUNCTION: Get average productivity ==========
- * Tính năng suất trung bình của các cây trồng
+ * Tính năng suất trung bình
  *
- * @returns {Number} Năng suất trung bình (tạ/ha)
+ * @returns {Number} Năng suất trung bình
  */
 const getAverageProductivity = () => {
-     if (cropData.value.length === 0) return 0;
-     const total = cropData.value.reduce(
+     if (productivityTrendData.value.length === 0) return 0;
+     const total = productivityTrendData.value.reduce(
           (sum, item) => sum + item.productivity,
           0
      );
-     return total / cropData.value.length;
+     return (total / productivityTrendData.value.length).toFixed(2);
 };
 
 export {
