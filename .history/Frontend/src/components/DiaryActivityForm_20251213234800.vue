@@ -140,7 +140,7 @@ watch(() => props.selectedActivity, (newActivity) => {
               <label class="block text-sm font-bold text-[#5D4037] mb-2">Thời gian thực hiện</label>
               <input :value="formData.datetime"
                 @input="$emit('update:formData', { ...formData, datetime: $event.target.value })"
-                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-[#FAFAF5]/50 px-4 py-2 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm transition-colors cursor-pointer font-medium"
+                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-[#FAFAF5]/50 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm font-medium"
                 type="datetime-local" />
             </div>
           </div>
@@ -245,7 +245,7 @@ watch(() => props.selectedActivity, (newActivity) => {
     </div>
 
     <!-- Mẹo cho người dùng (nền nâu) -->
-    <div class="mt-6 bg-[#8D6E63] text-white p-4 rounded-lg flex items-start gap-3 shadow-lg">
+    <div class="mt-6 bg-[#8D6E63] text-white p-4 rounded-2xl flex items-start gap-3 shadow-lg">
       <!-- Icon lightbulb -->
       <span class="material-symbols-outlined text-yellow-300">lightbulb</span>
       <div class="text-sm">

@@ -209,7 +209,7 @@ const removeImage = (index) => {
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           <!-- Loop qua từng thửa đất -->
           <button v-for="field in fields" :key="field.id" @click="selectField(field.id)" :class="[
-            'p-4 rounded-lg border-2 text-left transition-all duration-300',
+            'p-4 rounded-xl border-2 text-left transition-all duration-300',
             selectedField === field.id
               ? 'border-[#2E7D32] bg-[#E8F5E9] shadow-md'
               : 'border-[#D7CCC8]/30 bg-white hover:border-[#D7CCC8] hover:shadow-sm'
