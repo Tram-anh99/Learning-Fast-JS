@@ -16,7 +16,7 @@
  *   - src/composables/useCropData.js - Dữ liệu loại cây
  */
 
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { getCropsByZone, getMarketsbyZone } from '../composables/useCropData';
 
 const props = defineProps({
@@ -25,11 +25,6 @@ const props = defineProps({
             default: null
       }
 });
-
-// Debug watch
-watch(() => props.selectedVung, (newVal) => {
-      console.log("👀 CropDetails watch - selectedVung changed:", newVal);
-}, { deep: true });
 
 // ========== COMPUTED: Danh sách cây của vùng được chọn ==========
 const cropsInZone = computed(() => {
@@ -72,12 +67,12 @@ const getMarketBadgeClass = (market) => {
 
 <template>
       <!-- Container chính -->
-      <div v-if="props.selectedVung" class="panel flex flex-col min-h-[350px] max-h-[600px] overflow-auto">
+      <div v-if="selectedVung" class="panel flex flex-col min-h-[350px] max-h-[600px] overflow-auto">
             <!-- Header -->
             <div class="panel-header">
                   <div class="flex-1">
-                        <h3 class="panel-title">Chi tiết Loại cây - {{ props.selectedVung.ma }}</h3>
-                        <p class="text-xs text-gray-500 mt-1">{{ props.selectedVung.ten }}</p>
+                        <h3 class="panel-title">Chi tiết Loại cây - {{ selectedVung.ma }}</h3>
+                        <p class="text-xs text-gray-500 mt-1">{{ selectedVung.ten }}</p>
                   </div>
                   <div class="text-right text-xs">
                         <p class="font-semibold text-gray-600">Tổng diện tích: <span class="text-blue-600">{{
@@ -147,7 +142,6 @@ const getMarketBadgeClass = (market) => {
       <div v-else class="panel flex flex-col items-center justify-center min-h-[350px] max-h-[600px]">
             <i class="fas fa-info-circle text-4xl text-gray-300 mb-3"></i>
             <p class="text-gray-500 text-sm">Chọn vùng trồng từ bảng hoặc bản đồ để xem chi tiết loại cây</p>
-            <p class="text-gray-400 text-xs mt-3">(Debug: selectedVung = {{ props.selectedVung ? 'OBJECT' : 'NULL' }})</p>
       </div>
 </template>
 

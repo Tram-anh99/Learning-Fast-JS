@@ -16,7 +16,7 @@
  *   - src/composables/useCropData.js - Dữ liệu loại cây
  */
 
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { getCropsByZone, getMarketsbyZone } from '../composables/useCropData';
 
 const props = defineProps({
@@ -25,11 +25,6 @@ const props = defineProps({
             default: null
       }
 });
-
-// Debug watch
-watch(() => props.selectedVung, (newVal) => {
-      console.log("👀 CropDetails watch - selectedVung changed:", newVal);
-}, { deep: true });
 
 // ========== COMPUTED: Danh sách cây của vùng được chọn ==========
 const cropsInZone = computed(() => {
@@ -147,7 +142,6 @@ const getMarketBadgeClass = (market) => {
       <div v-else class="panel flex flex-col items-center justify-center min-h-[350px] max-h-[600px]">
             <i class="fas fa-info-circle text-4xl text-gray-300 mb-3"></i>
             <p class="text-gray-500 text-sm">Chọn vùng trồng từ bảng hoặc bản đồ để xem chi tiết loại cây</p>
-            <p class="text-gray-400 text-xs mt-3">(Debug: selectedVung = {{ props.selectedVung ? 'OBJECT' : 'NULL' }})</p>
       </div>
 </template>
 
