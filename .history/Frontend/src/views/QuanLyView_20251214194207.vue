@@ -40,11 +40,8 @@ import MapComponent from '../components/MapComponent.vue';
 // Thành phần bảng danh sách vùng trồng với sắp xếp/lọc
 import DataTableComponent from '../components/DataTableComponent.vue';
 
-// Thành phần biểu đồ tròn (Pie Chart) - Thị trường xuất khẩu
-import PieChartComponent from '../components/PieChartComponent.vue';
-
-// Thành phần biểu đồ cột (Bar Chart) - Năng suất cây trồng
-import BarChartComponent from '../components/BarChartComponent.vue';
+// Thành phần biểu đồ thống kê sử dụng Chart.js library
+import ChartsComponent from '../components/ChartsComponent.vue';
 
 // ========== IMPORTS: Composables & Mock Data ==========
 // Dữ liệu giả lập: Thống kê, danh sách vùng, điểm dịch bệnh
@@ -132,8 +129,15 @@ const danhSachVung = ref(mockDataVung);
                   <!-- flex-1: Chiếm 1 phần của flex space (bằng chiều cao với bản đồ) -->
                   <!-- min-w-[300px]: Chiều rộng tối thiểu 300px để responsive trên màn hình nhỏ -->
                   <div class="flex-1 min-w-[300px] bg-white border border-white shadow-md rounded-xl overflow-y-auto scrollbar-custom p-4">
-                        <!-- Component biểu đồ tròn -->
-                        <PieChartComponent />
+                        <!-- Tiêu đề Pie Chart -->
+                        <h3 class="text-xs font-bold text-gray-700 mb-3">Thị trường Xuất khẩu</h3>
+                        <!-- Placeholder cho Pie Chart -->
+                        <div class="flex items-center justify-center h-64">
+                              <div class="text-center text-gray-400">
+                                    <p class="text-sm">Biểu đồ tròn</p>
+                                    <p class="text-xs">(Pie Chart)</p>
+                              </div>
+                        </div>
                   </div>
 
                   <!-- ========== MAP SECTION ========== -->
@@ -151,8 +155,15 @@ const danhSachVung = ref(mockDataVung);
             <!-- flex flex-[1.5]: Flex row, chiếm 1.5 phần trong grid layout chính -->
             <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung -->
             <div class="bg-white border border-white shadow-md rounded-xl p-4 overflow-y-auto scrollbar-custom flex-[1.5] min-h-0">
-                  <!-- Component biểu đồ cột -->
-                  <BarChartComponent />
+                  <!-- Tiêu đề Bar Chart -->
+                  <h3 class="text-xs font-bold text-gray-700 mb-3">Năng suất Cây trồng</h3>
+                  <!-- Placeholder cho Bar Chart -->
+                  <div class="flex items-center justify-center h-full">
+                        <div class="text-center text-gray-400">
+                              <p class="text-sm">Biểu đồ cột</p>
+                              <p class="text-xs">(Bar Chart)</p>
+                        </div>
+                  </div>
             </div>
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->

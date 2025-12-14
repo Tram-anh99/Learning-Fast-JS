@@ -151,8 +151,15 @@ const danhSachVung = ref(mockDataVung);
             <!-- flex flex-[1.5]: Flex row, chiếm 1.5 phần trong grid layout chính -->
             <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung -->
             <div class="bg-white border border-white shadow-md rounded-xl p-4 overflow-y-auto scrollbar-custom flex-[1.5] min-h-0">
-                  <!-- Component biểu đồ cột -->
-                  <BarChartComponent />
+                  <!-- Tiêu đề Bar Chart -->
+                  <h3 class="text-xs font-bold text-gray-700 mb-3">Năng suất Cây trồng</h3>
+                  <!-- Placeholder cho Bar Chart -->
+                  <div class="flex items-center justify-center h-full">
+                        <div class="text-center text-gray-400">
+                              <p class="text-sm">Biểu đồ cột</p>
+                              <p class="text-xs">(Bar Chart)</p>
+                        </div>
+                  </div>
             </div>
 
             <!-- ========== SECTION 4: DATA TABLE ========== -->

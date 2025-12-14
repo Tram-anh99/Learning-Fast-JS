@@ -40,11 +40,8 @@ import MapComponent from '../components/MapComponent.vue';
 // Thành phần bảng danh sách vùng trồng với sắp xếp/lọc
 import DataTableComponent from '../components/DataTableComponent.vue';
 
-// Thành phần biểu đồ tròn (Pie Chart) - Thị trường xuất khẩu
-import PieChartComponent from '../components/PieChartComponent.vue';
-
-// Thành phần biểu đồ cột (Bar Chart) - Năng suất cây trồng
-import BarChartComponent from '../components/BarChartComponent.vue';
+// Thành phần biểu đồ thống kê sử dụng Chart.js library
+import ChartsComponent from '../components/ChartsComponent.vue';
 
 // ========== IMPORTS: Composables & Mock Data ==========
 // Dữ liệu giả lập: Thống kê, danh sách vùng, điểm dịch bệnh
@@ -120,25 +117,26 @@ const danhSachVung = ref(mockDataVung);
     -->
             <StatsBarComponent :thongKe="thongKe" />
 
-            <!-- ========== SECTION 2: PIE CHART & MAP ========== -->
-            <!-- Khu vực giữa (trên): Biểu đồ tròn (trái) & Bản đồ (phải) -->
-            <!-- flex flex-[1.8]: Flex row, chiếm 1.8 phần trong grid layout chính -->
-            <!-- gap-5: Khoảng cách 20px giữa biểu đồ tròn và bản đồ -->
+            <!-- ========== SECTION 2: CHARTS & MAP ========== -->
+            <!-- Khu vực giữa: Biểu đồ (trái) & Bản đồ (phải) -->
+            <!-- flex flex-[2.5]: Flex row, chiếm 2.5 phần trong grid layout chính (tăng chiều cao) -->
+            <!-- gap-5: Khoảng cách 20px giữa biểu đồ và bản đồ -->
             <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung (quan trọng cho overflow) -->
-            <div class="flex flex-[1.8] gap-5 min-h-0">
+            <div class="flex flex-[2.5] gap-5 min-h-0">
 
-                  <!-- ========== PIE CHART SECTION ========== -->
-                  <!-- Biểu đồ tròn bên trái: Phân bổ thị trường xuất khẩu -->
-                  <!-- flex-1: Chiếm 1 phần của flex space (bằng chiều cao với bản đồ) -->
+                  <!-- ========== CHARTS SECTION ========== -->
+                  <!-- Biểu đồ bên trái: Pie chart xuất khẩu + Bar chart năng suất -->
+                  <!-- flex-[1.2]: Chiếm 1.2 phần của flex space -->
                   <!-- min-w-[300px]: Chiều rộng tối thiểu 300px để responsive trên màn hình nhỏ -->
-                  <div class="flex-1 min-w-[300px] bg-white border border-white shadow-md rounded-xl overflow-y-auto scrollbar-custom p-4">
-                        <!-- Component biểu đồ tròn -->
-                        <PieChartComponent />
+                  <div class="flex-[1.2] min-w-[300px]">
+                        <!-- Component biểu đồ thống kê (Chart.js) -->
+                        <!-- Render: Pie chart (phân bổ thị trường xuất khẩu) + Bar chart (năng suất cây trồng) -->
+                        <ChartsComponent />
                   </div>
 
                   <!-- ========== MAP SECTION ========== -->
                   <!-- Bản đồ bên phải: Leaflet map với polygon vùng trồng -->
-                  <!-- flex-[1.5]: Chiếm 1.5 phần của flex space (rộng hơn biểu đồ tròn) -->
+                  <!-- flex-[2]: Chiếm 2 phần của flex space (rộng hơn biểu đồ) -->
                   <!-- Props:
            - :danhSachVung - Danh sách vùng trồng để render polygon trên bản đồ
            - :diemNongSauBenh - Điểm dịch bệnh/rủi ro để hiển thị marker
@@ -146,18 +144,8 @@ const danhSachVung = ref(mockDataVung);
                   <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
             </div>
 
-            <!-- ========== SECTION 3: BAR CHART ========== -->
-            <!-- Biểu đồ cột: Năng suất cây trồng - dài xuống, ngăn cách từ biểu đồ tròn -->
-            <!-- flex flex-[1.5]: Flex row, chiếm 1.5 phần trong grid layout chính -->
-            <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung -->
-            <div class="bg-white border border-white shadow-md rounded-xl p-4 overflow-y-auto scrollbar-custom flex-[1.5] min-h-0">
-                  <!-- Component biểu đồ cột -->
-                  <BarChartComponent />
-            </div>
-
-            <!-- ========== SECTION 4: DATA TABLE ========== -->
+            <!-- ========== SECTION 3: DATA TABLE ========== -->
             <!-- Bảng danh sách vùng ở dưới - Chiều cao cố định, scrollable -->
-            <!-- flex-[1.2]: Chiều cao cho bảng danh sách -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
