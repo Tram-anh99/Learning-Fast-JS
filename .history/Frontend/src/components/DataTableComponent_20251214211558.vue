@@ -48,11 +48,6 @@ defineProps({
                                     <td class="table-cell">{{ vung.ten }}</td>
                                     <td class="table-cell">{{ vung.chu }}</td>
                                     <td class="table-cell">
-                                          <span :class="vung.trangThaiMa === 'bi_thu_hoi' ? 'badge-danger' : 'badge-success'">
-                                                {{ vung.trangThaiMa === 'bi_thu_hoi' ? 'Bị thu hồi' : 'Hoạt động' }}
-                                          </span>
-                                    </td>
-                                    <td class="table-cell">
                                           <span :class="`badge-${getStatusBadge(vung.trangThai).class.split('-')[1]}`">
                                                 {{ getStatusBadge(vung.trangThai).text }}
                                           </span>
