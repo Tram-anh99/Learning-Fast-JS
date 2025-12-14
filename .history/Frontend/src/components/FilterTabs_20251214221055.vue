@@ -132,5 +132,18 @@ const handleFilterClick = (filterValue) => {
 </template>
 
 <style scoped>
-/* FilterTabs uses Tailwind CSS classes directly in template */
+/* FilterTabs styles */
+.filter-tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+}
+
+.filter-btn {
+      transition: all 0.2s ease;
+}
+
+.filter-btn:active {
+      transform: scale(0.95);
+}
 </style>

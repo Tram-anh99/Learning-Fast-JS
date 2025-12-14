@@ -45,5 +45,14 @@ const handleSelectItem = (item) => {
 </template>
 
 <style scoped>
-/* ProductList uses Tailwind CSS classes directly in template */
+.product-list {
+      overflow-y-auto;
+}
+
+.empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+}
 </style>
