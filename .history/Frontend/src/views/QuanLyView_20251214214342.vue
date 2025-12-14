@@ -180,12 +180,7 @@ const clearSelection = () => {
 
             </div>
 
-            <!-- ========== SECTION 4: CROP DETAILS ========== -->
-            <!-- Chi tiết loại cây của vùng được chọn -->
-            <!-- Hiển thị danh sách loại cây, diện tích, năng suất, thị trường xuất khẩu -->
-            <CropDetailsComponent :selectedVung="selectedVung" />
-
-            <!-- ========== SECTION 5: DATA TABLE ========== -->
+            <!-- ========== SECTION 4: DATA TABLE ========== -->
             <!-- Bảng danh sách vùng -->
             <!-- Chiều cao tự động theo nội dung -->
             <!-- Props:

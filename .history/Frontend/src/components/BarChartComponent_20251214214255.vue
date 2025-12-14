@@ -143,7 +143,7 @@ onBeforeUnmount(() => {
             <!-- Stats footer -->
             <div class="text-xs text-center text-gray-600 pt-3 border-t border-gray-200 mt-3">
                   <p class="font-semibold">Năng suất trung bình: <span class="text-blue-600">{{
-                              getAverageProductivity.toFixed(2) }} tạ/ha</span></p>
+                              getAverageProductivity().toFixed(2) }} tạ/ha</span></p>
             </div>
       </div>
 </template>

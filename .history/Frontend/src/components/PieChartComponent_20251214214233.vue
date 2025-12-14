@@ -16,7 +16,7 @@
 // ========== IMPORTS ==========
 import { computed, onMounted, ref, onBeforeUnmount } from 'vue';
 import Chart from 'chart.js/auto';
-import { exportData } from '../composables/useCharts';
+import { exportData, totalExportValue } from '../composables/useCharts';
 
 // ========== REFS ==========
 const chartContainer = ref(null);
