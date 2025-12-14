@@ -110,3 +110,13 @@ const danhSachVung = ref(mockDataVung);
 
       </div>
 </template>
+
+<style scoped>
+/**
+ * ========== STYLES: QuanLyView.vue ==========
+ * Styling cho trang quản lý vùng trồng
+ * (Chủ yếu dùng Tailwind CSS utilities, style scoped ít cần thiết)
+ */
+
+/* Có thể thêm custom styles nếu cần tùy chỉnh: */
+</style>

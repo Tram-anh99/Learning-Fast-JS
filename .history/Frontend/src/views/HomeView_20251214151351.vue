@@ -200,8 +200,7 @@ watch(danhSachTimKiem, veLaiBanDo);
            • Overflow hidden để clip nội dung vượt quá
          - Z-index: z-1000 (cao hơn map & layer selector)
     -->
-    <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
+    <aside class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
 
       <!-- ========== SIDEBAR HEADER COMPONENT ==========
            - Component: SidebarHeader.vue

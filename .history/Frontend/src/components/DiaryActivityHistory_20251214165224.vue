@@ -48,7 +48,7 @@ defineProps({
   <!-- ========== ACTIVITY HISTORY SECTION ========== -->
   <!-- Section: Main container for recent activity list -->
   <section>
-
+    
     <!-- ========== SECTION HEADER ========== -->
     <!-- Header: Flex between title (left) and "View All" link (right) -->
     <!-- mb-4 = 16px bottom margin before activity list -->
@@ -64,7 +64,7 @@ defineProps({
         <!-- Label text -->
         Hoạt động gần đây
       </h3>
-
+      
       <!-- "View All" link: Navigate to full history page -->
       <!-- text-sm = 14px small font, font-bold = 700 weight -->
       <!-- text-[#2E7D32] = green color matching app theme -->
@@ -73,17 +73,20 @@ defineProps({
         Xem tất cả
       </a>
     </div>
-
+    
     <!-- ========== ACTIVITY LIST ========== -->
     <!-- Activity list wrapper: space-y-3 = 12px vertical gap between items -->
     <div class="space-y-3">
-
+      
       <!-- ========== ACTIVITY ITEM LOOP ========== -->
       <!-- v-for: Loop through activities array, render card for each -->
       <!-- :key: Unique identifier (activity.id) for Vue's list rendering -->
-      <div v-for="activity in activities" :key="activity.id"
-        class="bg-white p-4 rounded-2xl border border-[#D7CCC8]/20 flex items-center shadow-sm hover:shadow-md transition-shadow">
-
+      <div
+        v-for="activity in activities"
+        :key="activity.id"
+        class="bg-white p-4 rounded-2xl border border-[#D7CCC8]/20 flex items-center shadow-sm hover:shadow-md transition-shadow"
+      >
+        
         <!-- ========== ACTIVITY ICON ========== -->
         <!-- Icon container: h-12 w-12 = 48px x 48px square -->
         <!-- rounded-full = circle shape (border-radius 9999px) -->
@@ -91,25 +94,24 @@ defineProps({
         <!-- mr-4 = 16px right margin before activity info -->
         <!-- flex-shrink-0 = don't shrink below content size (preserves icon size) -->
         <!-- :class: Dynamic background & text color classes from activity object -->
-        <div
-          :class="['h-12 w-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0', activity.bgColor, activity.iconColor]">
+        <div :class="['h-12 w-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0', activity.bgColor, activity.iconColor]">
           <!-- Material Symbol icon: Dynamic icon from activity.icon property -->
           <!-- Icon name examples: "grain" (seeding), "water_drop" (watering), "spray" (spraying) -->
           <span class="material-symbols-outlined">{{ activity.icon }}</span>
         </div>
-
+        
         <!-- ========== ACTIVITY INFO ========== -->
         <!-- Info wrapper: flex-grow = expand to fill available space -->
         <div class="flex-grow">
           <!-- Activity title: e.g., "Bón phân - Đợt 1", "Tưới nước" -->
           <!-- h4 = heading level 4, font-bold = 700, text-gray-800 = dark gray -->
           <h4 class="font-bold text-gray-800">{{ activity.title }}</h4>
-
+          
           <!-- Activity description: More details (e.g., "Phân NPK 50kg", "Nước từ giếu") -->
           <!-- text-sm = 14px small font, text-[#5D4037] = dark brown color -->
           <p class="text-sm text-[#5D4037]">{{ activity.description }}</p>
         </div>
-
+        
         <!-- ========== ACTIVITY TIME ========== -->
         <!-- Time wrapper: text-right = right-align time information -->
         <div class="text-right">
@@ -117,7 +119,7 @@ defineProps({
           <!-- block = full width block element -->
           <!-- text-sm = 14px font, font-bold = 700, text-gray-600 = medium gray -->
           <span class="block text-sm font-bold text-gray-600">{{ activity.time }}</span>
-
+          
           <!-- Exact time: HH:MM format (e.g., "14:30", "09:15") -->
           <!-- block = full width block element -->
           <!-- text-xs = 12px very small font, text-gray-400 = light gray color -->

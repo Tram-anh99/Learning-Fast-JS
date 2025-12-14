@@ -200,8 +200,7 @@ watch(danhSachTimKiem, veLaiBanDo);
            • Overflow hidden để clip nội dung vượt quá
          - Z-index: z-1000 (cao hơn map & layer selector)
     -->
-    <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
+    <aside class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
 
       <!-- ========== SIDEBAR HEADER COMPONENT ==========
            - Component: SidebarHeader.vue
@@ -232,6 +231,122 @@ watch(danhSachTimKiem, veLaiBanDo);
       <!-- ========== LIST VIEW: Hiển thị danh sách sản phẩm ==========
            - Condition: v-if="!vungDangXem" - True khi không xem chi tiết
            - Classes: flex flex-col flex-grow overflow-hidden
+             • flex flex-col - Flex column layout
+             • flex-grow - Chiếm hết không gian còn lại
+             • overflow-hidden - Clip nội dung overflow
+      -->
+      <div v-if="!vungDangXem" class="flex flex-col flex-grow overflow-hidden">
+
+        <!-- ========== FILTER TABS COMPONENT ==========
+             - Component: FilterTabs.vue
+             - Props:
+               • :activeFilter - Bộ lọc được chọn (Tất cả, Đang canh tác, Thu hoạch, v.v.)
+             - Emits:
+               • @filterChange - Khi user chọn tab (call setLocFilter)
+             - Features:
+               • Hiển thị các tab: "Tất cả", "Đang canh tác", "Thu hoạch", "Nghỉ đất", v.v.
+               • Tab active có highlight color
+               • Cập nhật boLocHienTai trong state
+        -->
+        <FilterTabs :activeFilter="boLocHienTai" @filterChange="setLocFilter" />
+
+        <!-- ========== PRODUCT LIST COMPONENT ==========
+             - Component: ProductList.vue
+             - Props:
+               • :items - Danh sách sản phẩm/vùng sau lọc & tìm kiếm (danhSachTimKiem)
+               • :getClassTrangThai - Hàm helper lấy CSS class theo trạng thái
+               • :getTextTrangThai - Hàm helper lấy text trạng thái (Tiếng Việt)
+             - Emits:
+               • @select - Khi user chọn một sản phẩm (call chonVung)
+             - Features:
+               • Hiển thị danh sách từng vùng/sản phẩm
+               • Mỗi item có icon trạng thái, tên, mã, diện tích
+               • Empty state nếu không có sản phẩm (lọc không trùng)
+               • Scrollable nếu danh sách dài
+        -->
+        <ProductList :items="danhSachTimKiem" :getClassTrangThai="getClassTrangThai"
+          :getTextTrangThai="getTextTrangThai" @select="chonVung" />
+      </div>
+
+      <!-- ========== DETAIL VIEW: Hiển thị chi tiết vùng ==========
+           - Component: HomeDetailView.vue
+           - Condition: v-else - True khi vungDangXem không null
+           - Props:
+             • :vung - Vùng được chọn (object với đủ thông tin chi tiết)
+           - Emits:
+             • @back - Khi click back button (call quayLaiDanhSach)
+             • @openQR - Khi click QR button, truyền mã vùng (call openQRModal)
+           - Features:
+             • Hiển thị thông tin chi tiết vùng (tên, mã, diện tích, trạng thái, v.v.)
+             • Timeline nhật ký canh tác
+             • Nút QR để share link truy xuất
+             • Back button để quay lại danh sách
+      -->
+      <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
+
+    </aside>
+
+    <!-- ========== QR SCANNER COMPONENT: Modal quét mã QR ==========
+         - Component: QRScanner.vue
+         - Props:
+           • :show - Boolean, điều khiển hiển thị/ẩn modal
+         - Emits:
+           • @close - Khi user click close/cancel button (call handleCloseQRScanner)
+           • @scan - Khi quét thành công hoặc nhập mã QR (call handleQRScan)
+         - Features:
+           • Camera access để quét QR code
+           • Fallback input field để nhập thủ công
+           • Cross-browser compatibility
+         - Handler: handleQRScan(qrCode) - Tìm sản phẩm theo mã, chọn nó
+    -->
+    <QRScanner :show="showQRScanner" @close="handleCloseQRScanner" @scan="handleQRScan" />
+
+    <!-- ========== QR MODAL COMPONENT: Hiển thị QR code share ==========
+         - Component: QRModal.vue
+         - Props:
+           • :show - Boolean, điều khiển hiển thị/ẩn modal
+           • :qrValue - String, link hoặc mã để sinh QR (VD: "https://farm-trace.local/trace/VT-001")
+         - Emits:
+           • @close - Khi user click close/outside modal (call closeQRModal)
+         - Features:
+           • Sinh QR code từ qrValue (library QRCode.js hoặc tương tự)
+           • Hiển thị QR code trong modal
+           • Nút download hoặc copy link
+         - Called by: HomeDetailView component khi user click QR button
+    -->
+    <QRModal :show="showQR" :qrValue="qrLink" @close="closeQRModal" />
+
+  </div>
+
+      <!-- ========== SIDEBAR HEADER COMPONENT ==========
+           - Component: SidebarHeader.vue
+           - Props:
+             • :isDetailMode - Boolean, true khi xem chi tiết (điều chỉnh layout)
+             • :searchQuery - String, từ khóa tìm kiếm hiện tại
+             • :suggestions - Array, danh sách gợi ý autocomplete (5 items)
+           - Emits:
+             • @update:searchQuery - Cập nhật searchQuery (v-model pattern)
+             • @selectSuggestion - Khi chọn một gợi ý (call handleSelectSuggestion)
+             • @back - Khi click back button (call quayLaiDanhSach)
+             • @scanQR - Khi click QR scan button (call handleOpenQRScanner)
+           - Features:
+             • Search input với debounce
+             • Autocomplete dropdown
+             • Back button hiển thị ở detail mode
+             • QR scan button
+      -->
+      <SidebarHeader :isDetailMode="!!vungDangXem" :searchQuery="searchQuery" :suggestions="autocompleteSuggestions"
+        @update:searchQuery="searchQuery = $event" @selectSuggestion="handleSelectSuggestion" @back="quayLaiDanhSach"
+        @scanQR="handleOpenQRScanner" />
+
+      <!-- ========== SIDEBAR CONTENT AREA: CONDITIONAL RENDERING ==========
+           - Logic: v-if="!vungDangXem" - Kiểm tra xem có vùng nào được chọn hay không
+           - Display list view nếu không xem chi tiết, detail view nếu có
+      -->
+
+      <!-- ========== LIST VIEW: Hiển thị danh sách sản phẩm ==========
+           - Condition: v-if="!vungDangXem" - True khi không xem chi tiết
+           - Classes:
              • flex flex-col - Flex column layout
              • flex-grow - Chiếm hết không gian còn lại
              • overflow-hidden - Clip nội dung overflow

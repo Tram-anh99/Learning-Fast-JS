@@ -200,8 +200,7 @@ watch(danhSachTimKiem, veLaiBanDo);
            • Overflow hidden để clip nội dung vượt quá
          - Z-index: z-1000 (cao hơn map & layer selector)
     -->
-    <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
+    <aside class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
 
       <!-- ========== SIDEBAR HEADER COMPONENT ==========
            - Component: SidebarHeader.vue
@@ -273,6 +272,54 @@ watch(danhSachTimKiem, veLaiBanDo);
            - Component: HomeDetailView.vue
            - Condition: v-else - True khi vungDangXem không null
            - Props:
+             • :vung - Vùng được chọn (object với đủ thông tin chi tiết)
+           - Emits:
+             • @back - Khi click back button (call quayLaiDanhSach)
+             • @openQR - Khi click QR button, truyền mã vùng (call openQRModal)
+           - Features:
+             • Hiển thị thông tin chi tiết vùng (tên, mã, diện tích, trạng thái, v.v.)
+             • Timeline nhật ký canh tác
+             • Nút QR để share link truy xuất
+             • Back button để quay lại danh sách
+      -->
+      <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
+
+    </aside>
+
+    <!-- ========== QR SCANNER COMPONENT: Modal quét mã QR ==========
+         - Component: QRScanner.vue
+         - Props:
+           • :show - Boolean, điều khiển hiển thị/ẩn modal
+         - Emits:
+           • @close - Khi user click close/cancel button (call handleCloseQRScanner)
+           • @scan - Khi quét thành công hoặc nhập mã QR (call handleQRScan)
+         - Features:
+           • Camera access để quét QR code
+           • Fallback input field để nhập thủ công
+           • Cross-browser compatibility
+         - Handler: handleQRScan(qrCode) - Tìm sản phẩm theo mã, chọn nó
+    -->
+    <QRScanner :show="showQRScanner" @close="handleCloseQRScanner" @scan="handleQRScan" />
+
+    <!-- ========== QR MODAL COMPONENT: Hiển thị QR code share ==========
+         - Component: QRModal.vue
+         - Props:
+           • :show - Boolean, điều khiển hiển thị/ẩn modal
+           • :qrValue - String, link hoặc mã để sinh QR (VD: "https://farm-trace.local/trace/VT-001")
+         - Emits:
+           • @close - Khi user click close/outside modal (call closeQRModal)
+         - Features:
+           • Sinh QR code từ qrValue (library QRCode.js hoặc tương tự)
+           • Hiển thị QR code trong modal
+           • Nút download hoặc copy link
+         - Called by: HomeDetailView component khi user click QR button
+    -->
+    <QRModal :show="showQR" :qrValue="qrLink" @close="closeQRModal" />
+
+  </div>
+</template>
+
+<style scoped>
              • :vung - Vùng được chọn (object với đủ thông tin chi tiết)
            - Emits:
              • @back - Khi click back button (call quayLaiDanhSach)

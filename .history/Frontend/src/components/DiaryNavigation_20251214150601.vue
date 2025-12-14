@@ -60,6 +60,6 @@ const navItems = [
 <style scoped>
 /* Safe area: Hỗ trợ padding cho thiết bị có tai thỏ (iPhone X+) */
 .pb-safe {
-      padding-bottom: env(safe-area-inset-bottom, 8px);
+  padding-bottom: env(safe-area-inset-bottom, 8px);
 }
 </style>

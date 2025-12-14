@@ -87,9 +87,7 @@ const handleInputBlur = () => {
 
 <template>
       <!-- Header wrapper: container chính của header - Tailwind gradient & colors -->
-      <header
-            class="bg-gradient-to-r from-green-900 to-green-700 text-white flex items-center transition-all duration-300"
-            :class="{ 'p-0': isDetailMode, 'p-0': !isDetailMode }">
+      <header class="bg-gradient-to-r from-green-900 to-green-700 text-white flex items-center transition-all duration-300" :class="{ 'p-0': isDetailMode, 'p-0': !isDetailMode }">
 
             <!-- Search view: hiển thị khi xem danh sách (isDetailMode = false) -->
             <div v-if="!isDetailMode" class="w-full">
@@ -148,8 +146,7 @@ const handleInputBlur = () => {
             <!-- Detail view header: hiển thị khi xem chi tiết (isDetailMode = true) -->
             <div v-else class="w-full flex items-start gap-3 p-3">
                   <!-- Back button: nút quay lại danh sách -->
-                  <button @click="$emit('back')"
-                        class="p-2 transition-colors rounded-lg hover:bg-white/20 flex-shrink-0"
+                  <button @click="$emit('back')" class="p-2 transition-colors rounded-lg hover:bg-white/20 flex-shrink-0"
                         title="Quay lại danh sách">
                         <!-- Icon back: mũi tên sang trái -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none"
@@ -169,16 +166,16 @@ const handleInputBlur = () => {
 /* Transition animation: slide in/out for suggestions */
 .slide-enter-active,
 .slide-leave-active {
-      transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .slide-enter-from {
-      opacity: 0;
-      transform: translateY(-10px);
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 .slide-leave-to {
-      opacity: 0;
-      transform: translateY(-10px);
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

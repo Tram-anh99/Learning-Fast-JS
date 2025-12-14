@@ -40,13 +40,13 @@ import { ref, watch, computed } from 'vue';
 const props = defineProps({
   // selectedActivity: Current selected activity ID (acts as form context key)
   selectedActivity: String,
-
+  
   // activities: Array of available activities [{id, name, icon, color}] used in header
   activities: Array,
-
+  
   // formData: Current form state object with activity details
   formData: Object,
-
+  
   // selectedField: Metadata about selected thửa đất (field/plot)
   selectedField: Object
 });
@@ -83,7 +83,7 @@ const activityDetails = {
     // materials: Available seed types
     materials: ['Hạt lúa F1', 'Hạt lúa thường', 'Hạt giống rau cải', 'Hạt giống dưa leo']
   },
-
+  
   // Compost (Bón phân): Fertilizer application - multiple stages
   compost: {
     name: 'Bón phân',
@@ -92,7 +92,7 @@ const activityDetails = {
     // materials: Available fertilizer brands/types
     materials: ['Phân NPK 20-20-15 - Bình Điền', 'Phân Urê (Đạm Phú Mỹ)', 'Phân Kali', 'Phân vi lượng']
   },
-
+  
   // Pest (Phun thuốc): Pest & disease control - insecticide, fungicide, herbicide
   pest: {
     name: 'Phun thuốc',
@@ -101,7 +101,7 @@ const activityDetails = {
     // materials: Available chemical products
     materials: ['Thuốc sâu Imidacloprid', 'Thuốc bệnh Mancozeb', 'Thuốc cỏ Paraquat', 'Thuốc sinh học']
   },
-
+  
   // Water (Tưới nước): Irrigation methods
   water: {
     name: 'Tưới nước',
@@ -110,7 +110,7 @@ const activityDetails = {
     // materials: Water source types
     materials: ['Nước giếu', 'Nước kênh', 'Nước mưa', 'Nước giếu khoan']
   },
-
+  
   // Weeding (Làm cỏ): Weed management methods
   weeding: {
     name: 'Làm cỏ',
@@ -119,7 +119,7 @@ const activityDetails = {
     // materials: Tools and herbicides
     materials: ['Công cụ làm cỏ', 'Máy cắt cỏ', 'Thuốc diệt cỏ']
   },
-
+  
   // Harvest (Thu hoạch): Harvesting + market selection
   harvest: {
     name: 'Thu hoạch',
@@ -176,12 +176,12 @@ watch(() => props.selectedActivity, (newActivity) => {
   <!-- ========== MAIN CONTAINER ========== -->
   <!-- Form wrapper: sticky positioning at top so always visible while scrolling -->
   <div class="sticky top-24">
-
+    
     <!-- ========== FORM CARD ========== -->
     <!-- Card container: white bg with rounded corners, shadow, subtle border -->
     <!-- Position: sticky top-24 = below header (top-0-20 for header + navigation) -->
     <div class="bg-white rounded-lg shadow-xl border border-[#2E7D32]/10 overflow-hidden relative">
-
+      
       <!-- Color bar: green accent line at top (h-3 = height 12px) -->
       <!-- Purpose: Visual indicator of form validity/activity type (always green #2E7D32) -->
       <div class="h-3 bg-[#2E7D32] w-full"></div>
@@ -189,7 +189,7 @@ watch(() => props.selectedActivity, (newActivity) => {
       <!-- ========== FORM CONTENT ========== -->
       <!-- Main content wrapper: p-6 (24px) on mobile, p-8 (32px) on tablet+ (sm:) -->
       <div class="p-6 sm:p-8">
-
+        
         <!-- ========== FORM HEADER ========== -->
         <!-- Header section: activity name + icon, flex between name (left) and icon (right) -->
         <!-- mb-6 = margin-bottom 24px to space from form inputs -->
@@ -207,10 +207,10 @@ watch(() => props.selectedActivity, (newActivity) => {
             <!-- Find activity by selectedActivity ID, display name from activities array -->
             <h3 class="text-2xl font-black text-[#2E7D32] flex items-center gap-2">
               <!-- Dynamic: Loop through activities array, find selected one, get .name property -->
-              {{activities.find(a => a.id === selectedActivity)?.name || 'Bón phân'}}
+              {{ activities.find(a => a.id === selectedActivity)?.name || 'Bón phân' }}
             </h3>
           </div>
-
+          
           <!-- Right: Large activity icon -->
           <!-- Icon container: bg-[#E8F5E9] = light green background, p-2 = padding 8px -->
           <!-- rounded-full = circular shape (border-radius 9999px) -->
@@ -218,7 +218,7 @@ watch(() => props.selectedActivity, (newActivity) => {
             <!-- Material Symbol icon: text-[#2E7D32] = green color, text-3xl = 30px -->
             <!-- Dynamic: Display corresponding Material Symbol icon for selected activity -->
             <span class="material-symbols-outlined text-[#2E7D32] text-3xl">
-              {{activities.find(a => a.id === selectedActivity)?.icon || 'compost'}}
+              {{ activities.find(a => a.id === selectedActivity)?.icon || 'compost' }}
             </span>
           </div>
         </div>
@@ -227,11 +227,11 @@ watch(() => props.selectedActivity, (newActivity) => {
         <!-- Form element: @submit.prevent = prevent page reload on submit -->
         <!-- space-y-6 = 24px margin-bottom between form sections -->
         <form class="space-y-6" @submit.prevent>
-
+          
           <!-- ========== SECTION 1: Activity Type & DateTime ========== -->
           <!-- Section wrapper: space-y-4 = 16px gap between inputs -->
           <div class="space-y-4">
-
+            
             <!-- ========== INPUT: Activity Type Select ========== -->
             <!-- Label: "Loại hoạt động" - activity subtype selector (e.g., "Gieo trực tiếp" vs "Gieo ươm") -->
             <div>
@@ -240,14 +240,16 @@ watch(() => props.selectedActivity, (newActivity) => {
               <label class="block text-sm font-bold text-[#5D4037] mb-2">
                 Loại hoạt động
               </label>
-
+              
               <!-- Select input: Activity type selector -->
               <!-- :value = bind to formData.activityType (one-way binding) -->
               <!-- @input = emit event when user selects option (two-way sync pattern) -->
               <!-- Dynamic options: Loop through currentActivityData.types array (changes per activity) -->
-              <select :value="formData.activityType"
+              <select
+                :value="formData.activityType"
                 @input="$emit('update:formData', { ...formData, activityType: $event.target.value })"
-                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-[#FAFAF5]/50 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm transition-colors cursor-pointer font-medium">
+                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-[#FAFAF5]/50 px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm transition-colors cursor-pointer font-medium"
+              >
                 <!-- Options loop: v-for over currentActivityData.types (activity-specific) -->
                 <!-- :key = unique identifier (type string itself) -->
                 <!-- :value = what gets stored in formData.activityType -->
@@ -264,15 +266,17 @@ watch(() => props.selectedActivity, (newActivity) => {
               <label class="block text-sm font-bold text-[#5D4037] mb-2">
                 Thời gian thực hiện
               </label>
-
+              
               <!-- DateTime input: User picks date + time -->
               <!-- :value = bind to formData.datetime -->
               <!-- @input = emit update when value changes -->
               <!-- type="datetime-local" = HTML5 date+time picker -->
-              <input :value="formData.datetime"
+              <input
+                :value="formData.datetime"
                 @input="$emit('update:formData', { ...formData, datetime: $event.target.value })"
                 class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-[#FAFAF5]/50 px-4 py-2 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm transition-colors cursor-pointer font-medium"
-                type="datetime-local" />
+                type="datetime-local"
+              />
             </div>
           </div>
 
@@ -280,7 +284,7 @@ watch(() => props.selectedActivity, (newActivity) => {
           <!-- Material section: bg-[#E8F5E9]/30 = light green tint, p-4 = 16px padding all sides -->
           <!-- space-y-4 = 16px gap between inputs, border-[#2E7D32]/10 = thin green border -->
           <div class="bg-[#E8F5E9]/30 p-4 rounded-lg space-y-4 border border-[#2E7D32]/10">
-
+            
             <!-- ========== INPUT: Material/Resource ========== -->
             <!-- Material selector: What product/material was used? (e.g., "Phân NPK 20-20-15") -->
             <div>
@@ -290,13 +294,15 @@ watch(() => props.selectedActivity, (newActivity) => {
                 <span class="material-symbols-outlined text-sm">inventory_2</span>
                 Vật tư sử dụng
               </label>
-
+              
               <!-- Material select: Dynamic options per activity -->
               <!-- :value = bind to formData.material -->
               <!-- @input = emit update on change -->
-              <select :value="formData.material"
+              <select
+                :value="formData.material"
                 @input="$emit('update:formData', { ...formData, material: $event.target.value })"
-                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-white px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm">
+                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-white px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm"
+              >
                 <!-- Loop through currentActivityData.materials (changes per activity selected) -->
                 <option v-for="material in currentActivityData.materials" :key="material" :value="material">
                   {{ material }}
@@ -312,29 +318,30 @@ watch(() => props.selectedActivity, (newActivity) => {
                 <span class="material-symbols-outlined text-sm">scale</span>
                 Liều lượng / Số lượng
               </label>
-
+              
               <!-- Quantity + Unit input: Two-part input (number + unit display) -->
               <!-- Flex: flex rounded-lg shadow-sm = horizontal layout with rounded border + shadow -->
               <div class="flex rounded-lg shadow-sm">
-
+                
                 <!-- Quantity input: Number field for amount -->
                 <!-- :value = bind to formData.quantity -->
                 <!-- @input = emit update on change -->
                 <!-- type="number" = numeric input only, allows decimals -->
                 <!-- rounded-l-lg = rounded corners only on left side -->
                 <!-- border-r-0 = no right border (connects to unit display on right) -->
-                <input :value="formData.quantity"
+                <input
+                  :value="formData.quantity"
                   @input="$emit('update:formData', { ...formData, quantity: $event.target.value })"
                   class="block w-full h-12 rounded-l-lg border border-[#D7CCC8] border-r-0 bg-white px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm"
-                  type="number" />
-
+                  type="number"
+                />
+                
                 <!-- Unit display: Read-only unit suffix (kg, lít, etc) -->
                 <!-- inline-flex = inline horizontal layout with flex properties -->
                 <!-- rounded-r-lg = rounded corners only on right side -->
                 <!-- border-l-0 = no left border (connects to number input on left) -->
                 <!-- Display formData.unit (e.g., "kg", "tấn", "lít") -->
-                <span
-                  class="inline-flex items-center h-12 rounded-r-lg border border-l-0 border-[#D7CCC8] bg-white px-4 text-gray-500 font-bold sm:text-sm">
+                <span class="inline-flex items-center h-12 rounded-r-lg border border-l-0 border-[#D7CCC8] bg-white px-4 text-gray-500 font-bold sm:text-sm">
                   {{ formData.unit }}
                 </span>
               </div>
@@ -349,13 +356,15 @@ watch(() => props.selectedActivity, (newActivity) => {
                 <span class="material-symbols-outlined text-sm">public</span>
                 Thị trường xuất khẩu
               </label>
-
+              
               <!-- Market select: Where will harvested product be sold? -->
               <!-- :value = bind to formData.market (default: 'Thị trường nội địa') -->
               <!-- @input = emit update on selection change -->
-              <select :value="formData.market || 'Thị trường nội địa'"
+              <select
+                :value="formData.market || 'Thị trường nội địa'"
                 @input="$emit('update:formData', { ...formData, market: $event.target.value })"
-                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-white px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm cursor-pointer font-medium">
+                class="block w-full h-12 rounded-lg border border-[#D7CCC8] bg-white px-4 text-gray-900 focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32] sm:text-sm shadow-sm cursor-pointer font-medium"
+              >
                 <!-- Loop through currentActivityData.markets (only harvest has this array) -->
                 <option v-for="market in currentActivityData.markets" :key="market" :value="market">
                   {{ market }}
@@ -371,17 +380,18 @@ watch(() => props.selectedActivity, (newActivity) => {
             <label class="block text-sm font-bold text-[#5D4037] mb-2">
               Hình ảnh thực tế
             </label>
-
+            
             <!-- Image grid: grid grid-cols-4 gap-2 = 4 columns with 8px gap -->
             <div class="grid grid-cols-4 gap-2">
-
+              
               <!-- ========== ADD IMAGE BUTTON ========== -->
               <!-- Add button: aspect-square = equal width/height (square shape) -->
               <!-- border-2 border-dashed = dashed border with 2px width -->
               <!-- Type: button = don't submit form when clicked -->
               <button
                 class="aspect-square flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-[#2E7D32]/40 bg-[#E8F5E9]/20 text-[#2E7D32] hover:bg-[#E8F5E9]/50 transition-colors"
-                type="button">
+                type="button"
+              >
                 <!-- Icon: add_a_photo = Material Symbol for adding photos -->
                 <span class="material-symbols-outlined text-2xl mb-1">add_a_photo</span>
                 <!-- Label: "Thêm" = Add -->
@@ -392,20 +402,26 @@ watch(() => props.selectedActivity, (newActivity) => {
               <!-- Loop through formData.images array (uploaded/selected images) -->
               <!-- :key = unique index for each image -->
               <div v-for="(image, index) in formData.images" :key="index" class="aspect-square relative group">
-
+                
                 <!-- Image: Display preview of uploaded image -->
                 <!-- object-cover = crop image to fill square while maintaining aspect ratio -->
                 <!-- :src = dynamic image URL (data URL from file or server URL) -->
-                <img :alt="`Preview ${index}`" class="w-full h-full object-cover rounded-lg shadow-sm" :src="image" />
-
+                <img
+                  :alt="`Preview ${index}`"
+                  class="w-full h-full object-cover rounded-lg shadow-sm"
+                  :src="image"
+                />
+                
                 <!-- ========== DELETE BUTTON ========== -->
                 <!-- Delete button: positioned absolute in top-right corner -->
                 <!-- -top-1 -right-1 = positioned slightly outside corner for better UX -->
                 <!-- opacity-0 group-hover:opacity-100 = only visible on hover over image -->
                 <!-- @click = emit removeImage event with index to parent component -->
-                <button @click="$emit('removeImage', index)"
+                <button
+                  @click="$emit('removeImage', index)"
                   class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-                  type="button">
+                  type="button"
+                >
                   <!-- Icon: close = Material Symbol for delete/close action -->
                   <span class="material-symbols-outlined text-[14px] block">close</span>
                 </button>
@@ -416,26 +432,30 @@ watch(() => props.selectedActivity, (newActivity) => {
           <!-- ========== SECTION 4: Action Buttons ========== -->
           <!-- Button container: pt-2 = 8px top padding, flex gap-3 = horizontal layout with 12px gap -->
           <div class="pt-2 flex items-center gap-3">
-
+            
             <!-- ========== CANCEL BUTTON ========== -->
             <!-- Cancel: flex-1 = take 1 part of flex space -->
             <!-- border-[#D7CCC8] = sandy border, text-[#8D6E63] = brown text -->
             <!-- @click = emit cancel event to parent (close form without saving) -->
-            <button @click="$emit('cancel')"
+            <button
+              @click="$emit('cancel')"
               class="flex-1 py-3.5 px-6 rounded-lg border border-[#D7CCC8] text-[#8D6E63] font-bold hover:bg-[#FAFAF5] transition-colors"
-              type="button">
+              type="button"
+            >
               Hủy
             </button>
-
+            
             <!-- ========== SAVE BUTTON ========== -->
             <!-- Save: flex-[2] = take 2 parts of flex space (2x wider than cancel button) -->
             <!-- bg-[#2E7D32] = green background, text-white, shadow-lg shadow-[#2E7D32]/30 = green shadow -->
             <!-- hover: darker green + translated up + brighter shadow for interactive feedback -->
             <!-- flex items-center justify-center gap-2 = icon + text horizontally centered -->
             <!-- @click = emit save event to persist activity entry -->
-            <button @click="$emit('save')"
+            <button
+              @click="$emit('save')"
               class="flex-[2] py-3.5 px-6 rounded-lg bg-[#2E7D32] text-white font-bold shadow-lg shadow-[#2E7D32]/30 hover:bg-green-800 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-              type="button">
+              type="button"
+            >
               <!-- Icon: save = Material Symbol for save action -->
               <span class="material-symbols-outlined">save</span>
               <!-- Button text: "Lưu hoạt động" = Save Activity -->
@@ -452,17 +472,17 @@ watch(() => props.selectedActivity, (newActivity) => {
     <!-- p-4 rounded-lg = 16px padding, rounded corners -->
     <!-- flex items-start gap-3 = horizontal layout, aligned to top -->
     <div class="mt-6 bg-[#8D6E63] text-white p-4 rounded-lg flex items-start gap-3 shadow-lg">
-
+      
       <!-- Icon: lightbulb = Material Symbol for tips/ideas -->
       <!-- text-yellow-300 = yellow color for attention -->
       <span class="material-symbols-outlined text-yellow-300">lightbulb</span>
-
+      
       <!-- Tips content: text-sm = small font size -->
       <div class="text-sm">
         <!-- Tips title: "Mẹo cho Bác Ba:" = Tips for Uncle Ba (farmer) -->
         <!-- font-bold mb-1 = bold, 4px bottom margin before description -->
         <p class="font-bold mb-1">Mẹo cho Bác Ba:</p>
-
+        
         <!-- Tips description: opacity-90 = slightly transparent white -->
         <!-- Content changes based on activity (hardcoded for now but could be dynamic) -->
         <p class="opacity-90">
@@ -472,3 +492,5 @@ watch(() => props.selectedActivity, (newActivity) => {
     </div>
   </div>
 </template>
+
+

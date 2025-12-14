@@ -165,19 +165,19 @@ watch(danhSachTimKiem, veLaiBanDo);
 
 <template>
   <!-- ========== ROOT CONTAINER: WebGIS Layout ==========
-       - Class: absolute inset-0 flex - Absolute positioning, chiếm 100% viewport, flex layout
+       - Class: webgis-container - Custom CSS class định nghĩa layout (absolute, flex)
        - Layout: Flex container chứa map background & floating sidebar overlay
        - Z-index layers: map (z-0) → layer selector (z-999) → sidebar (z-1000)
   -->
-  <div class="absolute inset-0 flex">
+  <div class="webgis-container">
 
     <!-- ========== LEAFLET MAP CONTAINER ==========
          - ref="mapContainer" - Reference để khởi tạo Leaflet map instance
-         - Classes: w-full h-full z-0 bg-gray-200 - Full size, gray background placeholder
+         - Class: map-container - CSS custom class (width: 100%, height: 100%, background color)
          - Purpose: Nền bản đồ toàn màn hình cho WebGIS
          - Library: Leaflet (initMap() khởi tạo trong onMounted)
     -->
-    <div ref="mapContainer" class="w-full h-full z-0 bg-gray-200"></div>
+    <div ref="mapContainer" class="map-container"></div>
 
     <!-- ========== MAP LAYER SELECTOR COMPONENT ==========
          - Component: MapLayerSelector.vue
@@ -192,16 +192,16 @@ watch(danhSachTimKiem, veLaiBanDo);
 
     <!-- ========== FLOATING SIDEBAR CONTAINER ==========
          - Tag: <aside> - Semantic HTML cho sidebar
-         - Classes: absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-1000
+         - Class: floating-sidebar - Absolute position, width 360px, blur backdrop
          - Layout: flex flex-col để organize nội dung dọc
          - Features:
-           • Glass-morphism effect (backdrop-filter blur, rgba transparency) - CSS class .floating-sidebar
-           • Rounded corners rounded-2xl (16px)
+           • Glass-morphism effect (backdrop-filter blur, rgba transparency)
+           • Border-radius 16px để rounded corners
+           • Box-shadow để nổi lên trên map
            • Overflow hidden để clip nội dung vượt quá
-         - Z-index: z-1000 (cao hơn map & layer selector)
+         - Z-index: 1000 (cao hơn map & layer selector)
     -->
-    <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
+    <aside class="floating-sidebar">
 
       <!-- ========== SIDEBAR HEADER COMPONENT ==========
            - Component: SidebarHeader.vue
@@ -231,7 +231,7 @@ watch(danhSachTimKiem, veLaiBanDo);
 
       <!-- ========== LIST VIEW: Hiển thị danh sách sản phẩm ==========
            - Condition: v-if="!vungDangXem" - True khi không xem chi tiết
-           - Classes: flex flex-col flex-grow overflow-hidden
+           - Classes:
              • flex flex-col - Flex column layout
              • flex-grow - Chiếm hết không gian còn lại
              • overflow-hidden - Clip nội dung overflow

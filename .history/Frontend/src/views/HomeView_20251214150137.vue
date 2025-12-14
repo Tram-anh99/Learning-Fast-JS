@@ -165,19 +165,19 @@ watch(danhSachTimKiem, veLaiBanDo);
 
 <template>
   <!-- ========== ROOT CONTAINER: WebGIS Layout ==========
-       - Class: absolute inset-0 flex - Absolute positioning, chiếm 100% viewport, flex layout
+       - Class: webgis-container - Custom CSS class định nghĩa layout (absolute, flex)
        - Layout: Flex container chứa map background & floating sidebar overlay
        - Z-index layers: map (z-0) → layer selector (z-999) → sidebar (z-1000)
   -->
-  <div class="absolute inset-0 flex">
+  <div class="webgis-container">
 
     <!-- ========== LEAFLET MAP CONTAINER ==========
          - ref="mapContainer" - Reference để khởi tạo Leaflet map instance
-         - Classes: w-full h-full z-0 bg-gray-200 - Full size, gray background placeholder
+         - Class: map-container - CSS custom class (width: 100%, height: 100%, background color)
          - Purpose: Nền bản đồ toàn màn hình cho WebGIS
          - Library: Leaflet (initMap() khởi tạo trong onMounted)
     -->
-    <div ref="mapContainer" class="w-full h-full z-0 bg-gray-200"></div>
+    <div ref="mapContainer" class="map-container"></div>
 
     <!-- ========== MAP LAYER SELECTOR COMPONENT ==========
          - Component: MapLayerSelector.vue
@@ -192,16 +192,16 @@ watch(danhSachTimKiem, veLaiBanDo);
 
     <!-- ========== FLOATING SIDEBAR CONTAINER ==========
          - Tag: <aside> - Semantic HTML cho sidebar
-         - Classes: absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-1000
+         - Class: floating-sidebar - Absolute position, width 360px, blur backdrop
          - Layout: flex flex-col để organize nội dung dọc
          - Features:
-           • Glass-morphism effect (backdrop-filter blur, rgba transparency) - CSS class .floating-sidebar
-           • Rounded corners rounded-2xl (16px)
+           • Glass-morphism effect (backdrop-filter blur, rgba transparency)
+           • Border-radius 16px để rounded corners
+           • Box-shadow để nổi lên trên map
            • Overflow hidden để clip nội dung vượt quá
-         - Z-index: z-1000 (cao hơn map & layer selector)
+         - Z-index: 1000 (cao hơn map & layer selector)
     -->
-    <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-[1000]">
+    <aside class="floating-sidebar">
 
       <!-- ========== SIDEBAR HEADER COMPONENT ==========
            - Component: SidebarHeader.vue
@@ -231,7 +231,7 @@ watch(danhSachTimKiem, veLaiBanDo);
 
       <!-- ========== LIST VIEW: Hiển thị danh sách sản phẩm ==========
            - Condition: v-if="!vungDangXem" - True khi không xem chi tiết
-           - Classes: flex flex-col flex-grow overflow-hidden
+           - Classes:
              • flex flex-col - Flex column layout
              • flex-grow - Chiếm hết không gian còn lại
              • overflow-hidden - Clip nội dung overflow
@@ -323,24 +323,141 @@ watch(danhSachTimKiem, veLaiBanDo);
 <style scoped>
 /**
  * ========== STYLES: HomeView.vue ==========
- * Trang WebGIS tra cứu nông sản - Minimal CSS (chủ yếu dùng Tailwind)
+ * Styling cho trang WebGIS tra cứu nông sản
  * 
- * Note: Hầu hết styling được thực hiện bằng Tailwind utilities trong template.
- * Chỉ CSS custom phức tạp mới được định nghĩa ở đây.
+ * Layout Strategy:
+ *   - Absolute positioning cho toàn bộ view
+ *   - Leaflet map chiếm 100% width/height làm background
+ *   - Floating sidebar overlay (position absolute) với z-index cao
+ *   - Layer selector floating trên sidebar
+ * 
+ * Responsive:
+ *   - Desktop (lg+): Sidebar 360px fixed width
+ *   - Tablet (md): Sidebar 320px (có thể adjust via media query)
+ *   - Mobile: Full width modal hoặc bottom sheet (future enhancement)
  */
 
-/* Glass-morphism effect cho sidebar - Cần custom CSS do backdrop-filter phức tạp */
+/* ========== MAIN CONTAINER LAYOUT ========== */
+/**
+ * Root container: .webgis-container
+ * - Position absolute + inset-0 (top/bottom/left/right: 0) → chiếm 100% viewport
+ * - display: flex → horizontal flex layout
+ * - Chứa: map container (w-100%) + floating sidebar (position absolute overlay)
+ */
+.webgis-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+/* ========== MAP CONTAINER ========== */
+/**
+ * Leaflet map: .map-container
+ * - width: 100%, height: 100% → chiếm toàn bộ container (nền)
+ * - z-index: 0 → layer thấp nhất (background)
+ * - background-color: #e5e7eb (gray-200 từ Tailwind) → gray background nếu map chưa load
+ * 
+ * Leaflet sẽ render toàn bộ tiles, popups, và polygons vào container này.
+ * Các element khác (sidebar, layer selector) floating trên top với z-index cao hơn.
+ */
+.map-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-color: #e5e7eb;
+}
+
+/* ========== FLOATING SIDEBAR CONTAINER ========== */
+/**
+ * Sidebar overlay: .floating-sidebar
+ * 
+ * Position:
+ *   - position: absolute → floating overlay trên map
+ *   - top: 10px, left: 10px, bottom: 10px → margins từ edges (10px padding)
+ *   - width: 360px → fixed width sidebar (desktop standard)
+ *   - z-index: 1000 → cao hơn layer selector (z-999) và map (z-0)
+ * 
+ * Styling:
+ *   - background: rgba(255, 255, 255, 0.7) → white semi-transparent (70% opacity)
+ *   - backdrop-filter: blur(25px) → glass-morphism blur effect (30fps+ performance)
+ *   - border: 1px solid rgba(255, 255, 255, 0.5) → subtle border
+ *   - border-radius: 16px → rounded corners (larger than Tailwind rounded-lg)
+ *   - box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) → elevation shadow
+ *   - overflow: hidden → clip child content (header, tabs, list, v.v.)
+ * 
+ * Layout:
+ *   - display: flex, flex-direction: column → vertical stack (header → tabs → list)
+ *   - Children: SidebarHeader (fixed) + Tabs (fixed) + List (flex-grow scrollable)
+ */
 .floating-sidebar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  width: 360px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
+  border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
 }
 
-/* Gradient background cho sidebar header */
+/* ========== SIDEBAR HEADER STYLING ========== */
+/**
+ * Sidebar header: .sidebar-header
+ * 
+ * Background:
+ *   - linear-gradient: from #1b4332 (dark green) to #2d6a4f (medium green)
+ *   - color: white (text color)
+ *   - Tạo gradient effect chuyên nghiệp
+ * 
+ * Layout:
+ *   - display: flex, align-items: center → horizontal flex, center aligned
+ *   - Children: back button + search input + QR button (hoặc search + cancel mode)
+ * 
+ * Transition:
+ *   - transition: all 0.3s → smooth transition khi thay đổi mode (list ↔ detail)
+ * 
+ * Mode variants:
+ *   - .sidebar-header.detail-mode → thay đổi padding/layout khi xem chi tiết
+ */
 .sidebar-header {
   background: linear-gradient(to right, #1b4332, #2d6a4f);
+  color: white;
+  display: flex;
+  align-items: center;
   transition: all 0.3s;
 }
+
+/**
+ * Detail mode variant: .sidebar-header.detail-mode
+ * - padding: 0 → zero padding khi xem chi tiết (tight layout)
+ */
+.sidebar-header.detail-mode {
+  padding: 0;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+/**
+ * Future enhancement: Add media queries cho responsive design
+ * 
+ * Tablet (md - max-width: 768px):
+ *   - Sidebar width: 320px hoặc 85vw
+ *   - Adjust padding/gaps
+ * 
+ * Mobile (sm - max-width: 640px):
+ *   - Sidebar width: 100% (full width modal hoặc bottom sheet)
+ *   - Position: fixed bottom instead of left
+ *   - Slide-up animation
+ */
+/* TODO: @media (max-width: 768px) { ... } */
+/* TODO: @media (max-width: 640px) { ... } */
 </style>

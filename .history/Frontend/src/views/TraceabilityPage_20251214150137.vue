@@ -83,3 +83,16 @@ const { showQR, qrValue, openQR, closeQR } = useTraceability();
 
   </div>
 </template>
+
+<style scoped>
+/**
+ * ========== STYLES: TraceabilityPage.vue ==========
+ * Styling cho trang truy xuất nguồn gốc
+ */
+
+/* Responsive design: Màn hình lớn (1024px trở lên) */
+@media (min-width: 1024px) {
+  /* Container chính - Chiều cao toàn màn hình, flex center */
+  /* (Hiện tại không còn class .about nên không cần style này) */
+}
+</style>

@@ -78,35 +78,45 @@ const danhSachVung = ref(mockDataVung);
 </script>
 
 <template>
-      <!-- Container layout chính - Position absolute toàn màn hình, Flex column -->
-      <div class="absolute inset-0 bg-slate-100 flex flex-col p-5 gap-5">
+  <!-- Container layout chính - Position absolute toàn màn hình, Flex column -->
+  <div class="absolute inset-0 bg-slate-100 flex flex-col p-5 gap-5">
 
-            <!-- 1. Thanh thống kê ở trên cùng - Chiều cao cố định -->
-            <!-- Props: :thongKe - Dữ liệu thống kê hệ thống -->
-            <StatsBarComponent :thongKe="thongKe" />
+    <!-- 1. Thanh thống kê ở trên cùng - Chiều cao cố định -->
+    <!-- Props: :thongKe - Dữ liệu thống kê hệ thống -->
+    <StatsBarComponent :thongKe="thongKe" />
 
-            <!-- 2. Khu vực giữa: Biểu đồ & Bản đồ - Flex row, chiếm phần còn lại của không gian -->
-            <div class="flex flex-[2] gap-5 min-h-0">
+    <!-- 2. Khu vực giữa: Biểu đồ & Bản đồ - Flex row, chiếm phần còn lại của không gian -->
+    <div class="flex flex-[2] gap-5 min-h-0">
 
-                  <!-- 2.1 Biểu đồ bên trái - Chiếm 1 phần của flex -->
-                  <!-- min-w-[300px] - Chiều rộng tối thiểu 300px để responsive -->
-                  <div class="flex-1 min-w-[300px]">
-                        <!-- Thành phần biểu đồ thống kê (Chart.js) -->
-                        <ChartsComponent />
-                  </div>
+      <!-- 2.1 Biểu đồ bên trái - Chiếm 1 phần của flex -->
+      <!-- min-w-[300px] - Chiều rộng tối thiểu 300px để responsive -->
+      <div class="flex-1 min-w-[300px]">
+        <!-- Thành phần biểu đồ thống kê (Chart.js) -->
+        <ChartsComponent />
+      </div>
 
-                  <!-- 2.2 Bản đồ bên phải - Chiếm 2 phần của flex (lớn hơn biểu đồ) -->
-                  <!-- Props:
+      <!-- 2.2 Bản đồ bên phải - Chiếm 2 phần của flex (lớn hơn biểu đồ) -->
+      <!-- Props:
            - :danhSachVung - Danh sách vùng trồng để hiển thị trên bản đồ
            - :diemNongSauBenh - Điểm dịch bệnh trên bản đồ
       -->
-                  <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
+      <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
 
-            </div>
+    </div>
 
-            <!-- 3. Bảng danh sách vùng ở dưới - Chiều cao cố định -->
-            <!-- Props: :danhSachVung - Danh sách vùng trồng để hiển thị trong bảng -->
-            <DataTableComponent :danhSachVung="danhSachVung" />
+    <!-- 3. Bảng danh sách vùng ở dưới - Chiều cao cố định -->
+    <!-- Props: :danhSachVung - Danh sách vùng trồng để hiển thị trong bảng -->
+    <DataTableComponent :danhSachVung="danhSachVung" />
 
-      </div>
+  </div>
 </template>
+
+<style scoped>
+/**
+ * ========== STYLES: QuanLyView.vue ==========
+ * Styling cho trang quản lý vùng trồng
+ * (Chủ yếu dùng Tailwind CSS utilities, style scoped ít cần thiết)
+ */
+
+/* Có thể thêm custom styles nếu cần tùy chỉnh: */
+</style>
