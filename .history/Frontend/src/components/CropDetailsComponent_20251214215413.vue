@@ -35,8 +35,8 @@ const cropsInZone = computed(() => {
 
 // ========== COMPUTED: Danh sách thị trường của vùng được chọn ==========
 const marketsInZone = computed(() => {
-      if (!selectedVung.value?.ma) return [];
-      return getMarketsbyZone(selectedVung.value.ma);
+      if (!props.selectedVung?.ma) return [];
+      return getMarketsbyZone(props.selectedVung.ma);
 });
 
 // ========== COMPUTED: Tổng diện tích vùng ==========
@@ -66,12 +66,12 @@ const getMarketBadgeClass = (market) => {
 
 <template>
       <!-- Container chính -->
-      <div v-if="selectedVung" class="panel flex flex-col min-h-[350px] max-h-[600px] overflow-auto">
+      <div v-if="props.selectedVung" class="panel flex flex-col min-h-[350px] max-h-[600px] overflow-auto">
             <!-- Header -->
             <div class="panel-header">
                   <div class="flex-1">
-                        <h3 class="panel-title">Chi tiết Loại cây - {{ selectedVung.ma }}</h3>
-                        <p class="text-xs text-gray-500 mt-1">{{ selectedVung.ten }}</p>
+                        <h3 class="panel-title">Chi tiết Loại cây - {{ props.selectedVung.ma }}</h3>
+                        <p class="text-xs text-gray-500 mt-1">{{ props.selectedVung.ten }}</p>
                   </div>
                   <div class="text-right text-xs">
                         <p class="font-semibold text-gray-600">Tổng diện tích: <span class="text-blue-600">{{
