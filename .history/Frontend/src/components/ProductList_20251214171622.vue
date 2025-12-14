@@ -14,10 +14,13 @@
  *   - Dynamic product list rendering via v-for
  *   - Empty state with icon & message when items.length === 0
  *   - Vertical scroll (overflow-y-auto) for lists > screen height
+ *   - Pass helper functions to child: getClassTrangThai, getTextTrangThai
  *   - Delegate item click to parent via select event
  * 
  * Props:
  *   - items (Array): Array of product objects to display
+ *   - getClassTrangThai (Function): Returns CSS class based on product status
+ *   - getTextTrangThai (Function): Returns Vietnamese text for product status
  * 
  * Emits:
  *   - select (Object): Product object when user clicks item
@@ -36,6 +39,15 @@ const props = defineProps({
       items: {
             type: Array,
             default: () => []  // Default to empty array if not provided
+      },
+
+      // getMapColor: Function that returns color hex based on product status
+      // Parameters: @param {string} status - Product status string ('canh_tac', 'thu_hoach', 'da_thu_hoach')
+      // Returns: {string} Hex color (e.g., '#4caf50') from useMapLogic
+      // Usage: Apply status badge styling & map colors
+      getMapColor: {
+            type: Function,
+            required: true
       }
 });
 

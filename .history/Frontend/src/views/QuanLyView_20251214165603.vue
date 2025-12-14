@@ -97,54 +97,35 @@ const danhSachVung = ref(mockDataVung);
 </script>
 
 <template>
-      <!-- ========== MAIN CONTAINER ========== -->
-      <!-- Layout chính: Absolute positioning toàn màn hình, background xám nhạt -->
-      <!-- flex flex-col: Bố cục dọc (các phần xếp từ trên xuống) -->
-      <!-- p-5: Padding 20px xung quanh -->
-      <!-- gap-5: Khoảng cách 20px giữa các phần -->
+      <!-- Container layout chính - Position absolute toàn màn hình, Flex column -->
       <div class="absolute inset-0 bg-slate-100 flex flex-col p-5 gap-5">
 
-            <!-- ========== SECTION 1: STATS BAR ========== -->
-            <!-- Thanh thống kê ở trên cùng - Chiều cao tự động, fixed layout -->
-            <!-- Props:
-         - :thongKe - Dữ liệu thống kê hệ thống (tongVung, dienTich, canhBao)
-         Output: 3 stat cards hiển thị các chỉ số chính
-    -->
+            <!-- 1. Thanh thống kê ở trên cùng - Chiều cao cố định -->
+            <!-- Props: :thongKe - Dữ liệu thống kê hệ thống -->
             <StatsBarComponent :thongKe="thongKe" />
 
-            <!-- ========== SECTION 2: CHARTS & MAP ========== -->
-            <!-- Khu vực giữa: Biểu đồ (trái) & Bản đồ (phải) -->
-            <!-- flex flex-[2]: Flex row, chiếm 2 phần trong grid layout chính -->
-            <!-- gap-5: Khoảng cách 20px giữa biểu đồ và bản đồ -->
-            <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung (quan trọng cho overflow) -->
+            <!-- 2. Khu vực giữa: Biểu đồ & Bản đồ - Flex row, chiếm phần còn lại của không gian -->
             <div class="flex flex-[2] gap-5 min-h-0">
 
-                  <!-- ========== CHARTS SECTION ========== -->
-                  <!-- Biểu đồ bên trái: Pie chart xuất khẩu + Bar chart năng suất -->
-                  <!-- flex-1: Chiếm 1 phần của flex space -->
-                  <!-- min-w-[300px]: Chiều rộng tối thiểu 300px để responsive trên màn hình nhỏ -->
+                  <!-- 2.1 Biểu đồ bên trái - Chiếm 1 phần của flex -->
+                  <!-- min-w-[300px] - Chiều rộng tối thiểu 300px để responsive -->
                   <div class="flex-1 min-w-[300px]">
-                        <!-- Component biểu đồ thống kê (Chart.js) -->
-                        <!-- Render: Pie chart (phân bổ thị trường xuất khẩu) + Bar chart (năng suất cây trồng) -->
+                        <!-- Thành phần biểu đồ thống kê (Chart.js) -->
                         <ChartsComponent />
                   </div>
 
-                  <!-- ========== MAP SECTION ========== -->
-                  <!-- Bản đồ bên phải: Leaflet map với polygon vùng trồng -->
-                  <!-- flex-[2]: Chiếm 2 phần của flex space (lớn gấp đôi biểu đồ) -->
+                  <!-- 2.2 Bản đồ bên phải - Chiếm 2 phần của flex (lớn hơn biểu đồ) -->
                   <!-- Props:
-           - :danhSachVung - Danh sách vùng trồng để render polygon trên bản đồ
-           - :diemNongSauBenh - Điểm dịch bệnh/rủi ro để hiển thị marker
+           - :danhSachVung - Danh sách vùng trồng để hiển thị trên bản đồ
+           - :diemNongSauBenh - Điểm dịch bệnh trên bản đồ
       -->
                   <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
+
             </div>
 
-            <!-- ========== SECTION 3: DATA TABLE ========== -->
-            <!-- Bảng danh sách vùng ở dưới - Chiều cao cố định, scrollable -->
-            <!-- Props:
-         - :danhSachVung - Danh sách vùng trồng để render trong bảng
-         Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
-    -->
+            <!-- 3. Bảng danh sách vùng ở dưới - Chiều cao cố định -->
+            <!-- Props: :danhSachVung - Danh sách vùng trồng để hiển thị trong bảng -->
             <DataTableComponent :danhSachVung="danhSachVung" />
+
       </div>
 </template>

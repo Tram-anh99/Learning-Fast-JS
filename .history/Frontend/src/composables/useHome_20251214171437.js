@@ -128,28 +128,10 @@ export const showQR = ref(false);
 export const qrLink = ref("");
 
 // ========== IMPORT FROM useMapLogic ==========
-const {
-     map,
-     mapContainer,
-     layerGroup,
-     tileLayers,
-     currentLayer,
-     initMap,
-     changeTileLayer,
-     getMapColor,
-} = useMapLogic();
+const { map, mapContainer, layerGroup, tileLayers, currentLayer, initMap, changeTileLayer, getMapColor } = useMapLogic();
 
 // Export map-related state & methods
-export {
-     map,
-     mapContainer,
-     layerGroup,
-     tileLayers,
-     currentLayer,
-     initMap,
-     changeTileLayer,
-     getMapColor,
-};
+export { map, mapContainer, layerGroup, tileLayers, currentLayer, initMap, changeTileLayer, getMapColor };
 
 // ========== COMPUTED PROPERTIES ==========
 

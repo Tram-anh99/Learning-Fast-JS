@@ -1,13 +1,13 @@
 /**
  * ========== COMPOSABLE: useMapLogic.js ==========
  * Purpose: Quản lý logic bản đồ Leaflet - hỗ trợ cả Home view & Dashboard
- *
+ * 
  * Features:
  *   - Khởi tạo bản đồ với 2 mode: 'home' (ArcGIS tiles) & 'dashboard' (CartoDB)
  *   - Vẽ polygon vùng trồng & circle markers
  *   - Quản lý layer sâu bệnh, hành chính
  *   - Zoom control & tile layer switching
- *
+ * 
  * Related Files:
  *   - src/composables/useHome.js (sử dụng mode 'home')
  *   - src/components/MapComponent.vue (sử dụng mode 'dashboard')
@@ -22,28 +22,28 @@ import L from "leaflet";
  */
 export function useMapLogic() {
      // ========== STATE & REFS ==========
-
+     
      // Instance bản đồ Leaflet (shallowRef để không track deep changes)
      const map = shallowRef(null);
-
+     
      // Ref đến DOM element #map-container - nơi Leaflet mount
      const mapContainer = ref(null);
-
+     
      // Layer group chứa các circle markers cho điểm sâu bệnh
      const lopSauBenh = shallowRef(L.layerGroup());
-
+     
      // Layer group chứa các polygon vùng trồng (cho mode home)
      const layerGroup = shallowRef(null);
-
+     
      // Trạng thái chế độ xem hiện tại: 'hanh_chinh' | 'sau_benh'
      const cheDoXem = ref("hanh_chinh");
-
+     
      // Lưu tile layers khác nhau { satellite, street }
      const tileLayers = shallowRef({
           satellite: null,
           street: null,
      });
-
+     
      // Layer hiện tại đang hiển thị
      const currentLayer = ref("satellite");
 
@@ -56,10 +56,10 @@ export function useMapLogic() {
       */
      const getMapColor = (trangThai) => {
           const colors = {
-               canh_tac: "#4caf50", // Xanh lá
-               sau_benh: "#ef5350", // Đỏ
-               thu_hoach: "#ffca28", // Vàng
-               da_thu_hoach: "#2563eb", // Xanh dương
+               canh_tac: "#4caf50",      // Xanh lá
+               sau_benh: "#ef5350",       // Đỏ
+               thu_hoach: "#ffca28",      // Vàng
+               da_thu_hoach: "#2563eb",   // Xanh dương
           };
           return colors[trangThai] || "#999";
      };
@@ -68,24 +68,20 @@ export function useMapLogic() {
      /**
       * Khởi tạo Leaflet map instance
       * Hỗ trợ 2 mode: 'home' (sidebar map) & 'dashboard' (full map)
-      *
+      * 
       * Mode 'home':
       *   - Tiles: ArcGIS Satellite + Street + Boundaries
       *   - Phục vụ HomeView.vue
-      *
+      * 
       * Mode 'dashboard':
       *   - Tiles: CartoDB Positron (single tile)
       *   - Phục vụ MapComponent.vue trong QuanLyView
-      *
+      * 
       * @param {string} mode - 'home' | 'dashboard' (mặc định: 'dashboard')
       * @param {Array} coordinates - [lat, lng] (mặc định: [10.765, 106.66])
       * @param {number} zoom - zoom level (mặc định: 13)
       */
-     const initMap = (
-          mode = "dashboard",
-          coordinates = [10.765, 106.66],
-          zoom = 13
-     ) => {
+     const initMap = (mode = 'dashboard', coordinates = [10.765, 106.66], zoom = 13) => {
           // Kiểm tra container DOM tồn tại
           if (!mapContainer.value) return;
 
@@ -98,9 +94,9 @@ export function useMapLogic() {
           // Thêm zoom control ở góc dưới phải
           L.control.zoom({ position: "bottomright" }).addTo(map.value);
 
-          if (mode === "home") {
+          if (mode === 'home') {
                // ========== MODE HOME: ArcGIS Tiles ==========
-
+               
                // Tile 1: Satellite (ảnh vệ tinh)
                tileLayers.value.satellite = L.tileLayer(
                     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
@@ -131,7 +127,7 @@ export function useMapLogic() {
                layerGroup.value = L.layerGroup().addTo(map.value);
           } else {
                // ========== MODE DASHBOARD: CartoDB Positron ==========
-
+               
                // Tile: CartoDB Positron (light, minimal)
                L.tileLayer(
                     "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
@@ -162,13 +158,13 @@ export function useMapLogic() {
                if (vung.toaDo) {
                     // Lấy màu theo trạng thái
                     const mauSac = getMapColor(vung.trangThai);
-
+                    
                     // Vẽ polygon với tọa độ vùng
                     const poly = L.polygon(vung.toaDo, {
-                         color: mauSac, // Màu viền
-                         fillColor: mauSac, // Màu nền
-                         fillOpacity: 0.6, // Độ trong suốt
-                         weight: 2, // Độ dày viền
+                         color: mauSac,        // Màu viền
+                         fillColor: mauSac,    // Màu nền
+                         fillOpacity: 0.6,     // Độ trong suốt
+                         weight: 2,            // Độ dày viền
                     }).addTo(layerGroup.value);
 
                     // Thêm popup khi click
@@ -219,7 +215,7 @@ export function useMapLogic() {
                     color: "red",
                     fillColor: "#f03",
                     fillOpacity: 0.4,
-                    radius: 300, // 300m radius
+                    radius: 300,    // 300m radius
                }).addTo(lopSauBenh.value);
           });
      };
@@ -262,7 +258,7 @@ export function useMapLogic() {
           cheDoXem,
           tileLayers,
           currentLayer,
-
+          
           // Methods
           initMap,
           veLaiBanDo,

@@ -19,7 +19,7 @@
 
 // ========== IMPORTS ==========
 // Composable: Quản lý state QR, dữ liệu vùng trồng & tra cứu sản phẩm
-import { showQR, qrLink, openQRModal, closeQRModal } from '../composables/useHome';
+import { showQR, openQRModal, closeQRModal } from '../composables/useHome';
 import QRModal from '../components/QRModal.vue';
 
 // ========== STATE & METHODS ==========
@@ -35,11 +35,44 @@ import QRModal from '../components/QRModal.vue';
 <template>
   <!-- ========== MAIN CONTAINER ========== -->
   <!-- Container chính: Độ cao tối thiểu là toàn màn hình, background xám nhạt -->
+  <!-- relative: Position context cho FAB button (absolute positioning) -->
   <!-- min-h-screen: Chiều cao tối thiểu 100vh -->
-  <!-- pb-10: Padding dưới 40px -->
+  <!-- pb-10: Padding dưới 40px (tránh nội dung bị che bởi FAB) -->
   <!-- font-sans: Font chữ sans-serif (Tailwind default) -->
   <!-- bg-gray-50: Background màu xám rất nhạt -->
-  <div class="min-h-screen pb-10 font-sans bg-gray-50">
+  <div class="relative min-h-screen pb-10 font-sans bg-gray-50">
+
+    <!-- ========== FLOATING ACTION BUTTON (FAB) ========== -->
+    <!-- FAB container: Positioned tuyệt đối ở góc trên phải -->
+    <!-- absolute: Position tuyệt đối trong parent (relative) -->
+    <!-- z-20: z-index 20 (phía trên hầu hết nội dung) -->
+    <!-- top-4: 16px từ đỉnh -->
+    <!-- right-4: 16px từ bên phải -->
+    <div class="absolute z-20 top-4 right-4">
+      <!-- Nút QR FAB: Compact button với tooltip -->
+      <!-- p-2: Padding 8px -->
+      <!-- text-gray-700: Màu icon xám đậm -->
+      <!-- transition: Smooth animation cho hover effects -->
+      <!-- rounded-full: Hình tròn (border-radius 9999px) -->
+      <!-- shadow-lg: Large shadow cho elevation -->
+      <!-- bg-white/90: White background với 90% opacity (transparent effect) -->
+      <!-- hover:text-green-600: Đổi icon sang xanh khi hover -->
+      <!-- title: Tooltip text "Hiện mã QR" -->
+      <!-- @click: Gọi openQR() để mở modal QR -->
+      <button @click="openQR"
+        class="p-2 text-gray-700 transition rounded-full shadow-lg bg-white/90 hover:text-green-600" title="Hiện mã QR">
+        <!-- Icon: QR Code (SVG) -->
+        <!-- w-6 h-6: 24px x 24px icon size -->
+        <!-- viewBox="0 0 24 24": SVG coordinate system -->
+        <!-- stroke-currentColor: Icon stroke color kế thừa từ text-gray-700 -->
+        <!-- stroke-width="2": 2px stroke width -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <!-- Path: QR code icon (hình vuông lồng nhau) -->
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 4v1m6 11h2m-6 0h-2v4h2v-4zM6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </button>
+    </div>
 
     <!-- ========== PRIMARY ACTION BUTTON ========== -->
     <!-- Main QR button: Toàn chiều rộng, dưới header -->
@@ -58,8 +91,8 @@ import QRModal from '../components/QRModal.vue';
       <!-- shadow-lg: Large shadow cho elevation -->
       <!-- hover:bg-green-900: Đổi sang xanh lá tối hơn khi hover -->
       <!-- rounded-xl: Rounded corners (xl = 12px) -->
-      <!-- @click: Gọi openQRModal() để mở modal QR -->
-      <button @click="openQRModal('product-id')"
+      <!-- @click: Gọi openQR() để mở modal QR -->
+      <button @click="openQR"
         class="flex items-center justify-center w-full py-3 font-bold text-white transition-colors bg-green-800 shadow-lg hover:bg-green-900 rounded-xl">
         <!-- Icon: QR Code (SVG) -->
         <!-- w-5 h-5: 20px x 20px icon size -->
@@ -76,15 +109,15 @@ import QRModal from '../components/QRModal.vue';
       </button>
     </div>
 
-    <!-- QR CODE MODAL ========== -->
+    <!-- ========== QR CODE MODAL ========== -->
     <!-- Modal component: Hiển thị mã QR code -->
     <!-- v-if: Conditionally render dựa trên showQR.value -->
     <!-- Props:
          - show: showQR (Boolean) - Trạng thái hiển thị modal
-         - qrValue: qrLink (String) - Giá trị/URL trong QR code (từ useHome)
+         - qrValue: qrValue (String) - Giá trị/URL trong QR code
          Events:
-         - @close: Gọi closeQRModal() khi user đóng modal (click X hoặc backdrop)
+         - @close: Gọi closeQR() khi user đóng modal (click X hoặc backdrop)
     -->
-    <QRModal :show="showQR" :qrValue="qrLink" @close="closeQRModal" />
+    <QRModal :show="showQR" :qrValue="qrValue" @close="closeQR" />
   </div>
 </template>

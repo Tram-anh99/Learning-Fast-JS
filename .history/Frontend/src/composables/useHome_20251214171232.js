@@ -4,13 +4,16 @@
  * Features: Quản lý dữ liệu vùng trồng, bộ lọc, QR modal
  * Related Files:
  *   - src/views/HomeView.vue (Main view)
- *   - src/composables/useMapLogic.js (Bản đồ logic - shared)
- *   - src/composables/statusHelpers.js (Status badge helpers)
+ *   - src/components/HomeListItem.vue (Item trong danh sách)
+ *   - src/components/HomeDetailView.vue (Chi tiết vùng)
+ *   - src/components/HomeQRModal.vue (Modal QR code)
+ *   - src/assets/styles/tailwind.css (Global styles)
  */
 
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, shallowRef } from "vue";
 import L from "leaflet";
 import { useMapLogic } from "./useMapLogic";
+import { getStatusBadge } from "./statusHelpers";
 
 // ========== STATE & REFS ==========
 // Mảng dữ liệu gốc chứa tất cả vùng trồng
@@ -127,29 +130,20 @@ export const showQR = ref(false);
 // Giá trị QR link để chia sẻ
 export const qrLink = ref("");
 
-// ========== IMPORT FROM useMapLogic ==========
-const {
-     map,
-     mapContainer,
-     layerGroup,
-     tileLayers,
-     currentLayer,
-     initMap,
-     changeTileLayer,
-     getMapColor,
-} = useMapLogic();
+// Instance bản đồ Leaflet
+export const map = shallowRef(null);
+// Ref container HTML chứa bản đồ
+export const mapContainer = ref(null);
+// Layer group chứa các polygon vùng trồng
+export const layerGroup = shallowRef(null);
 
-// Export map-related state & methods
-export {
-     map,
-     mapContainer,
-     layerGroup,
-     tileLayers,
-     currentLayer,
-     initMap,
-     changeTileLayer,
-     getMapColor,
-};
+// Tile layers - lưu các layer khác nhau
+export const tileLayers = shallowRef({
+     satellite: null,
+     street: null,
+});
+// Lớp hiện tại đang hiển thị
+export const currentLayer = ref("satellite");
 
 // ========== COMPUTED PROPERTIES ==========
 
@@ -181,11 +175,51 @@ export const danhSachTimKiem = computed(() => {
      );
 });
 
+// ========== HELPER FUNCTIONS ==========
+
+/**
+ * Lấy class CSS theo trạng thái
+ */
+export const getClassTrangThai = (tt) => {
+     const classes = {
+          canh_tac: "bg-green-500",
+          sau_benh: "bg-red-500",
+          thu_hoach: "bg-yellow-500",
+          da_thu_hoach: "bg-blue-600",
+     };
+     return classes[tt] || "bg-gray-500";
+};
+
+/**
+ * Lấy màu bản đồ theo trạng thái
+ */
+export const getMapColor = (tt) => {
+     const colors = {
+          canh_tac: "#4caf50",
+          sau_benh: "#ef5350",
+          thu_hoach: "#ffca28",
+          da_thu_hoach: "#2563eb",
+     };
+     return colors[tt] || "#999";
+};
+
+/**
+ * Lấy text hiển thị từ trạng thái
+ */
+export const getTextTrangThai = (tt) => {
+     const texts = {
+          canh_tac: "Đang canh tác",
+          sau_benh: "Cảnh báo dịch hại",
+          thu_hoach: "Đang thu hoạch",
+          da_thu_hoach: "Đã thu hoạch",
+     };
+     return texts[tt] || "Không xác định";
+};
+
 // ========== INTERACTIVE FUNCTIONS ==========
 
 /**
  * Chọn vùng để xem chi tiết
- * Di chuyển map đến vùng được chọn
  */
 export const chonVung = (vung) => {
      if (map.value && vung.toaDo) {
@@ -199,7 +233,6 @@ export const chonVung = (vung) => {
 
 /**
  * Quay lại danh sách
- * Reset vùng được chọn & di chuyển map về vị trí mặc định
  */
 export const quayLaiDanhSach = () => {
      vungDangXem.value = null;
@@ -209,9 +242,8 @@ export const quayLaiDanhSach = () => {
 };
 
 /**
- * Vẽ lại bản đồ với dữ liệu đã lọc
+ * Vẽ lại bản đồ
  * Xóa các polygon cũ và thêm polygon mới cho từng vùng trồng
- * Dùng danhSachTimKiem (đã lọc theo status & search)
  */
 export const veLaiBanDo = () => {
      if (!map.value || !layerGroup.value) return;
@@ -221,7 +253,7 @@ export const veLaiBanDo = () => {
      // Lặp qua từng vùng trong danh sách tìm kiếm
      danhSachTimKiem.value.forEach((vung) => {
           if (vung.toaDo) {
-               // Lấy màu theo trạng thái từ useMapLogic
+               // Lấy màu theo trạng thái
                const mauSac = getMapColor(vung.trangThai);
                // Tạo polygon
                const poly = L.polygon(vung.toaDo, {
@@ -253,4 +285,82 @@ export const openQRModal = (maSanPham) => {
 export const closeQRModal = () => {
      showQR.value = false;
      qrLink.value = "";
+};
+
+// ========== MAP INITIALIZATION ==========
+
+/**
+ * Khởi tạo bản đồ Leaflet
+ * - Tạo instance Leaflet map
+ * - Set toạ độ mặc định (Mekong Delta)
+ * - Thêm tile layer ảnh vệ tinh
+ * - Thêm tile layer ranh giới hành chính
+ * - Tạo layer group để chứa các polygon vùng trồng
+ * - Vẽ bản đồ với danh sách hiện tại
+ */
+export const initMap = () => {
+     // Kiểm tra container có được ref không
+     if (!mapContainer.value) return;
+
+     // Tạo instance map với toạ độ center [10.762, 106.66] (Mekong Delta)
+     // Zoom level 13
+     // zoomControl: false để tự custom vị trí control
+     map.value = L.map(mapContainer.value, { zoomControl: false }).setView(
+          [10.762, 106.66],
+          13
+     );
+
+     // Thêm zoom control ở góc dưới bên phải
+     L.control.zoom({ position: "bottomright" }).addTo(map.value);
+
+     // Tile layer Satellite (ảnh vệ tinh)
+     tileLayers.value.satellite = L.tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          {
+               maxZoom: 19,
+               attribution: "Tiles &copy; Esri",
+          }
+     );
+
+     // Tile layer Street (đường phố)
+     tileLayers.value.street = L.tileLayer(
+          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          {
+               maxZoom: 19,
+               attribution: "© OpenStreetMap contributors",
+          }
+     );
+
+     // Thêm Satellite layer mặc định vào map
+     tileLayers.value.satellite.addTo(map.value);
+
+     // Thêm Tile layer ranh giới hành chính từ ArcGIS
+     // Dùng để hiển thị đường biên giữa các vùng
+     L.tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+     ).addTo(map.value);
+
+     // Tạo layer group để chứa các polygon vùng trồng
+     // Làm riêng để dễ clear khi lọc dữ liệu
+     layerGroup.value = L.layerGroup().addTo(map.value);
+
+     // Vẽ các polygon lên bản đồ
+     veLaiBanDo();
+};
+
+/**
+ * Thay đổi lớp tile layer
+ * @param {string} layer - 'satellite' hoặc 'street'
+ */
+export const changeTileLayer = (layer) => {
+     if (!map.value || !tileLayers.value[layer]) return;
+
+     // Xóa layer hiện tại
+     map.value.removeLayer(tileLayers.value[currentLayer.value]);
+
+     // Thêm layer mới
+     tileLayers.value[layer].addTo(map.value);
+
+     // Update trạng thái
+     currentLayer.value = layer;
 };

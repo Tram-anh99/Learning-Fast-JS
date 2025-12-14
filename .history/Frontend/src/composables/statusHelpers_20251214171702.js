@@ -16,43 +16,17 @@
  */
 export function getStatusBadge(status) {
      const statusMap = {
-          canh_tac: {
-               text: "Đang canh tác",
-               class: "bg-green-500",
-               color: "#4caf50",
-          },
-          sau_benh: {
-               text: "Cảnh báo dịch hại",
-               class: "bg-red-500",
-               color: "#ef5350",
-          },
-          thu_hoach: {
-               text: "Đang thu hoạch",
-               class: "bg-yellow-500",
-               color: "#ffca28",
-          },
-          da_thu_hoach: {
-               text: "Đã thu hoạch",
-               class: "bg-blue-600",
-               color: "#2563eb",
-          },
+          canh_tac: { text: "Đang canh tác", class: "bg-green-500", color: "#4caf50" },
+          sau_benh: { text: "Cảnh báo dịch hại", class: "bg-red-500", color: "#ef5350" },
+          thu_hoach: { text: "Đang thu hoạch", class: "bg-yellow-500", color: "#ffca28" },
+          da_thu_hoach: { text: "Đã thu hoạch", class: "bg-blue-600", color: "#2563eb" },
           // Legacy status names (for backward compatibility)
-          active: {
-               text: "Đang hoạt động",
-               class: "bg-green-500",
-               color: "#4caf50",
-          },
+          active: { text: "Đang hoạt động", class: "bg-green-500", color: "#4caf50" },
           warning: { text: "Cảnh báo", class: "bg-red-500", color: "#ef5350" },
           revoked: { text: "Đã thu hồi", class: "bg-gray-500", color: "#999" },
      };
      // Return matching status or default danger
-     return (
-          statusMap[status] || {
-               text: "Không xác định",
-               class: "bg-gray-500",
-               color: "#999",
-          }
-     );
+     return statusMap[status] || { text: "Không xác định", class: "bg-gray-500", color: "#999" };
 }
 
 /**

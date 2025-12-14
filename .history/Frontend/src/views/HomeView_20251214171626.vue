@@ -264,7 +264,8 @@ watch(danhSachTimKiem, veLaiBanDo);
                • Empty state nếu không có sản phẩm (lọc không trùng)
                • Scrollable nếu danh sách dài
         -->
-        <ProductList :items="danhSachTimKiem" @select="chonVung" />
+        <ProductList :items="danhSachTimKiem" :getMapColor="getMapColor"
+          @select="chonVung" />
       </div>
 
       <!-- ========== DETAIL VIEW: Hiển thị chi tiết vùng ==========
