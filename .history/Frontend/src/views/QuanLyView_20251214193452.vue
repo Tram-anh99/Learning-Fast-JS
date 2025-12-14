@@ -107,7 +107,7 @@ const danhSachVung = ref(mockDataVung);
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="absolute inset-0 flex flex-col gap-5 p-5 overflow-y-auto bg-slate-100 scrollbar-custom">
+      <div class="absolute inset-0 bg-slate-100 flex flex-col p-5 gap-5 overflow-y-auto scrollbar-custom">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
             <!-- Thanh thống kê ở trên cùng - Chiều cao tự động, fixed layout -->
@@ -119,10 +119,10 @@ const danhSachVung = ref(mockDataVung);
 
             <!-- ========== SECTION 2: CHARTS & MAP ========== -->
             <!-- Khu vực giữa: Biểu đồ (trái) & Bản đồ (phải) -->
-            <!-- flex flex-[2]: Flex row, chiếm 2 phần trong grid layout chính (tăng chiều cao) -->
+            <!-- flex flex-[1]: Flex row, chiếm 1 phần trong grid layout chính -->
             <!-- gap-5: Khoảng cách 20px giữa biểu đồ và bản đồ -->
             <!-- min-h-0: Cho phép flex item co lại nhỏ hơn nội dung (quan trọng cho overflow) -->
-            <div class="flex flex-[2] gap-5 min-h-0">
+            <div class="flex flex-[1] gap-5 min-h-0">
 
                   <!-- ========== CHARTS SECTION ========== -->
                   <!-- Biểu đồ bên trái: Pie chart xuất khẩu + Bar chart năng suất -->

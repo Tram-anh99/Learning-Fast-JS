@@ -107,7 +107,7 @@ const danhSachVung = ref(mockDataVung);
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="absolute inset-0 flex flex-col gap-5 p-5 overflow-y-auto bg-slate-100 scrollbar-custom">
+      <div class="absolute inset-0 bg-slate-100 flex flex-col p-5 gap-5 overflow-y-auto scrollbar-custom">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
             <!-- Thanh thống kê ở trên cùng - Chiều cao tự động, fixed layout -->
