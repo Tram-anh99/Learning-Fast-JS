@@ -146,16 +146,8 @@ const clearSelection = () => {
                   <!-- Props:
            - :danhSachVung - Danh sách vùng trồng để render polygon trên bản đồ
            - :diemNongSauBenh - Điểm dịch bệnh/rủi ro để hiển thị marker
-           - :selectedVung - Vùng được chọn (highlight trên bản đồ)
-      Events:
-           - @selectVung - Phát ra khi bấm vào polygon
       -->
-                  <MapComponent 
-                        :danhSachVung="danhSachVung" 
-                        :diemNongSauBenh="mockDiemNongSauBenh"
-                        :selectedVung="selectedVung"
-                        @selectVung="handleSelectVungFromMap"
-                  />
+                  <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh" />
             </div>
 
             <!-- ========== SECTION 3: BAR CHART & LINE CHART ========== -->
@@ -186,16 +178,9 @@ const clearSelection = () => {
             <!-- Chiều cao tự động theo nội dung -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
-         - :selectedVung - Vùng được chọn (highlight row)
-         Events:
-         - @selectVung - Phát ra khi bấm vào row
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
     -->
-            <DataTableComponent 
-                  :danhSachVung="danhSachVung"
-                  :selectedVung="selectedVung"
-                  @selectVung="handleSelectVungFromTable"
-            />
+            <DataTableComponent :danhSachVung="danhSachVung" />
 
             <!-- ========== FOOTER ========== -->
             <footer class="mt-8 pt-6 pb-4 border-t border-gray-200 text-center text-gray-600 text-sm">

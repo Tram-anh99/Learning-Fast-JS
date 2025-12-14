@@ -51,11 +51,7 @@ defineEmits(['selectVung']);
                               </tr>
                         </thead>
                         <tbody>
-                              <tr v-for="vung in danhSachVung" 
-                                    :key="vung.id" 
-                                    class="table-row-hover cursor-pointer transition-all"
-                                    :class="{ 'bg-blue-100 border-l-4 border-blue-500': selectedVung?.id === vung.id }"
-                                    @click="$emit('selectVung', vung)">
+                              <tr v-for="vung in danhSachVung" :key="vung.id" class="table-row-hover">
                                     <td class="table-cell"><strong>{{ vung.ma }}</strong></td>
                                     <td class="table-cell">{{ vung.ten }}</td>
                                     <td class="table-cell">{{ vung.chu }}</td>

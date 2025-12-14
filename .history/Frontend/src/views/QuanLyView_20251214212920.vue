@@ -186,16 +186,9 @@ const clearSelection = () => {
             <!-- Chiều cao tự động theo nội dung -->
             <!-- Props:
          - :danhSachVung - Danh sách vùng trồng để render trong bảng
-         - :selectedVung - Vùng được chọn (highlight row)
-         Events:
-         - @selectVung - Phát ra khi bấm vào row
          Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
     -->
-            <DataTableComponent 
-                  :danhSachVung="danhSachVung"
-                  :selectedVung="selectedVung"
-                  @selectVung="handleSelectVungFromTable"
-            />
+            <DataTableComponent :danhSachVung="danhSachVung" />
 
             <!-- ========== FOOTER ========== -->
             <footer class="mt-8 pt-6 pb-4 border-t border-gray-200 text-center text-gray-600 text-sm">
