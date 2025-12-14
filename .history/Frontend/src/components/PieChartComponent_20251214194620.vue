@@ -108,9 +108,59 @@ onBeforeUnmount(() => {
     <!-- Tiêu đề -->
     <h3 class="text-xs font-bold text-gray-700 mb-3">Thị trường Xuất khẩu</h3>
     
-    <!-- Chart container -->
-    <div class="flex-1 min-h-0">
-      <canvas ref="chartContainer" class="w-full h-full"></canvas>
+    <!-- Pie Chart Section -->
+    <div class="flex-1 flex items-center justify-center min-h-0">
+      <div class="flex flex-col items-center gap-4 w-full">
+        <!-- SVG Pie Chart -->
+        <svg width="300" height="300" viewBox="0 0 240 240" class="flex-shrink-0">
+          <!-- Pie slices -->
+          <path
+            v-for="(item, index) in pieData"
+            :key="index"
+            :d="generatePiePath(pieData, index)"
+            :fill="item.color"
+            :stroke="'white'"
+            stroke-width="2"
+            class="hover:opacity-80 transition-opacity cursor-pointer"
+          />
+          
+          <!-- Labels with percentages -->
+          <text
+            v-for="(item, index) in pieData"
+            :key="'label-' + index"
+            :x="getLabelPosition(pieData, index).x"
+            :y="getLabelPosition(pieData, index).y"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            class="text-xs font-bold fill-white"
+          >
+            {{ item.percentage.toFixed(1) }}%
+          </text>
+        </svg>
+        
+        <!-- Legend -->
+        <div class="grid grid-cols-2 gap-3 text-xs w-full px-2">
+          <div
+            v-for="(item, index) in pieData"
+            :key="'legend-' + index"
+            class="flex items-center gap-2"
+          >
+            <div
+              class="w-3 h-3 rounded-full flex-shrink-0"
+              :style="{ backgroundColor: item.color }"
+            ></div>
+            <div class="flex flex-col">
+              <span class="font-semibold text-gray-700">{{ item.market }}</span>
+              <span class="text-gray-500">{{ item.value.toLocaleString() }} USD</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Total -->
+        <div class="text-xs text-center text-gray-600 pt-2 border-t border-gray-200 w-full">
+          <p class="font-semibold">Tổng: {{ totalExportValue.toLocaleString() }} USD</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>

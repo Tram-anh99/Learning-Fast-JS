@@ -128,18 +128,72 @@ onBeforeUnmount(() => {
     <!-- Tiêu đề -->
     <h3 class="text-xs font-bold text-gray-700 mb-3">Năng suất Cây trồng (tạ/ha)</h3>
     
-    <!-- Chart container -->
-    <div class="flex-1 min-h-0">
-      <canvas ref="chartContainer" class="w-full h-full"></canvas>
+    <!-- Bar Chart -->
+    <div class="flex-1 flex flex-col items-center justify-center min-h-0 overflow-hidden">
+      <!-- Chart container with horizontal scroll -->
+      <div class="w-full h-full flex items-end justify-center gap-6 px-4 py-8 overflow-x-auto">
+        <!-- Bars -->
+        <div
+          v-for="(item, index) in cropData"
+          :key="index"
+          class="flex flex-col items-center gap-2 flex-shrink-0"
+        >
+          <!-- Bar -->
+          <div class="flex flex-col items-center gap-1">
+            <span class="text-xs font-semibold text-gray-700">
+              {{ item.productivity.toFixed(1) }}
+            </span>
+            <div
+              class="bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all hover:from-blue-600 hover:to-blue-500 cursor-pointer"
+              :style="{
+                width: '40px',
+                height: `${(item.productivity / maxProductivity) * 200}px`,
+                minHeight: '20px',
+              }"
+            ></div>
+          </div>
+          
+          <!-- Label -->
+          <span class="text-xs text-gray-600 font-medium text-center whitespace-nowrap">
+            {{ item.crop }}
+          </span>
+        </div>
+      </div>
+      
+      <!-- Y-axis label -->
+      <div class="text-xs text-gray-500 mt-2">
+        (Cao nhất: {{ maxProductivity.toFixed(1) }} tạ/ha)
+      </div>
     </div>
     
     <!-- Stats footer -->
-    <div class="text-xs text-center text-gray-600 pt-3 border-t border-gray-200 mt-3">
-      <p class="font-semibold">Năng suất trung bình: <span class="text-blue-600">{{ getAverageProductivity().toFixed(2) }} tạ/ha</span></p>
+    <div class="grid grid-cols-2 gap-4 text-xs border-t border-gray-200 pt-3 mt-3">
+      <div class="text-center">
+        <p class="text-gray-600 font-semibold">Top cây:</p>
+        <p class="text-blue-600 font-bold">{{ getTopCrop() }}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-gray-600 font-semibold">TB năng suất:</p>
+        <p class="text-blue-600 font-bold">{{ getAverageProductivity().toFixed(2) }} tạ/ha</p>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Styling nếu cần */
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
 </style>
