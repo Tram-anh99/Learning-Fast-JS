@@ -79,20 +79,20 @@ const lineChartOptions = {
           legend: {
                position: "bottom",
                labels: {
-                    font: { size: 10.5, weight: 400 },
+                    font: { size: 11, weight: 400 },
                     color: "#374151",
-                    padding: 9,
+                    padding: 10,
                     usePointStyle: true,
                     pointStyle: "circle",
-                    boxWidth: 8.5,
-                    boxHeight: 8.5,
+                    boxWidth: 9,
+                    boxHeight: 9,
                },
           },
           tooltip: {
                backgroundColor: "rgba(0, 0, 0, 0.85)",
-               padding: 9,
-               titleFont: { size: 11.5, weight: 600 },
-               bodyFont: { size: 10.5 },
+               padding: 10,
+               titleFont: { size: 12, weight: 600 },
+               bodyFont: { size: 11 },
                borderColor: "rgba(255, 255, 255, 0.2)",
                borderWidth: 1,
                displayColors: true,
@@ -110,9 +110,9 @@ const lineChartOptions = {
                beginAtZero: true,
                max: 10000,
                ticks: {
-                    font: { size: 9.5 },
+                    font: { size: 10 },
                     color: "#9CA3AF",
-                    padding: 6,
+                    padding: 7,
                     callback: (value) => {
                          return value.toLocaleString("vi-VN");
                     },
@@ -124,9 +124,9 @@ const lineChartOptions = {
           },
           x: {
                ticks: {
-                    font: { size: 10.5, weight: 400 },
+                    font: { size: 11, weight: 400 },
                     color: "#374151",
-                    padding: 9,
+                    padding: 10,
                     maxRotation: 0,
                     minRotation: 0,
                },
