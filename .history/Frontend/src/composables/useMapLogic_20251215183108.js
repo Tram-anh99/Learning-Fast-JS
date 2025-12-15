@@ -181,9 +181,8 @@ export function useMapLogic() {
       * Vẽ polygon cho từng vùng trồng (dashboard view)
       * Dùng cho mode 'dashboard' (MapComponent) - vẽ polygon cho các vùng
       * @param {Array} danhSachVung - danh sách vùng { id, ten, trangThai, toaDo }
-      * @param {Function} onClickCallback - callback khi click polygon
       */
-     const vẽMarkerVùng = (danhSachVung, onClickCallback) => {
+     const vẽMarkerVùng = (danhSachVung) => {
           if (!map.value) return;
 
           // Tạo một layer group mới nếu chưa có
@@ -213,18 +212,10 @@ export function useMapLogic() {
                          .bindPopup(
                               `<b>${vung.ten}</b><br>Chủ hộ: ${vung.chu}<br>Mã: ${vung.ma}`
                          )
-                         .addTo(layerGroup.value);
-                    
-                    // Thêm click event handler nếu có callback
-                    if (onClickCallback && typeof onClickCallback === 'function') {
-                         poly.on('click', () => {
-                              onClickCallback(vung);
-                         });
-                    }
+                         .addTo(map.value);
                } else if (vung.toaDo && vung.toaDo.length === 2) {
                     // Nếu chỉ có 1 point (tâm), vẽ circle marker
-                    const color = getMapColor(vung.trangThai);
-                    const marker = L.circleMarker(vung.toaDo, {
+                    L.circleMarker(vung.toaDo, {
                          radius: 8,
                          fillColor: color,
                          color: "#fff",
@@ -234,14 +225,7 @@ export function useMapLogic() {
                          .bindPopup(
                               `<b>${vung.ten}</b><br>Chủ hộ: ${vung.chu}<br>Mã: ${vung.ma}`
                          )
-                         .addTo(layerGroup.value);
-                    
-                    // Thêm click event cho circle marker
-                    if (onClickCallback && typeof onClickCallback === 'function') {
-                         marker.on('click', () => {
-                              onClickCallback(vung);
-                         });
-                    }
+                         .addTo(map.value);
                }
           });
      };

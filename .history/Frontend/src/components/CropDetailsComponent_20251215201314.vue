@@ -187,14 +187,8 @@ const getMarketBadgeClass = (market) => {
 
       <!-- No selection state -->
       <div v-else class="panel flex flex-col items-center justify-center min-h-[350px] max-h-[600px]">
-            <i class="fas fa-hand-pointer text-5xl text-gray-300 mb-4"></i>
-            <p class="text-gray-600 text-base font-semibold mb-2">Chọn vùng trồng để xem chi tiết</p>
-            <p class="text-gray-400 text-sm">Nhấn vào bảng hoặc bản đồ để xem:</p>
-            <ul class="text-gray-400 text-sm mt-2 space-y-1">
-                  <li><i class="fas fa-check-circle text-green-500"></i> Thông tin canh tác</li>
-                  <li><i class="fas fa-check-circle text-green-500"></i> Mã QR truy xuất</li>
-                  <li><i class="fas fa-check-circle text-green-500"></i> Loại cây và thị trường</li>
-            </ul>
+            <i class="fas fa-info-circle text-4xl text-gray-300 mb-3"></i>
+            <p class="text-gray-500 text-sm">Chọn vùng trồng từ bảng hoặc bản đồ để xem chi tiết loại cây</p>
       </div>
 </template>
 

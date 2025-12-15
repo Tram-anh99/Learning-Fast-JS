@@ -112,21 +112,9 @@ export const mockDataVung = [
           ],
           // Thông tin canh tác
           lichSuCanhTac: [
-               {
-                    ngay: "2024-12-01",
-                    hoatDong: "Bón phân NPK",
-                    nguoiThucHien: "Nguyễn Văn A",
-               },
-               {
-                    ngay: "2024-11-15",
-                    hoatDong: "Phun thuốc trừ sâu",
-                    nguoiThucHien: "Nguyễn Văn A",
-               },
-               {
-                    ngay: "2024-11-01",
-                    hoatDong: "Tưới nước",
-                    nguoiThucHien: "Nguyễn Văn A",
-               },
+               { ngay: "2024-12-01", hoatDong: "Bón phân NPK", nguoiThucHien: "Nguyễn Văn A" },
+               { ngay: "2024-11-15", hoatDong: "Phun thuốc trừ sâu", nguoiThucHien: "Nguyễn Văn A" },
+               { ngay: "2024-11-01", hoatDong: "Tưới nước", nguoiThucHien: "Nguyễn Văn A" },
           ],
           // Mã QR để truy xuất
           maQR: "VT-001",
@@ -147,21 +135,9 @@ export const mockDataVung = [
           ],
           // Thông tin canh tác
           lichSuCanhTac: [
-               {
-                    ngay: "2024-12-10",
-                    hoatDong: "Phát hiện sâu hại - Xử lý khẩn cấp",
-                    nguoiThucHien: "Trần Thị B",
-               },
-               {
-                    ngay: "2024-12-05",
-                    hoatDong: "Bón phân hữu cơ",
-                    nguoiThucHien: "Trần Thị B",
-               },
-               {
-                    ngay: "2024-11-20",
-                    hoatDong: "Tỉa cành",
-                    nguoiThucHien: "Trần Thị B",
-               },
+               { ngay: "2024-12-10", hoatDong: "Phát hiện sâu hại - Xử lý khẩn cấp", nguoiThucHien: "Trần Thị B" },
+               { ngay: "2024-12-05", hoatDong: "Bón phân hữu cơ", nguoiThucHien: "Trần Thị B" },
+               { ngay: "2024-11-20", hoatDong: "Tỉa cành", nguoiThucHien: "Trần Thị B" },
           ],
           maQR: "VT-002",
      },
@@ -179,24 +155,6 @@ export const mockDataVung = [
                [10.753, 106.656],
                [10.753, 106.648],
           ],
-          lichSuCanhTac: [
-               {
-                    ngay: "2024-12-14",
-                    hoatDong: "Thu hoạch lúa",
-                    nguoiThucHien: "HTX Lúa Vàng",
-               },
-               {
-                    ngay: "2024-11-30",
-                    hoatDong: "Phát hiện dư lượng thuốc vượt ngưỡng",
-                    nguoiThucHien: "Thanh tra",
-               },
-               {
-                    ngay: "2024-11-25",
-                    hoatDong: "Phun thuốc diệt cỏ",
-                    nguoiThucHien: "HTX Lúa Vàng",
-               },
-          ],
-          maQR: "VT-003",
      },
      {
           id: 4,
@@ -212,24 +170,6 @@ export const mockDataVung = [
                [10.781, 106.645],
                [10.781, 106.637],
           ],
-          lichSuCanhTac: [
-               {
-                    ngay: "2024-12-08",
-                    hoatDong: "Hoàn thành thu hoạch",
-                    nguoiThucHien: "Lê Văn C",
-               },
-               {
-                    ngay: "2024-11-28",
-                    hoatDong: "Đóng gói và vận chuyển",
-                    nguoiThucHien: "Lê Văn C",
-               },
-               {
-                    ngay: "2024-11-15",
-                    hoatDong: "Kiểm định chất lượng",
-                    nguoiThucHien: "Chi cục NN",
-               },
-          ],
-          maQR: "VT-004",
      },
      {
           id: 5,
@@ -245,24 +185,6 @@ export const mockDataVung = [
                [10.762, 106.67],
                [10.762, 106.662],
           ],
-          lichSuCanhTac: [
-               {
-                    ngay: "2024-12-12",
-                    hoatDong: "Mã bị thu hồi do vi phạm quy trình",
-                    nguoiThucHien: "Chi cục NN",
-               },
-               {
-                    ngay: "2024-12-01",
-                    hoatDong: "Sử dụng thuốc bảo vệ thực vật cấm",
-                    nguoiThucHien: "Võ Văn D",
-               },
-               {
-                    ngay: "2024-11-20",
-                    hoatDong: "Bón phân",
-                    nguoiThucHien: "Võ Văn D",
-               },
-          ],
-          maQR: "VT-005",
      },
 ];
 

@@ -123,25 +123,6 @@ const getMarketBadgeClass = (market) => {
 
             <!-- Scrollable crop table -->
             <div class="overflow-y-auto flex-grow scrollbar-custom">
-                  <!-- Thống kê tổng quan -->
-                  <div class="px-4 py-3 bg-gradient-to-r from-green-50 to-blue-50 border-b border-gray-200">
-                        <div class="grid grid-cols-2 gap-4">
-                              <div class="text-center">
-                                    <p class="text-xs text-gray-500">Tổng diện tích</p>
-                                    <p class="text-lg font-bold text-blue-600">{{ totalAreaInZone.toFixed(1) }} ha</p>
-                              </div>
-                              <div class="text-center">
-                                    <p class="text-xs text-gray-500">Giá trị xuất khẩu</p>
-                                    <p class="text-lg font-bold text-green-600">${{ Math.round(totalExportValue).toLocaleString() }}</p>
-                              </div>
-                        </div>
-                  </div>
-
-                  <!-- Bảng loại cây -->
-                  <h4 class="px-4 py-2 text-xs font-bold text-gray-700 bg-gray-50 border-b border-gray-200 flex items-center gap-2">
-                        <i class="fas fa-seedling text-green-600"></i>
-                        Danh sách Loại cây
-                  </h4>
                   <table class="w-full border-collapse">
                         <thead class="sticky top-0 z-10 bg-white shadow-sm">
                               <tr>
@@ -187,14 +168,8 @@ const getMarketBadgeClass = (market) => {
 
       <!-- No selection state -->
       <div v-else class="panel flex flex-col items-center justify-center min-h-[350px] max-h-[600px]">
-            <i class="fas fa-hand-pointer text-5xl text-gray-300 mb-4"></i>
-            <p class="text-gray-600 text-base font-semibold mb-2">Chọn vùng trồng để xem chi tiết</p>
-            <p class="text-gray-400 text-sm">Nhấn vào bảng hoặc bản đồ để xem:</p>
-            <ul class="text-gray-400 text-sm mt-2 space-y-1">
-                  <li><i class="fas fa-check-circle text-green-500"></i> Thông tin canh tác</li>
-                  <li><i class="fas fa-check-circle text-green-500"></i> Mã QR truy xuất</li>
-                  <li><i class="fas fa-check-circle text-green-500"></i> Loại cây và thị trường</li>
-            </ul>
+            <i class="fas fa-info-circle text-4xl text-gray-300 mb-3"></i>
+            <p class="text-gray-500 text-sm">Chọn vùng trồng từ bảng hoặc bản đồ để xem chi tiết loại cây</p>
       </div>
 </template>
 
