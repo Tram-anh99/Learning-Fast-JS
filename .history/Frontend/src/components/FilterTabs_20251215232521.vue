@@ -90,7 +90,9 @@ const handleFilterClick = (filterValue) => {
 <template>
       <!-- ========== FILTER TABS CONTAINER ========== -->
       <!-- Tab bar container: flex layout with horizontal scroll capability -->
-      <div class="flex flex-shrink-0 gap-2 p-3 overflow-x-auto" style="background-color: #fbfced;">
+      <div
+            class="flex flex-shrink-0 gap-2 p-3 overflow-x-auto"
+            style="background-color: #fbfced;">
 
             <!-- ========== TAB BUTTON LOOP ========== -->
             <!-- v-for: Loop through filterOptions array -->
@@ -104,7 +106,7 @@ const handleFilterClick = (filterValue) => {
                         // Inactive tab styling: gray text with hover effect
                         : 'hover:opacity-80 flex-1'
             ]"
-                  :style="activeFilter === option.value ? 'background-color: #24504b; color: #fbfced;' : 'background-color: transparent; color: #24504b;'">
+            :style="activeFilter === option.value ? 'background-color: #24504b; color: #fbfced;' : 'background-color: transparent; color: #24504b;'">
                   <!-- ========== TAB LABEL ========== -->
                   {{ option.label }}
             </button>

@@ -22,8 +22,7 @@ defineEmits(['select']);
 
 <template>
       <li @click="$emit('select', item)"
-            class="group p-3 rounded-xl shadow-sm flex items-center gap-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98]"
-            style="background-color: #fbfced;">
+            class="group p-3 rounded-xl shadow-sm flex items-center gap-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98]" style="background-color: #fbfced;">
             <!-- Ảnh đại diện -->
             <div class="w-14 h-14 rounded-lg bg-cover bg-center flex-shrink-0"
                   :style="{ backgroundImage: `url(${item.anh})` }"></div>

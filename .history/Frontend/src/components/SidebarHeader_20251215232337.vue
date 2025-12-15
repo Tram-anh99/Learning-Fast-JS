@@ -87,7 +87,9 @@ const handleInputBlur = () => {
 
 <template>
       <!-- Header wrapper: container chính của header -->
-      <header class="text-white flex items-center transition-all duration-300" style="background-color: #24504b;"
+      <header
+            class="text-white flex items-center transition-all duration-300"
+            style="background-color: #24504b;"
             :class="{ 'p-0': isDetailMode, 'p-0': !isDetailMode }">
 
             <!-- Search view: hiển thị khi xem danh sách (isDetailMode = false) -->
@@ -99,8 +101,8 @@ const handleInputBlur = () => {
                               <!-- Search input section: phần lớn -->
                               <div class="relative flex-1">
                                     <!-- Icon search: SVG định vị tuyệt đối bên trái -->
-                                    <svg class="absolute w-5 h-5 -translate-y-1/2 pointer-events-none left-3 top-1/2"
-                                          style="color: #fbfced;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="absolute w-5 h-5 -translate-y-1/2 pointer-events-none left-3 top-1/2" style="color: #fbfced;"
+                                          fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                           <!-- Icon path: kính lúp -->
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -111,25 +113,23 @@ const handleInputBlur = () => {
                                           @input="$emit('update:searchQuery', $event.target.value)"
                                           @focus="handleInputFocus" @blur="handleInputBlur" type="text"
                                           placeholder="Tìm nông sản..." autocomplete="off"
-                                          class="w-full py-2 pl-10 pr-3 text-white transition-colors rounded-lg focus:outline-none focus:ring-1"
+                                          class="w-full py-2 pl-10 pr-3 text-white transition-colors rounded-lg focus:outline-none focus:ring-1" 
                                           style="background-color: #1a3a36; color: #fbfced; border: 1px solid #2d5550;">
 
                                     <!-- Autocomplete suggestions dropdown: hiển thị khi có gợi ý -->
                                     <transition name="slide">
                                           <div v-if="showSuggestions && suggestions.length > 0"
-                                                class="absolute top-full left-0 right-0 mt-1 border rounded-lg shadow-lg max-h-48 overflow-y-auto z-10"
-                                                style="background-color: #fbfced; border-color: #24504b;">
+                                                class="absolute top-full left-0 right-0 mt-1 border rounded-lg shadow-lg max-h-48 overflow-y-auto z-10" style="background-color: #fbfced; border-color: #24504b;">
                                                 <!-- Suggestion items: từng gợi ý -->
                                                 <button v-for="(suggestion, index) in suggestions" :key="index"
                                                       @click="selectSuggestion(suggestion)"
                                                       class="w-full px-3 py-2 text-left text-sm border-b last:border-b-0 transition-colors"
                                                       style="color: #24504b; border-color: #e5e7eb;"
-                                                      @mouseover="$event.target.style.backgroundColor = '#e8f5e9'"
-                                                      @mouseout="$event.target.style.backgroundColor = 'transparent'">
+                                                      @mouseover="$event.target.style.backgroundColor='#e8f5e9'"
+                                                      @mouseout="$event.target.style.backgroundColor='transparent'">
                                                       <!-- Suggestion text: tên + mã -->
                                                       <div class="font-medium">{{ suggestion.ten }}</div>
-                                                      <div class="text-xs" style="color: #6b7280;">{{ suggestion.ma }}
-                                                      </div>
+                                                      <div class="text-xs" style="color: #6b7280;">{{ suggestion.ma }}</div>
                                                 </button>
                                           </div>
                                     </transition>
@@ -139,8 +139,8 @@ const handleInputBlur = () => {
                               <button @click="$emit('scanQR')" title="Quét mã QR"
                                     class="flex items-center justify-center px-3 py-2 text-white transition-colors rounded-lg"
                                     style="background-color: #1a3a36;"
-                                    @mouseover="$event.target.style.backgroundColor = '#2d5550'"
-                                    @mouseout="$event.target.style.backgroundColor = '#1a3a36'">
+                                    @mouseover="$event.target.style.backgroundColor='#2d5550'"
+                                    @mouseout="$event.target.style.backgroundColor='#1a3a36'">
                                     <!-- Icon QR: biểu tượng QR code -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor"
                                           viewBox="0 0 20 20">

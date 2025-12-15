@@ -15,17 +15,13 @@ import { mockDataVung } from "./statusHelpers";
 
 // ========== STATE & REFS ==========
 // Mảng dữ liệu gốc chứa tất cả vùng trồng (import từ statusHelpers)
-export const danhSachGoc = ref(
-     mockDataVung.map((vung) => ({
-          ...vung,
-          dienTich: vung.dienTich || "0ha",
-          chungNhan: "VietGAP",
-          anh:
-               vung.anh ||
-               "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
-          nhatKy: vung.lichSuCanhTac || [],
-     }))
-);
+export const danhSachGoc = ref(mockDataVung.map(vung => ({
+     ...vung,
+     dienTich: vung.dienTich || "0ha",
+     chungNhan: "VietGAP",
+     anh: vung.anh || "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
+     nhatKy: vung.lichSuCanhTac || []
+})));
 
 // Dữ liệu cũ để backup
 const oldData = [

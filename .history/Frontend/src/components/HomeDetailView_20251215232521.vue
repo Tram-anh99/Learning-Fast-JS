@@ -93,13 +93,12 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                               <div class="flex justify-between">
                                     <span style="color: #6b7280;">Địa chỉ:</span>
                                     <strong style="color: #24504b;">{{ vung.diaChi || 'Khu vực Đồng bằng Sông Cửu Long'
-                                          }}</strong>
+                                    }}</strong>
                               </div>
                               <!-- Hợp tác xã -->
                               <div class="flex justify-between">
                                     <span style="color: #6b7280;">HTX trực thuộc:</span>
-                                    <strong style="color: #24504b;">{{ vung.hopTacXa || 'HTX Nông sản an toàn'
-                                          }}</strong>
+                                    <strong style="color: #24504b;">{{ vung.hopTacXa || 'HTX Nông sản an toàn' }}</strong>
                               </div>
                               <!-- Số điện thoại -->
                               <div class="flex justify-between">
@@ -112,8 +111,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                   <!-- Timeline: hiển thị nhật ký hoạt động canh tác -->
                   <div>
                         <!-- Tiêu đề timeline với icon lịch -->
-                        <h4 class="pb-2 mb-3 text-sm font-bold"
-                              style="color: #24504b; border-bottom: 2px solid #e5e7eb;">
+                        <h4 class="pb-2 mb-3 text-sm font-bold" style="color: #24504b; border-bottom: 2px solid #e5e7eb;">
                               <!-- Icon lịch -->
                               <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2" viewBox="0 0 20 20"
                                     fill="currentColor">
@@ -147,13 +145,13 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
             </div>
 
             <!-- Action buttons: nút hành động ở cuối (sticky) -->
-            <div class="sticky bottom-0 flex-shrink-0 p-4 space-y-2"
-                  style="background-color: #fbfced; border-top: 1px solid #e5e7eb;">
+            <div class="sticky bottom-0 flex-shrink-0 p-4 space-y-2" style="background-color: #fbfced; border-top: 1px solid #e5e7eb;">
                   <!-- Nút Mã QR Truy xuất: emit event 'openQR' với mã vùng -->
                   <button @click="$emit('openQR', vung.ma)"
                         class="flex items-center justify-center w-full gap-2 py-3 font-semibold text-white transition-colors rounded-lg"
-                        style="background-color: #24504b;" @mouseover="$event.target.style.backgroundColor = '#1a3a36'"
-                        @mouseout="$event.target.style.backgroundColor = '#24504b'">
+                        style="background-color: #24504b;"
+                        @mouseover="$event.target.style.backgroundColor='#1a3a36'"
+                        @mouseout="$event.target.style.backgroundColor='#24504b'">
                         <!-- Icon QR code -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path
@@ -163,10 +161,11 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                   </button>
 
                   <!-- Nút Quay lại: emit event 'back' để trở lại danh sách -->
-                  <button @click="$emit('back')" class="w-full py-2 font-semibold transition-colors rounded-lg"
+                  <button @click="$emit('back')"
+                        class="w-full py-2 font-semibold transition-colors rounded-lg"
                         style="background-color: #e5e7eb; color: #24504b;"
-                        @mouseover="$event.target.style.backgroundColor = '#d1d5db'"
-                        @mouseout="$event.target.style.backgroundColor = '#e5e7eb'">
+                        @mouseover="$event.target.style.backgroundColor='#d1d5db'"
+                        @mouseout="$event.target.style.backgroundColor='#e5e7eb'">
                         Quay lại
                   </button>
             </div>
