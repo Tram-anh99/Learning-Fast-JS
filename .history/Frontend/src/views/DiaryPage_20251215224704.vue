@@ -301,11 +301,9 @@ const removeImage = (index) => {
       <div class="flex flex-col justify-between gap-4 mb-8 md:flex-row md:items-center">
         <div>
           <h2 class="text-3xl font-black mb-1" style="color: #24504b;">Hôm nay bác làm gì?</h2>
-          <p class="text-lg" style="color: rgba(36, 80, 75, 0.7);">Ghi lại hoạt động canh tác nhanh chóng và dễ dàng.
-          </p>
+          <p class="text-lg" style="color: rgba(36, 80, 75, 0.7);">Ghi lại hoạt động canh tác nhanh chóng và dễ dàng.</p>
         </div>
-        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm"
-          style="border: 1px solid #24504b;">
+        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm" style="border: 1px solid #24504b;">
           <span class="material-symbols-outlined" style="color: #24504b;">calendar_today</span>
           <span class="font-medium" style="color: #24504b;">{{ new Date().toLocaleDateString('vi-VN', {
             year: 'numeric', month:
@@ -335,8 +333,7 @@ const removeImage = (index) => {
             <!-- Mã số vùng trồng (đồng bộ với bản đồ WebGIS) -->
             <div class="flex items-center justify-between mb-2">
               <h4 class="font-bold" style="color: #24504b;">{{ field.name }}</h4>
-              <span class="px-2 py-1 text-xs font-bold rounded-lg"
-                style="background-color: rgba(36, 80, 75, 0.2); color: #24504b;">
+              <span class="px-2 py-1 text-xs font-bold rounded-lg" style="background-color: rgba(36, 80, 75, 0.2); color: #24504b;">
                 {{ field.ma }}
               </span>
             </div>
@@ -350,8 +347,7 @@ const removeImage = (index) => {
                 <span class="font-semibold">Diện tích:</span>
                 {{ field.area }} ha
               </p>
-              <p class="text-xs font-bold"
-                :style="{ color: selectedField === field.id ? '#24504b' : 'rgba(36, 80, 75, 0.5)' }">
+              <p class="text-xs font-bold" :style="{ color: selectedField === field.id ? '#24504b' : 'rgba(36, 80, 75, 0.5)' }">
                 {{ field.status }}
               </p>
             </div>

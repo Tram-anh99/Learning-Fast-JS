@@ -99,36 +99,34 @@ const qrCodeUrl = computed(() => {
       <div v-if="props.selectedVung" class="flex gap-5">
 
             <!-- PHẦN 1: CHI TIẾT VÙNG TRỒNG -->
-            <div class="flex-1 p-5 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
-                  <div class="flex items-center gap-2 pb-3 mb-4 border-b-2" style="border-color: #24504b;">
-                        <i class="text-lg fas fa-map-marked-alt" style="color: #24504b;"></i>
-                        <h3 class="text-sm font-bold" style="color: #24504b;">Chi tiết Vùng trồng</h3>
+            <div class="flex-1 p-5 bg-white border border-white shadow-md rounded-xl">
+                  <div class="flex items-center gap-2 pb-3 mb-4 border-b-2 border-green-500">
+                        <i class="text-lg text-green-600 fas fa-map-marked-alt"></i>
+                        <h3 class="text-sm font-bold text-green-700">Chi tiết Vùng trồng</h3>
                   </div>
 
                   <div class="space-y-3">
                         <!-- Mã vùng -->
                         <div class="flex items-center justify-between">
-                              <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Mã vùng:</span>
-                              <span class="text-sm font-bold" style="color: #24504b;">{{ props.selectedVung.ma }}</span>
+                              <span class="text-xs text-gray-500">Mã vùng:</span>
+                              <span class="text-sm font-bold text-green-600">{{ props.selectedVung.ma }}</span>
                         </div>
 
                         <!-- Tên vùng -->
                         <div class="flex items-center justify-between">
-                              <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Tên vùng:</span>
-                              <span class="text-sm font-semibold" style="color: #24504b;">{{ props.selectedVung.ten
-                                    }}</span>
+                              <span class="text-xs text-gray-500">Tên vùng:</span>
+                              <span class="text-sm font-semibold text-gray-700">{{ props.selectedVung.ten }}</span>
                         </div>
 
                         <!-- Chủ hộ -->
                         <div class="flex items-center justify-between">
-                              <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Chủ hộ:</span>
-                              <span class="text-sm font-semibold" style="color: #24504b;">{{ props.selectedVung.chu
-                                    }}</span>
+                              <span class="text-xs text-gray-500">Chủ hộ:</span>
+                              <span class="text-sm font-semibold text-gray-700">{{ props.selectedVung.chu }}</span>
                         </div>
 
                         <!-- Trạng thái -->
                         <div class="flex items-center justify-between">
-                              <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Trạng thái:</span>
+                              <span class="text-xs text-gray-500">Trạng thái:</span>
                               <span :class="getStatusClass(props.selectedVung.trangThai)"
                                     class="px-3 py-1 text-xs font-semibold rounded">
                                     {{ getStatusText(props.selectedVung.trangThai) }}
@@ -136,31 +134,26 @@ const qrCodeUrl = computed(() => {
                         </div>
 
                         <!-- Thống kê loại cây -->
-                        <div v-if="cropsInZone.length > 0" class="pt-3 mt-4 border-t" style="border-color: #24504b;">
+                        <div v-if="cropsInZone.length > 0" class="pt-3 mt-4 border-t border-gray-200">
                               <div class="grid grid-cols-2 gap-3">
-                                    <div class="p-3 text-center rounded"
-                                          style="background-color: rgba(36, 80, 75, 0.1);">
-                                          <p class="mb-1 text-xs" style="color: rgba(36, 80, 75, 0.6);">Tổng diện tích
+                                    <div class="p-3 text-center rounded bg-green-50">
+                                          <p class="mb-1 text-xs text-gray-500">Tổng diện tích</p>
+                                          <p class="text-lg font-bold text-green-600">{{ totalAreaInZone.toFixed(1) }}
                                           </p>
-                                          <p class="text-lg font-bold" style="color: #24504b;">{{
-                                                totalAreaInZone.toFixed(1) }}
-                                          </p>
-                                          <p class="text-xs" style="color: rgba(36, 80, 75, 0.6);">ha</p>
+                                          <p class="text-xs text-gray-500">ha</p>
                                     </div>
-                                    <div class="p-3 text-center rounded"
-                                          style="background-color: rgba(36, 80, 75, 0.1);">
-                                          <p class="mb-1 text-xs" style="color: rgba(36, 80, 75, 0.6);">Giá trị XK</p>
-                                          <p class="text-lg font-bold" style="color: #24504b;">${{
-                                                Math.round(totalExportValue /
+                                    <div class="p-3 text-center rounded bg-green-50">
+                                          <p class="mb-1 text-xs text-gray-500">Giá trị XK</p>
+                                          <p class="text-lg font-bold text-green-600">${{ Math.round(totalExportValue /
                                                 1000) }}K</p>
-                                          <p class="text-xs" style="color: rgba(36, 80, 75, 0.6);">USD</p>
+                                          <p class="text-xs text-gray-500">USD</p>
                                     </div>
                               </div>
                         </div>
 
                         <!-- Thị trường xuất khẩu -->
-                        <div v-if="marketsInZone.length > 0" class="pt-3 border-t" style="border-color: #24504b;">
-                              <p class="mb-2 text-xs" style="color: rgba(36, 80, 75, 0.6);">Thị trường xuất khẩu:</p>
+                        <div v-if="marketsInZone.length > 0" class="pt-3 border-t border-gray-200">
+                              <p class="mb-2 text-xs text-gray-500">Thị trường xuất khẩu:</p>
                               <div class="flex flex-wrap gap-2">
                                     <span v-for="market in marketsInZone" :key="market"
                                           :class="getMarketBadgeClass(market)"
@@ -171,19 +164,16 @@ const qrCodeUrl = computed(() => {
                         </div>
 
                         <!-- Danh sách loại cây -->
-                        <div v-if="cropsInZone.length > 0" class="pt-3 border-t" style="border-color: #24504b;">
-                              <p class="flex items-center gap-2 mb-2 text-xs" style="color: rgba(36, 80, 75, 0.6);">
-                                    <i class="fas fa-seedling" style="color: #24504b;"></i>
+                        <div v-if="cropsInZone.length > 0" class="pt-3 border-t border-gray-200">
+                              <p class="flex items-center gap-2 mb-2 text-xs text-gray-500">
+                                    <i class="text-green-600 fas fa-seedling"></i>
                                     Loại cây trồng:
                               </p>
                               <div class="space-y-2">
                                     <div v-for="crop in cropsInZone" :key="crop.id"
-                                          class="flex items-center justify-between p-2 rounded"
-                                          style="background-color: rgba(36, 80, 75, 0.05);">
-                                          <span class="text-xs font-semibold" style="color: #24504b;">{{ crop.tenCay
-                                                }}</span>
-                                          <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">{{ crop.dienTich
-                                                }} ha</span>
+                                          class="flex items-center justify-between p-2 rounded bg-gray-50">
+                                          <span class="text-xs font-semibold text-gray-700">{{ crop.tenCay }}</span>
+                                          <span class="text-xs text-gray-500">{{ crop.dienTich }} ha</span>
                                     </div>
                               </div>
                         </div>
@@ -191,29 +181,26 @@ const qrCodeUrl = computed(() => {
             </div>
 
             <!-- PHẦN 2: LỊCH SỬ CANH TÁC -->
-            <div class="flex-1 p-5 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
-                  <div class="flex items-center gap-2 pb-3 mb-4 border-b-2" style="border-color: #24504b;">
-                        <i class="text-lg fas fa-clipboard-list" style="color: #24504b;"></i>
-                        <h3 class="text-sm font-bold" style="color: #24504b;">Lịch sử Canh tác gần đây</h3>
+            <div class="flex-1 p-5 bg-white border border-white shadow-md rounded-xl">
+                  <div class="flex items-center gap-2 pb-3 mb-4 border-b-2 border-green-500">
+                        <i class="text-lg text-green-600 fas fa-clipboard-list"></i>
+                        <h3 class="text-sm font-bold text-green-700">Lịch sử Canh tác gần đây</h3>
                   </div>
 
                   <div v-if="props.selectedVung.lichSuCanhTac && props.selectedVung.lichSuCanhTac.length > 0"
                         class="space-y-3 max-h-[450px] overflow-y-auto scrollbar-custom">
                         <div v-for="(hoatDong, index) in props.selectedVung.lichSuCanhTac" :key="index"
-                              class="py-2 pl-3 border-l-4 rounded-r"
-                              style="border-color: #24504b; background-color: rgba(36, 80, 75, 0.1);">
+                              class="py-2 pl-3 border-l-4 border-green-500 rounded-r bg-green-50">
                               <div class="flex items-start gap-2">
-                                    <div class="flex-shrink-0 px-2 py-1 text-xs font-bold rounded"
-                                          style="color: #24504b; background-color: rgba(36, 80, 75, 0.2);">
+                                    <div
+                                          class="flex-shrink-0 px-2 py-1 text-xs font-bold text-green-700 bg-green-100 rounded">
                                           {{ hoatDong.ngay }}
                                     </div>
                                     <div class="flex-1">
-                                          <p class="mb-1 text-sm font-semibold" style="color: #24504b;">{{
-                                                hoatDong.hoatDong }}
+                                          <p class="mb-1 text-sm font-semibold text-gray-800">{{ hoatDong.hoatDong }}
                                           </p>
-                                          <p class="flex items-center gap-1 text-xs"
-                                                style="color: rgba(36, 80, 75, 0.7);">
-                                                <i class="fas fa-user" style="color: rgba(36, 80, 75, 0.5);"></i>
+                                          <p class="flex items-center gap-1 text-xs text-gray-600">
+                                                <i class="text-gray-400 fas fa-user"></i>
                                                 {{ hoatDong.nguoiThucHien }}
                                           </p>
                                     </div>
@@ -228,10 +215,10 @@ const qrCodeUrl = computed(() => {
             </div>
 
             <!-- PHẦN 3: MÃ QR -->
-            <div class="w-64 p-5 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
-                  <div class="flex items-center gap-2 pb-3 mb-4 border-b-2" style="border-color: #24504b;">
-                        <i class="text-lg fas fa-qrcode" style="color: #24504b;"></i>
-                        <h3 class="text-sm font-bold" style="color: #24504b;">Mã QR Truy xuất</h3>
+            <div class="w-64 p-5 bg-white border border-white shadow-md rounded-xl">
+                  <div class="flex items-center gap-2 pb-3 mb-4 border-b-2 border-green-500">
+                        <i class="text-lg text-green-600 fas fa-qrcode"></i>
+                        <h3 class="text-sm font-bold text-green-700">Mã QR Truy xuất</h3>
                   </div>
 
                   <div class="flex flex-col items-center gap-3">
@@ -239,43 +226,39 @@ const qrCodeUrl = computed(() => {
                         <div class="relative flex justify-center">
                               <div class="relative">
                                     <!-- Glow effect -->
-                                    <div class="absolute inset-0 transition-opacity duration-300 rounded-xl blur-lg opacity-20 hover:opacity-40"
-                                          style="background: linear-gradient(to right, #24504b, #24504b);">
+                                    <div
+                                          class="absolute inset-0 transition-opacity duration-300 bg-gradient-to-r from-green-400 to-blue-400 rounded-xl blur-lg opacity-20 hover:opacity-40">
                                     </div>
 
                                     <!-- QR Card -->
-                                    <div class="relative p-4 transition-all duration-300 bg-white border-2 shadow-lg rounded-xl hover:shadow-xl"
-                                          style="border-color: #24504b;">
+                                    <div
+                                          class="relative p-4 transition-all duration-300 bg-white border-2 shadow-lg rounded-xl border-slate-200 hover:shadow-xl">
                                           <QrcodeVue :value="qrCodeUrl" :size="180" level="H" render-as="svg"
-                                                foreground="#24504b" />
+                                                foreground="#0d7a4a" />
                                     </div>
                               </div>
                         </div>
 
                         <!-- Mã số -->
                         <div class="w-full text-center">
-                              <p class="mb-1 text-xs" style="color: rgba(36, 80, 75, 0.6);">Mã số:</p>
-                              <p class="px-4 py-2 text-lg font-bold border rounded"
-                                    style="color: #24504b; border-color: #24504b; background-color: rgba(36, 80, 75, 0.1);">
+                              <p class="mb-1 text-xs text-gray-500">Mã số:</p>
+                              <p
+                                    class="px-4 py-2 text-lg font-bold text-green-600 border border-green-200 rounded bg-green-50">
                                     {{ props.selectedVung.maQR || props.selectedVung.ma }}
                               </p>
                         </div>
 
                         <!-- Link truy xuất -->
                         <a :href="`/truy-xuat/${props.selectedVung.maQR || props.selectedVung.ma}`" target="_blank"
-                              class="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-semibold text-center transition-colors rounded"
-                              style="background-color: #24504b; color: #fbfced;"
-                              @mouseover="$event.target.style.opacity = '0.9'"
-                              @mouseout="$event.target.style.opacity = '1'">
+                              class="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm font-semibold text-center text-white transition-colors bg-green-600 rounded hover:bg-green-700">
                               <i class="fas fa-external-link-alt"></i>
                               Xem trang truy xuất
                         </a>
 
                         <!-- Hướng dẫn -->
-                        <div class="w-full p-3 text-xs rounded"
-                              style="background-color: rgba(36, 80, 75, 0.1); color: #24504b;">
+                        <div class="w-full p-3 text-xs text-gray-600 rounded bg-green-50">
                               <p class="flex items-center gap-1 mb-1 font-semibold">
-                                    <i class="fas fa-info-circle"></i>
+                                    <i class="text-green-600 fas fa-info-circle"></i>
                                     Hướng dẫn:
                               </p>
                               <p>Quét mã QR để xem đầy đủ thông tin truy xuất nguồn gốc sản phẩm</p>
@@ -286,23 +269,23 @@ const qrCodeUrl = computed(() => {
       </div>
 
       <!-- No selection state -->
-      <div v-else class="p-10 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
+      <div v-else class="p-10 bg-white border border-white shadow-md rounded-xl">
             <div class="flex flex-col items-center justify-center h-64">
-                  <i class="mb-4 text-5xl" style="color: rgba(36, 80, 75, 0.3);"></i>
-                  <p class="mb-2 text-base font-semibold" style="color: #24504b;">Chọn vùng trồng để xem chi tiết</p>
-                  <p class="mb-4 text-sm" style="color: rgba(36, 80, 75, 0.6);">Nhấn vào bảng hoặc bản đồ để xem:</p>
+                  <i class="mb-4 text-5xl text-gray-300 fas fa-hand-pointer"></i>
+                  <p class="mb-2 text-base font-semibold text-gray-600">Chọn vùng trồng để xem chi tiết</p>
+                  <p class="mb-4 text-sm text-gray-400">Nhấn vào bảng hoặc bản đồ để xem:</p>
                   <div class="grid grid-cols-3 gap-4 mt-2">
                         <div class="text-center">
-                              <i class="mb-2 text-3xl fas fa-map-marked-alt" style="color: #24504b;"></i>
-                              <p class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Thông tin vùng</p>
+                              <i class="mb-2 text-3xl text-green-500 fas fa-map-marked-alt"></i>
+                              <p class="text-xs text-gray-500">Thông tin vùng</p>
                         </div>
                         <div class="text-center">
-                              <i class="mb-2 text-3xl fas fa-clipboard-list" style="color: #24504b;"></i>
-                              <p class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Lịch sử canh tác</p>
+                              <i class="mb-2 text-3xl text-blue-500 fas fa-clipboard-list"></i>
+                              <p class="text-xs text-gray-500">Lịch sử canh tác</p>
                         </div>
                         <div class="text-center">
-                              <i class="mb-2 text-3xl fas fa-qrcode" style="color: #24504b;"></i>
-                              <p class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Mã QR</p>
+                              <i class="mb-2 text-3xl text-purple-500 fas fa-qrcode"></i>
+                              <p class="text-xs text-gray-500">Mã QR</p>
                         </div>
                   </div>
             </div>
@@ -316,16 +299,16 @@ const qrCodeUrl = computed(() => {
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
-      background: rgba(251, 252, 237, 0.5);
+      background: #f1f1f1;
       border-radius: 10px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-      background: #24504b;
+      background: #888;
       border-radius: 10px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-      background: rgba(36, 80, 75, 0.8);
+      background: #555;
 }
 </style>

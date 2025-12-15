@@ -139,8 +139,7 @@ const handleToggleDuLuongThuoc = () => {
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="flex flex-col w-full h-screen gap-5 p-5 pb-[80px] overflow-y-auto scrollbar-custom"
-            style="background-color: #fbfced;">
+      <div class="flex flex-col w-full h-screen gap-5 p-5 pb-[80px] overflow-y-auto scrollbar-custom" style="background-color: #fbfced;">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
             <!-- Thanh thống kê ở trên cùng - Chiều cao tự động -->
@@ -159,8 +158,7 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== PIE CHART SECTION ========== -->
                   <!-- Biểu đồ tròn bên trái: Phân bổ thị trường xuất khẩu -->
                   <!-- w-1/4: Chiều rộng 25% -->
-                  <div class="w-1/4 p-4 border shadow-md rounded-xl"
-                        style="background-color: white; border-color: #24504b;">
+                  <div class="w-1/4 p-4 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
                         <!-- Component biểu đồ tròn -->
                         <PieChartComponent />
                   </div>
@@ -177,8 +175,7 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- Panel điều khiển lớp dữ liệu bên phải -->
                   <!-- w-56: Chiều rộng cố định 224px (nhỏ hơn bản đồ) -->
                   <div class="w-56">
-                        <MapLayerControl :cheDoXem="cheDoXem" @toggleSauBenh="handleToggleSauBenh"
-                              @toggleDuLuongThuoc="handleToggleDuLuongThuoc" />
+                        <MapLayerControl :cheDoXem="cheDoXem" @toggleSauBenh="handleToggleSauBenh" @toggleDuLuongThuoc="handleToggleDuLuongThuoc" />
                   </div>
             </div>
 
@@ -190,8 +187,7 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== BAR CHART SECTION ========== -->
                   <!-- Biểu đồ cột bên trái: Năng suất cây trồng -->
                   <!-- w-1/3: Chiều rộng 33% -->
-                  <div class="w-1/3 p-4 border shadow-md rounded-xl"
-                        style="background-color: white; border-color: #24504b;">
+                  <div class="w-1/3 p-4 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
                         <!-- Component biểu đồ cột -->
                         <BarChartComponent />
                   </div>
@@ -199,8 +195,7 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== LINE CHART SECTION ========== -->
                   <!-- Biểu đồ đường bên phải: Mối quan hệ thị trường & loại cây -->
                   <!-- flex-1: Chiếm không gian còn lại (rộng hơn) -->
-                  <div class="flex-1 p-4 border shadow-md rounded-xl"
-                        style="background-color: white; border-color: #24504b;">
+                  <div class="flex-1 p-4 border shadow-md rounded-xl" style="background-color: white; border-color: #24504b;">
                         <!-- Component biểu đồ đường -->
                         <LineChartComponent />
                   </div>

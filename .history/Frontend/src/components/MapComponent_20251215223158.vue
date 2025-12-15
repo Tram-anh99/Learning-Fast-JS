@@ -35,9 +35,7 @@ const props = defineProps({
       // diemNongSauBenh: Array chứa các điểm dịch bệnh { lat, lng, type }
       diemNongSauBenh: { type: Array, required: true },
       // selectedVung: Vùng được chọn (để highlight)
-      selectedVung: { type: Object, default: null },
-      // cheDoXem: Chế độ xem bản đồ (hanh_chinh, sau_benh, phan_bon)
-      cheDoXem: { type: String, default: 'hanh_chinh' }
+      selectedVung: { type: Object, default: null }
 });
 
 // ========== EMITS ==========

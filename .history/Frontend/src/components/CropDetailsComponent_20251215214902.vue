@@ -1,0 +1,356 @@
+<script setup>
+/**
+ * ========== COMPONENT: CropDetailsComponent.vue ==========
+ * Purpose: Hiển thị chi tiết loại cây trồng của từng vùng
+ * 
+ * Features:
+ *   - Danh sách loại cây trong vùng được chọn
+ *   - Diện tích, năng suất, giá xuất khẩu
+ *   - Thị trường xuất khẩu cho mỗi loại cây
+ *   - Tính toán giá trị xuất khẩu ước tính
+ * 
+ * Props:
+ *   - selectedVung: Vùng được chọn từ bảng hoặc bản đồ
+ * 
+ * Related Files:
+ *   - src/composables/useCropData.js - Dữ liệu loại cây
+ */
+
+import { computed, watch, ref, onMounted } from 'vue';
+import { getCropsByZone, getMarketsbyZone } from '../composables/useCropData';
+
+const props = defineProps({
+      selectedVung: {
+            type: Object,
+            default: null
+      }
+});
+
+// ========== QR CODE GENERATION ==========
+const qrCanvas = ref(null);
+const generateQRCode = () => {
+      if (!qrCanvas.value || !props.selectedVung?.maQR) return;
+      
+      const qrText = props.selectedVung.maQR || props.selectedVung.ma;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrText)}`;
+      
+      const img = new Image();
+      img.onload = () => {
+            const ctx = qrCanvas.value.getContext('2d');
+            ctx.drawImage(img, 0, 0, 200, 200);
+      };
+      img.src = qrUrl;
+};
+
+watch(() => props.selectedVung, () => {
+      setTimeout(generateQRCode, 0);
+}, { deep: true });
+
+onMounted(() => {
+      generateQRCode();
+});
+
+// ========== COMPUTED: Danh sách cây của vùng được chọn ==========
+const cropsInZone = computed(() => {
+      // selectedVung là Object (đã unwrap từ parent's .value)
+      if (!props.selectedVung?.ma) return [];
+      return getCropsByZone(props.selectedVung.ma);
+});
+
+// ========== COMPUTED: Danh sách thị trường của vùng được chọn ==========
+const marketsInZone = computed(() => {
+      if (!props.selectedVung?.ma) return [];
+      return getMarketsbyZone(props.selectedVung.ma);
+});
+
+// ========== COMPUTED: Tổng diện tích vùng ==========
+const totalAreaInZone = computed(() => {
+      return cropsInZone.value.reduce((sum, crop) => sum + crop.dienTich, 0);
+});
+
+// ========== COMPUTED: Tổng giá trị xuất khẩu ước tính ==========
+const totalExportValue = computed(() => {
+      return cropsInZone.value.reduce((sum, crop) => {
+            return sum + (crop.dienTich * crop.nangSuat * crop.giaXuat);
+      }, 0);
+});
+
+// ========== FUNCTION: Format thị trường thành badge ==========
+const getMarketBadgeClass = (market) => {
+      const colors = {
+            'Trung Quốc': 'bg-red-100 text-red-700',
+            'Hoa Kỳ': 'bg-blue-100 text-blue-700',
+            'Châu Âu': 'bg-yellow-100 text-yellow-700',
+            'ASEAN': 'bg-green-100 text-green-700',
+            'Khác': 'bg-gray-100 text-gray-700',
+      };
+      return colors[market] || 'bg-gray-100 text-gray-700';
+};
+</script>
+
+<template>
+      <!-- Container chính -->
+      <div v-if="props.selectedVung" class="panel">
+            <!-- Header -->
+            <div class="panel-header">
+                  <div class="flex-1">
+                        <h3 class="panel-title">Chi tiết Vùng - {{ props.selectedVung.ma }}</h3>
+                        <p class="text-xs text-gray-500 mt-1">{{ props.selectedVung.ten }} • {{ props.selectedVung.chu }}</p>
+                  </div>
+                  <div class="text-right">
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                              {{ props.selectedVung.trangThai === 'canh_tac' ? 'Đang canh tác' : 'Khác' }}
+                        </span>
+                  </div>
+            </div>
+
+            <!-- 3 Section Grid -->
+            <div class="grid grid-cols-3 gap-4 p-4 h-[500px]">
+                  <!-- SECTION 1: Chi tiết Vùng & Loại cây -->
+                  <div class="border border-gray-200 rounded-lg overflow-hidden flex flex-col bg-white">
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-2 border-b border-gray-200">
+                              <h4 class="text-xs font-bold text-gray-700 flex items-center gap-2">
+                                    <i class="fas fa-leaf text-green-600"></i>
+                                    Chi tiết vùng trồng
+                              </h4>
+                        </div>
+                        
+                        <div class="overflow-y-auto flex-1 scrollbar-custom">
+                              <!-- Thông tin tổng quát -->
+                              <div class="px-4 py-3 border-b border-gray-100">
+                                    <div class="space-y-2 text-xs">
+                                          <div class="flex justify-between">
+                                                <span class="text-gray-500">Tổng diện tích:</span>
+                                                <span class="font-semibold text-blue-600">{{ totalAreaInZone.toFixed(1) }} ha</span>
+                                          </div>
+                                          <div class="flex justify-between">
+                                                <span class="text-gray-500">Giá trị xuất khẩu:</span>
+                                                <span class="font-semibold text-green-600">${{ Math.round(totalExportValue).toLocaleString() }}</span>
+                                          </div>
+                                          <div v-if="marketsInZone.length > 0" class="pt-2 border-t border-gray-100">
+                                                <p class="text-gray-500 mb-1">Thị trường:</p>
+                                                <div class="flex flex-wrap gap-1">
+                                                      <span v-for="market in marketsInZone" :key="market" 
+                                                            :class="getMarketBadgeClass(market)"
+                                                            class="px-1.5 py-0.5 rounded text-xs font-semibold">
+                                                            {{ market }}
+                                                      </span>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+
+                              <!-- Danh sách loại cây -->
+                              <div class="px-4 py-3">
+                                    <h5 class="text-xs font-bold text-gray-700 mb-2">Loại cây:</h5>
+                                    <div class="space-y-2">
+                                          <div v-for="crop in cropsInZone" :key="crop.id" 
+                                                class="p-2 bg-blue-50 rounded border border-blue-100">
+                                                <p class="text-xs font-semibold text-gray-700">{{ crop.tenCay }}</p>
+                                                <div class="text-xs text-gray-500 mt-1 space-y-0.5">
+                                                      <div><i class="fas fa-ruler-horizontal text-blue-500"></i> {{ crop.dienTich }} ha</div>
+                                                      <div><i class="fas fa-chart-bar text-green-500"></i> {{ crop.nangSuat }} tạ/ha</div>
+                                                      <div><i class="fas fa-dollar-sign text-yellow-500"></i> ${{ crop.giaXuat }}/kg</div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+                  <!-- SECTION 2: Lịch sử Canh tác -->
+                  <div class="border border-gray-200 rounded-lg overflow-hidden flex flex-col bg-white">
+                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 px-4 py-2 border-b border-gray-200">
+                              <h4 class="text-xs font-bold text-gray-700 flex items-center gap-2">
+                                    <i class="fas fa-clipboard-list text-blue-600"></i>
+                                    Lịch sử canh tác
+                              </h4>
+                        </div>
+                        
+                        <div class="overflow-y-auto flex-1 scrollbar-custom px-4 py-3">
+                              <div v-if="props.selectedVung.lichSuCanhTac && props.selectedVung.lichSuCanhTac.length > 0" 
+                                   class="space-y-3">
+                                    <div v-for="(hoatDong, index) in props.selectedVung.lichSuCanhTac" 
+                                         :key="index"
+                                         class="pb-3 border-b border-gray-200 last:border-b-0">
+                                          <div class="flex gap-2">
+                                                <div class="flex-shrink-0 w-16">
+                                                      <span class="text-xs font-bold text-blue-600">{{ hoatDong.ngay }}</span>
+                                                </div>
+                                                <div class="flex-1">
+                                                      <p class="text-xs font-semibold text-gray-700">{{ hoatDong.hoatDong }}</p>
+                                                      <p class="text-xs text-gray-500 mt-0.5">{{ hoatDong.nguoiThucHien }}</p>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div v-else class="flex items-center justify-center h-32 text-gray-400">
+                                    <p class="text-xs">Không có dữ liệu canh tác</p>
+                              </div>
+                        </div>
+                  </div>
+
+                  <!-- SECTION 3: Mã QR -->
+                  <div class="border border-gray-200 rounded-lg overflow-hidden flex flex-col bg-white">
+                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 border-b border-gray-200">
+                              <h4 class="text-xs font-bold text-gray-700 flex items-center gap-2">
+                                    <i class="fas fa-qrcode text-purple-600"></i>
+                                    Mã QR truy xuất
+                              </h4>
+                        </div>
+                        
+                        <div class="flex flex-col items-center justify-center flex-1 p-4 gap-3">
+                              <!-- QR Code Canvas -->
+                              <canvas ref="qrCanvas" width="200" height="200" 
+                                    class="border-2 border-purple-200 rounded-lg bg-white shadow-md"></canvas>
+                              
+                              <!-- Mã số -->
+                              <div class="text-center">
+                                    <p class="text-sm font-bold text-gray-700">{{ props.selectedVung.maQR || props.selectedVung.ma }}</p>
+                                    <a :href="`/truy-xuat/${props.selectedVung.maQR || props.selectedVung.ma}`" 
+                                       target="_blank" 
+                                       class="text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center justify-center gap-1 mt-2">
+                                          <i class="fas fa-external-link-alt"></i>
+                                          Truy xuất nguồn gốc
+                                    </a>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+            <!-- Thông tin canh tác -->
+            <div v-if="props.selectedVung.lichSuCanhTac && props.selectedVung.lichSuCanhTac.length > 0" 
+                 class="px-4 py-3 bg-blue-50 border-b border-gray-200">
+                  <h4 class="text-xs font-bold text-gray-700 mb-2 flex items-center gap-2">
+                        <i class="fas fa-clipboard-list text-blue-600"></i>
+                        Lịch sử Canh tác gần đây
+                  </h4>
+                  <div class="space-y-2">
+                        <div v-for="(hoatDong, index) in props.selectedVung.lichSuCanhTac.slice(0, 3)" 
+                             :key="index"
+                             class="flex items-start gap-2 text-xs bg-white p-2 rounded shadow-sm">
+                              <div class="flex-shrink-0 w-20 text-gray-500 font-semibold">
+                                    {{ hoatDong.ngay }}
+                              </div>
+                              <div class="flex-1">
+                                    <p class="font-semibold text-gray-700">{{ hoatDong.hoatDong }}</p>
+                                    <p class="text-gray-500">{{ hoatDong.nguoiThucHien }}</p>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+            <!-- Thị trường xuất khẩu badges -->
+            <div v-if="marketsInZone.length > 0" class="px-4 py-2 bg-gray-50 border-b border-gray-200">
+                  <p class="text-xs font-semibold text-gray-600 mb-2">Thị trường xuất khẩu:</p>
+                  <div class="flex flex-wrap gap-2">
+                        <span v-for="market in marketsInZone" :key="market" :class="getMarketBadgeClass(market)"
+                              class="px-2 py-1 rounded text-xs font-semibold">
+                              {{ market }}
+                        </span>
+                  </div>
+            </div>
+
+            <!-- Scrollable crop table -->
+            <div class="overflow-y-auto flex-grow scrollbar-custom">
+                  <!-- Thống kê tổng quan -->
+                  <div class="px-4 py-3 bg-gradient-to-r from-green-50 to-blue-50 border-b border-gray-200">
+                        <div class="grid grid-cols-2 gap-4">
+                              <div class="text-center">
+                                    <p class="text-xs text-gray-500">Tổng diện tích</p>
+                                    <p class="text-lg font-bold text-blue-600">{{ totalAreaInZone.toFixed(1) }} ha</p>
+                              </div>
+                              <div class="text-center">
+                                    <p class="text-xs text-gray-500">Giá trị xuất khẩu</p>
+                                    <p class="text-lg font-bold text-green-600">${{ Math.round(totalExportValue).toLocaleString() }}</p>
+                              </div>
+                        </div>
+                  </div>
+
+                  <!-- Bảng loại cây -->
+                  <h4 class="px-4 py-2 text-xs font-bold text-gray-700 bg-gray-50 border-b border-gray-200 flex items-center gap-2">
+                        <i class="fas fa-seedling text-green-600"></i>
+                        Danh sách Loại cây
+                  </h4>
+                  <table class="w-full border-collapse">
+                        <thead class="sticky top-0 z-10 bg-white shadow-sm">
+                              <tr>
+                                    <th class="table-header">Loại cây</th>
+                                    <th class="table-header">Diện tích (ha)</th>
+                                    <th class="table-header">Năm trồng</th>
+                                    <th class="table-header">Năng suất (tạ/ha)</th>
+                                    <th class="table-header">Giá xuất (USD/kg)</th>
+                                    <th class="table-header">Giá trị (USD)</th>
+                                    <th class="table-header">Thị trường</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                              <tr v-for="crop in cropsInZone" :key="crop.id" class="table-row-hover">
+                                    <td class="table-cell"><strong>{{ crop.tenCay }}</strong></td>
+                                    <td class="table-cell text-center">{{ crop.dienTich }}</td>
+                                    <td class="table-cell text-center">{{ crop.namTrau }}</td>
+                                    <td class="table-cell text-center font-semibold">{{ crop.nangSuat }}</td>
+                                    <td class="table-cell text-center text-green-600 font-semibold">${{ crop.giaXuat }}
+                                    </td>
+                                    <td class="table-cell text-center font-semibold text-blue-600">${{
+                                          Math.round(crop.dienTich * crop.nangSuat * crop.giaXuat).toLocaleString() }}
+                                    </td>
+                                    <td class="table-cell">
+                                          <div class="flex flex-wrap gap-1">
+                                                <span v-for="market in crop.thiBruongXuatKhau" :key="market"
+                                                      :class="getMarketBadgeClass(market)"
+                                                      class="px-1.5 py-0.5 rounded text-xs font-semibold">
+                                                      {{ market }}
+                                                </span>
+                                          </div>
+                                    </td>
+                              </tr>
+                        </tbody>
+                  </table>
+
+                  <!-- Empty state -->
+                  <div v-if="cropsInZone.length === 0" class="flex items-center justify-center h-32 text-gray-400">
+                        <p>Không có dữ liệu loại cây cho vùng này</p>
+                  </div>
+            </div>
+      </div>
+
+      <!-- No selection state -->
+      <div v-else class="panel flex flex-col items-center justify-center min-h-[350px] max-h-[600px]">
+            <i class="fas fa-hand-pointer text-5xl text-gray-300 mb-4"></i>
+            <p class="text-gray-600 text-base font-semibold mb-2">Chọn vùng trồng để xem chi tiết</p>
+            <p class="text-gray-400 text-sm">Nhấn vào bảng hoặc bản đồ để xem:</p>
+            <ul class="text-gray-400 text-sm mt-2 space-y-1">
+                  <li><i class="fas fa-check-circle text-green-500"></i> Thông tin canh tác</li>
+                  <li><i class="fas fa-check-circle text-green-500"></i> Mã QR truy xuất</li>
+                  <li><i class="fas fa-check-circle text-green-500"></i> Loại cây và thị trường</li>
+            </ul>
+      </div>
+</template>
+
+<style scoped>
+.panel {
+      @apply bg-white rounded-xl shadow-md border border-white overflow-hidden;
+}
+
+.panel-header {
+      @apply bg-gradient-to-r from-slate-50 to-blue-50 px-5 py-3 border-b border-gray-200 flex justify-between items-start gap-4;
+}
+
+.panel-title {
+      @apply text-sm font-bold text-gray-700 m-0;
+}
+
+.table-header {
+      @apply px-4 py-2.5 text-xs font-bold text-gray-600 text-left border-b border-gray-200 bg-gray-50;
+}
+
+.table-cell {
+      @apply px-4 py-2.5 text-xs text-gray-700 border-b border-gray-100;
+}
+
+.table-row-hover:hover {
+      @apply bg-blue-50;
+}
+</style>

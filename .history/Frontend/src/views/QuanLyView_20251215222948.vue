@@ -101,25 +101,6 @@ const clearSelection = () => {
       selectedVung.value = null;
 };
 
-/**
- * Chế độ xem bản đồ
- */
-const cheDoXem = ref('hanh_chinh');
-
-/**
- * Toggle layer sâu bệnh
- */
-const handleToggleSauBenh = () => {
-      cheDoXem.value = cheDoXem.value === 'sau_benh' ? 'hanh_chinh' : 'sau_benh';
-};
-
-/**
- * Toggle layer dư lượng thuốc
- */
-const handleToggleDuLuongThuoc = () => {
-      cheDoXem.value = cheDoXem.value === 'phan_bon' ? 'hanh_chinh' : 'phan_bon';
-};
-
 // ========== METHODS ==========
 // TODO: Thêm các phương thức sau khi tích hợp API:
 // - editVung(id): Chỉnh sửa thông tin vùng trồng
@@ -139,8 +120,7 @@ const handleToggleDuLuongThuoc = () => {
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="flex flex-col w-full h-screen gap-5 p-5 pb-[80px] overflow-y-auto scrollbar-custom"
-            style="background-color: #fbfced;">
+      <div class="flex flex-col w-full h-screen gap-5 p-5 pb-[80px] overflow-y-auto bg-slate-100 scrollbar-custom">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
             <!-- Thanh thống kê ở trên cùng - Chiều cao tự động -->
@@ -150,36 +130,32 @@ const handleToggleDuLuongThuoc = () => {
     -->
             <StatsBarComponent :thongKe="thongKe" />
 
-            <!-- ========== SECTION 2: PIE CHART & MAP & LAYER CONTROL ========== -->
-            <!-- Khu vực: Biểu đồ tròn (trái) & Bản đồ (giữa) & Layer Control (phải) -->
+            <!-- ========== SECTION 2: PIE CHART & MAP ========== -->
+            <!-- Khu vực: Biểu đồ tròn (trái) & Bản đồ (phải) -->
             <!-- Chiều cao tự động theo nội dung -->
-            <!-- gap-5: Khoảng cách 20px giữa các phần -->
+            <!-- gap-5: Khoảng cách 20px giữa biểu đồ tròn và bản đồ -->
             <div class="flex gap-5 min-h-[400px]">
 
                   <!-- ========== PIE CHART SECTION ========== -->
                   <!-- Biểu đồ tròn bên trái: Phân bổ thị trường xuất khẩu -->
-                  <!-- w-1/4: Chiều rộng 25% -->
-                  <div class="w-1/4 p-4 border shadow-md rounded-xl"
-                        style="background-color: white; border-color: #24504b;">
+                  <!-- w-1/3: Chiều rộng 33% (nhỏ hơn) -->
+                  <div class="w-1/3 p-4 bg-white border border-white shadow-md rounded-xl">
                         <!-- Component biểu đồ tròn -->
                         <PieChartComponent />
                   </div>
 
                   <!-- ========== MAP SECTION ========== -->
-                  <!-- Bản đồ ở giữa: Leaflet map với polygon vùng trồng -->
-                  <!-- flex-1: Chiếm không gian còn lại (lớn nhất) -->
-                  <div class="flex-1">
-                        <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh"
-                              :selectedVung="selectedVung" :cheDoXem="cheDoXem" @selectVung="handleSelectVungFromMap" />
-                  </div>
-
-                  <!-- ========== LAYER CONTROL SECTION ========== -->
-                  <!-- Panel điều khiển lớp dữ liệu bên phải -->
-                  <!-- w-56: Chiều rộng cố định 224px (nhỏ hơn bản đồ) -->
-                  <div class="w-56">
-                        <MapLayerControl :cheDoXem="cheDoXem" @toggleSauBenh="handleToggleSauBenh"
-                              @toggleDuLuongThuoc="handleToggleDuLuongThuoc" />
-                  </div>
+                  <!-- Bản đồ bên phải: Leaflet map với polygon vùng trồng -->
+                  <!-- flex-1: Chiếm không gian còn lại (rộng hơn) -->
+                  <!-- Props:
+           - :danhSachVung - Danh sách vùng trồng để render polygon trên bản đồ
+           - :diemNongSauBenh - Điểm dịch bệnh/rủi ro để hiển thị marker
+           - :selectedVung - Vùng được chọn (highlight trên bản đồ)
+      Events:
+           - @selectVung - Phát ra khi bấm vào polygon
+      -->
+                  <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh"
+                        :selectedVung="selectedVung" @selectVung="handleSelectVungFromMap" />
             </div>
 
             <!-- ========== SECTION 3: BAR CHART & LINE CHART ========== -->
@@ -190,8 +166,7 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== BAR CHART SECTION ========== -->
                   <!-- Biểu đồ cột bên trái: Năng suất cây trồng -->
                   <!-- w-1/3: Chiều rộng 33% -->
-                  <div class="w-1/3 p-4 border shadow-md rounded-xl"
-                        style="background-color: white; border-color: #24504b;">
+                  <div class="w-1/3 p-4 bg-white border border-white shadow-md rounded-xl">
                         <!-- Component biểu đồ cột -->
                         <BarChartComponent />
                   </div>
@@ -199,8 +174,7 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== LINE CHART SECTION ========== -->
                   <!-- Biểu đồ đường bên phải: Mối quan hệ thị trường & loại cây -->
                   <!-- flex-1: Chiếm không gian còn lại (rộng hơn) -->
-                  <div class="flex-1 p-4 border shadow-md rounded-xl"
-                        style="background-color: white; border-color: #24504b;">
+                  <div class="flex-1 p-4 bg-white border border-white shadow-md rounded-xl">
                         <!-- Component biểu đồ đường -->
                         <LineChartComponent />
                   </div>
