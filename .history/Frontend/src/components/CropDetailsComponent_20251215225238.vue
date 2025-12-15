@@ -244,7 +244,8 @@ const qrCodeUrl = computed(() => {
                                     </div>
 
                                     <!-- QR Card -->
-                                    <div class="relative p-4 transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl">
+                                    <div class="relative p-4 transition-all duration-300 bg-white border-2 shadow-lg rounded-xl hover:shadow-xl"
+                                          style="border-color: #24504b;">
                                           <QrcodeVue :value="qrCodeUrl" :size="180" level="H" render-as="svg"
                                                 foreground="#24504b" />
                                     </div>

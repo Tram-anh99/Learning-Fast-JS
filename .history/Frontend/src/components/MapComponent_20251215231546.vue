@@ -65,18 +65,18 @@ onMounted(() => {
       console.log('[MapComponent] danhSachVung:', props.danhSachVung);
       console.log('[MapComponent] mapContainer ref:', mapContainer.value);
       console.log('[MapComponent] cheDoXem prop:', props.cheDoXem);
-
+      
       // Gọi initMap với mode 'dashboard'
       console.log('[MapComponent] Calling initMap with mode: dashboard');
       initMap('dashboard');
-
+      
       console.log('[MapComponent] Map initialized, drawing polygons...');
       // Truyền callback để xử lý click event
       vẽMarkerVùng(props.danhSachVung, (vung) => {
             console.log('[MapComponent] Polygon clicked:', vung);
             emit('selectVung', vung);
       });
-
+      
       console.log('[MapComponent] Polygons drawn');
 });
 
@@ -90,11 +90,10 @@ const handleBatCheDoSauBenh = () => batCheDoSauBenh(props.diemNongSauBenh);
 <template>
       <!-- Map container: flex-[2] = chiếm 2 phần (lớn hơn biểu đồ) -->
       <!-- rounded-xl = border-radius 12px, overflow-hidden = clip content, shadow-md = shadow mờ -->
-      <div class="flex-[2] relative rounded-xl overflow-hidden shadow-md"
-            style="min-height: 400px; background-color: #e0e0e0;">
+      <div class="flex-[2] relative rounded-xl overflow-hidden shadow-md">
             <!-- Leaflet map container: ref để Vue có thể lưu DOM element -->
             <!-- z-0 = layer thấp nhất, w-full h-full = 100% width & height -->
-            <div ref="mapContainer" class="z-0 w-full h-full" style="min-height: 400px;"></div>
+            <div ref="mapContainer" class="z-0 w-full h-full"></div>
       </div>
 </template>
 <style scoped>

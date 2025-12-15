@@ -86,12 +86,12 @@ export function useMapLogic() {
           coordinates = [10.765, 106.66],
           zoom = 13
      ) => {
-          console.log("[useMapLogic] initMap called with mode:", mode);
-          console.log("[useMapLogic] mapContainer:", mapContainer.value);
-
+          console.log('[useMapLogic] initMap called with mode:', mode);
+          console.log('[useMapLogic] mapContainer:', mapContainer.value);
+          
           // Kiểm tra container DOM tồn tại
           if (!mapContainer.value) {
-               console.error("[useMapLogic] mapContainer is null!");
+               console.error('[useMapLogic] mapContainer is null!');
                return;
           }
 
@@ -100,8 +100,8 @@ export function useMapLogic() {
                coordinates,
                zoom
           );
-
-          console.log("[useMapLogic] Map created:", map.value);
+          
+          console.log('[useMapLogic] Map created:', map.value);
 
           // Thêm zoom control ở góc dưới phải
           L.control.zoom({ position: "bottomright" }).addTo(map.value);
@@ -139,7 +139,7 @@ export function useMapLogic() {
                layerGroup.value = L.layerGroup().addTo(map.value);
           } else {
                // ========== MODE DASHBOARD: OpenStreetMap ==========
-               console.log("[useMapLogic] Adding OSM tiles for dashboard mode");
+               console.log('[useMapLogic] Adding OSM tiles for dashboard mode');
 
                // Tile: OpenStreetMap (thay vì CartoDB)
                L.tileLayer(
@@ -149,15 +149,15 @@ export function useMapLogic() {
                          attribution: "© OpenStreetMap contributors",
                     }
                ).addTo(map.value);
-
+               
                // Tạo layer group cho dashboard mode
                layerGroup.value = L.layerGroup().addTo(map.value);
           }
 
           // Thêm layer sâu bệnh vào map (có thể ẩn ban đầu)
           lopSauBenh.value.addTo(map.value);
-
-          console.log("[useMapLogic] Map initialization complete");
+          
+          console.log('[useMapLogic] Map initialization complete');
      };
 
      // ========== LAYER MANAGEMENT: Vẽ vùng trồng ==========

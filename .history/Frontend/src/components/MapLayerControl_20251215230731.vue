@@ -10,7 +10,8 @@ const emit = defineEmits(['toggleSauBenh', 'toggleDuLuongThuoc']);
 </script>
 
 <template>
-      <div class="h-full rounded-xl shadow-md p-5 flex flex-col" style="background-color: #fbfced;">
+      <div class="h-full rounded-xl shadow-md p-5 flex flex-col"
+            style="background-color: #fbfced;">
             <div class="flex items-center gap-2 mb-4 pb-3 border-b" style="border-color: #24504b;">
                   <i class="fas fa-layer-group text-lg" style="color: #24504b;"></i>
                   <h3 class="text-sm font-bold" style="color: #24504b;">Lớp dữ liệu</h3>

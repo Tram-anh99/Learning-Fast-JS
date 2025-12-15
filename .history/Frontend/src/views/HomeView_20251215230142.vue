@@ -152,10 +152,7 @@ const handleQRScan = (qrCode) => {
  * Hook: Khởi tạo bản đồ khi component được mounted
  */
 onMounted(() => {
-  console.log('[HomeView] Mounting, initializing map with HOME mode');
-  initMap('home'); // Gọi hàm khởi tạo map với mode 'home' để load ArcGIS tiles
-  console.log('[HomeView] Map initialized, drawing polygons');
-  veLaiBanDo(danhSachTimKiem.value); // Vẽ polygons cho danh sách hiện tại
+  initMap(); // Gọi hàm khởi tạo map từ composable
 });
 
 /**

@@ -93,7 +93,7 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                               <div class="flex justify-between">
                                     <span class="text-gray-600">Địa chỉ:</span>
                                     <strong class="text-gray-800">{{ vung.diaChi || 'Khu vực Đồng bằng Sông Cửu Long'
-                                    }}</strong>
+                                          }}</strong>
                               </div>
                               <!-- Hợp tác xã -->
                               <div class="flex justify-between">
@@ -127,8 +127,8 @@ defineEmits(['back', 'openQR']); // 'back': quay lại danh sách, 'openQR': m�
                               <!-- Mỗi mục nhật ký -->
                               <div v-for="(log, idx) in vung.nhatKy" :key="idx" class="relative">
                                     <!-- Dot indicator: điểm tròn xanh bên trái -->
-                                    <div class="absolute w-3 h-3 rounded-full -left-5 top-1.5"
-                                          style="background-color: #24504b;">
+                                    <div
+                                          class="absolute w-3 h-3 rounded-full -left-5 top-1.5" style="background-color: #24504b;">
                                     </div>
 
                                     <!-- Nội dung nhật ký -->

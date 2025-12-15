@@ -159,7 +159,8 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== PIE CHART SECTION ========== -->
                   <!-- Biểu đồ tròn bên trái: Phân bổ thị trường xuất khẩu -->
                   <!-- w-1/4: Chiều rộng 25% -->
-                  <div class="w-1/4 p-4 shadow-md rounded-xl" style="background-color: white;">
+                  <div class="w-1/4 p-4 shadow-md rounded-xl"
+                        style="background-color: white;">
                         <!-- Component biểu đồ tròn -->
                         <PieChartComponent />
                   </div>
@@ -189,7 +190,8 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== BAR CHART SECTION ========== -->
                   <!-- Biểu đồ cột bên trái: Năng suất cây trồng -->
                   <!-- w-1/3: Chiều rộng 33% -->
-                  <div class="w-1/3 p-4 shadow-md rounded-xl" style="background-color: white;">
+                  <div class="w-1/3 p-4 shadow-md rounded-xl"
+                        style="background-color: white;">
                         <!-- Component biểu đồ cột -->
                         <BarChartComponent />
                   </div>
@@ -197,7 +199,8 @@ const handleToggleDuLuongThuoc = () => {
                   <!-- ========== LINE CHART SECTION ========== -->
                   <!-- Biểu đồ đường bên phải: Mối quan hệ thị trường & loại cây -->
                   <!-- flex-1: Chiếm không gian còn lại (rộng hơn) -->
-                  <div class="flex-1 p-4 shadow-md rounded-xl" style="background-color: white;">
+                  <div class="flex-1 p-4 shadow-md rounded-xl"
+                        style="background-color: white;">
                         <!-- Component biểu đồ đường -->
                         <LineChartComponent />
                   </div>

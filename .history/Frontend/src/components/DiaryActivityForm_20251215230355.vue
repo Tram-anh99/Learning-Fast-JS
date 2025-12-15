@@ -286,7 +286,7 @@ watch(() => props.selectedActivity, (newActivity) => {
             <div>
               <!-- Label with icon: flex items-center gap-1 = icon + text horizontally -->
               <!-- inventory_2 = Material Symbol icon for inventory/supplies -->
-              <label class="flex text-sm font-bold mb-2 items-center gap-1" style="color: #24504b;">
+              <label class="block text-sm font-bold text-[#2E7D32] mb-2 flex items-center gap-1">
                 <span class="material-symbols-outlined text-sm">inventory_2</span>
                 Vật tư sử dụng
               </label>
@@ -308,7 +308,7 @@ watch(() => props.selectedActivity, (newActivity) => {
             <!-- Quantity section: How much material was used? (e.g., "50 kg") -->
             <div>
               <!-- Label with icon: scale = Material Symbol for measurements -->
-              <label class="text-sm font-bold text-[#2E7D32] mb-2 flex items-center gap-1">
+              <label class="block text-sm font-bold text-[#2E7D32] mb-2 flex items-center gap-1">
                 <span class="material-symbols-outlined text-sm">scale</span>
                 Liều lượng / Số lượng
               </label>
@@ -345,7 +345,7 @@ watch(() => props.selectedActivity, (newActivity) => {
             <!-- v-if = conditionally render this section only if selectedActivity === 'harvest' -->
             <div v-if="selectedActivity === 'harvest'">
               <!-- Label with icon: global = Material Symbol for international/export -->
-              <label class="text-sm font-bold text-[#2E7D32] mb-2 flex items-center gap-1">
+              <label class="block text-sm font-bold text-[#2E7D32] mb-2 flex items-center gap-1">
                 <span class="material-symbols-outlined text-sm">public</span>
                 Thị trường xuất khẩu
               </label>

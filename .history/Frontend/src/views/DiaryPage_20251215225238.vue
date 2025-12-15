@@ -304,7 +304,8 @@ const removeImage = (index) => {
           <p class="text-lg" style="color: rgba(36, 80, 75, 0.7);">Ghi lại hoạt động canh tác nhanh chóng và dễ dàng.
           </p>
         </div>
-        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm">
+        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow-sm"
+          style="border: 1px solid #24504b;">
           <span class="material-symbols-outlined" style="color: #24504b;">calendar_today</span>
           <span class="font-medium" style="color: #24504b;">{{ new Date().toLocaleDateString('vi-VN', {
             year: 'numeric', month:
