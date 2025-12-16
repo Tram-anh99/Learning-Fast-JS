@@ -1,265 +1,638 @@
-/\*\*
+# 🎨 MODERN STYLING GUIDE - HƯỚNG DẪN THIẾT KẾ
 
--    🎨 MODERN & TRENDY STYLING GUIDE
--    ================================
--
--    Phong cách thiết kế hiện đại, trẻ trung cho WebGIS
--    Sử dụng: Gradient, Glassmorphism, Smooth Animations
-     \*/
+**Ngày cập nhật:** 16/12/2025
 
-// ============================================================================
-// ✨ DESIGN PRINCIPLES
-// ============================================================================
+---
 
-1. GRADIENT & COLOR
-   ✓ Sử dụng gradient cho buttons, cards, icons
-   ✓ Màu chuyển từ sáng → tối (135deg diagonal)
-   ✓ Tránh màu "deadflat" - luôn có độ sâu
+## 🎯 TRIẾT LÝ THIẾT KẾ
 
-2. GLASSMORPHISM
-   ✓ backdrop-blur-xl/md/sm - mờ nền phía sau
-   ✓ border-white/50-80 - viền trắng bán trong suốt
-   ✓ bg-white/80-90 - nền trắng bán trong suốt
-   ✓ from-white via-slate-50 to-blue-50 - gradient tinh tế
+Dự án sử dụng phong cách thiết kế **Modern, Clean, Professional** với các yếu tố:
+- **Glassmorphism** - Mờ trong suốt tạo depth
+- **Gradient** - Màu chuyển đổi mượt mà
+- **Smooth Animations** - Chuyển động tự nhiên
+- **Shadows & Depth** - Tầng sâu rõ ràng
+- **Responsive Design** - Linh hoạt mọi màn hình
 
-3. SMOOTH ANIMATIONS
-   ✓ cubic-bezier(0.4, 0, 0.2, 1) - ease-out modern
-   ✓ cubic-bezier(0.175, 0.885, 0.32, 1.275) - bounce/spring
-   ✓ duration-200/300/400 - thời gian phù hợp
-   ✓ transition-all - mượt tất cả properties
+---
 
-4. SHADOWS & DEPTH
-   ✓ shadow-md - bóng trung bình (thường)
-   ✓ shadow-lg → shadow-xl - hover effect
-   ✓ Tăng bóng khi hover để tạo cảm giác lifting
-   ✓ Blur radius 3xl-5xl cho decorative elements
+## 🌈 COLOR PALETTE
 
-5. ROUNDED CORNERS
-   ✓ rounded-xl, rounded-2xl, rounded-3xl (không rounded-lg)
-   ✓ Tránh góc vuông - trẻ hơn
-   ✓ Kết hợp border-radius lớn với gradient
+### **Primary Colors**
+```css
+/* Green - Màu chủ đạo nông nghiệp */
+#1b4332  /* Dark green - Headers, buttons */
+#40916c  /* Medium green - Accents */
+#52b788  /* Light green - Hover states */
+#95d5b2  /* Pale green - Backgrounds */
 
-6. HOVER & INTERACTION
-   ✓ hover:shadow-lg/xl - tăng bóng
-   ✓ hover:scale-105/110 - phóng to nhẹ
-   ✓ hover:-translate-y-0.5 - nâng nhẹ lên
-   ✓ active:scale-95 - ấn xuống
-   ✓ group-hover: - hover cho icon/element con
+/* Emerald - Gradient tươi sáng */
+#0f2818  /* Deep emerald - Dark mode */
+#34d399  /* Bright emerald - Success */
+```
 
-// ============================================================================
-// 🎭 COMPONENT STYLING PATTERNS
-// ============================================================================
+### **Secondary Colors**
+```css
+/* Blue - Thông tin & links */
+#3b82f6  /* Primary blue */
+#60a5fa  /* Light blue */
 
-MODAL (QRModal)
-├─ Backdrop: bg-black/40 + backdrop-blur-md (mờ mềm)
-├─ Card: bg-gradient-to-br from-white via-slate-50 to-blue-50
-├─ Border: border-white/80 (viền trắng tinh tế)
-├─ Decorative: Gradient circles (position: absolute) phía sau text
-├─ Glow effect: Inset box-shadow để tạo halo quanh QR
-├─ Buttons:
-│ ├─ Primary: linear-gradient(135deg, from-green-500 to-emerald-600)
-│ ├─ Secondary: hover:bg-gray-100/80 (light hover)
-│ └─ Active: active:scale-95 (animation ấn xuống)
-└─ Animations: animate-fade-in + animate-scale-up
+/* Slate - Neutral text & borders */
+#64748b  /* Medium slate */
+#94a3b8  /* Light slate */
+#e2e8f0  /* Very light slate */
+```
 
-STAT CARDS
-├─ Background: from-white to-slate-50 (gradient tinh tế)
-├─ Border: border-white/50
-├─ Hover: border-white/80 + shadow-lg (scale-1 không đổi)
-├─ Icon box: linear-gradient + shadow-lg
-├─ Icon hover: scale-110 + shadow-xl (nâng lên)
-└─ Backdrop: backdrop-blur-sm (optional)
+### **Status Colors**
+```css
+/* Success - Hoàn thành */
+#d1fae5 → #a7f3d0  /* Light green gradient */
 
-BUTTONS
-├─ Primary: linear-gradient(135deg, #1b4332, #0f2818)
-├─ Hover: from-green-600 to-emerald-700 + shadow-xl
-├─ Padding: px-4 py-2.5 (thoải mái, không quá chật)
-├─ Radius: rounded-xl (không lg)
-├─ Active: active:scale-95 (ấn xuống)
-└─ Font: font-semibold (đủ đậm)
+/* Warning - Cảnh báo */
+#fef3c7 → #fde68a  /* Yellow gradient */
 
-BADGES
-├─ Style: gradient + shadow-sm + px-3 py-1.5
-├─ Success: linear-gradient(135deg, #d1fae5, #a7f3d0)
-├─ Warning: linear-gradient(135deg, #fef3c7, #fde68a)
-├─ Danger: linear-gradient(135deg, #fee2e2, #fecaca)
-└─ Font: font-bold (nổi bật)
+/* Danger - Thu hồi */
+#fee2e2 → #fecaca  /* Red gradient */
 
-TABLE ROWS
-├─ Header: gradient-to-r from-slate-100 to-slate-50
-├─ Hover: bg-blue-50/50 + scale-[1.01] (nhẹ nhàng)
-├─ Border: border-slate-200 (tinh tế)
-└─ Transition: transition-all duration-200 (mượt)
+/* Info - Thông tin */
+#dbeafe → #bfdbfe  /* Blue gradient */
+```
 
-PANELS
-├─ Background: from-white to-slate-50 (gradient)
-├─ Border: border-white/50
-├─ Shadow: shadow-md
-├─ Backdrop: backdrop-blur-sm
-└─ Radius: rounded-2xl (không xl)
+---
 
-MAP CONTROLS
-├─ Default: linear-gradient(135deg, #f8fafc, #f1f5f9)
-├─ Hover: from-[#e2e8f0] to-[#cbd5e1] + shadow-md
-├─ Active: linear-gradient(135deg, #1b4332, #0f2818) + shadow-lg
-├─ Border: border-2 (nổi bật hơn border-1)
-└─ Radius: rounded-xl
+## 🎨 DESIGN PRINCIPLES
 
-// ============================================================================
-// 🎬 ANIMATION LIBRARY
-// ============================================================================
+### **1. GRADIENT & COLOR**
+```css
+/* Gradient direction: 135deg (diagonal) */
+background: linear-gradient(135deg, from-color, to-color);
 
-.animate-fade-in
-├─ Duration: 0.3s
-├─ Easing: cubic-bezier(0.4, 0, 0.2, 1)
-└─ Effect: opacity 0 → 1
+/* Luôn dùng gradient thay vì màu flat */
+✅ from-green-500 to-emerald-600
+❌ bg-green-500 (quá flat)
 
-.animate-scale-up
-├─ Duration: 0.4s
-├─ Easing: cubic-bezier(0.175, 0.885, 0.32, 1.275)
-└─ Effect: scale 0.85 + opacity 0 → 1
+/* Gradient tinh tế cho backgrounds */
+from-white via-slate-50 to-blue-50
+```
 
-.animate-slide-up
-├─ Duration: 0.4s
-├─ Effect: translateY(20px) + opacity → final
+**Examples:**
+```css
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #1b4332, #0f2818);
+}
 
-.animate-bounce-in
-├─ Duration: 0.5s
-├─ Effect: scale 0.3 → 1.05 → 1 (elastic)
+/* Cards */
+.card {
+  background: linear-gradient(to bottom right, white, #f8fafc);
+}
 
-.animate-fade-in-up
-├─ Duration: 0.5s
-├─ Effect: translateY(30px) + fade
+/* Icons */
+.icon-box {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+```
 
-.animate-pulse-gentle
-├─ Duration: 2s (infinite)
-├─ Effect: opacity 1 → 0.7 (subtle)
+---
 
-.animate-glow
-├─ Duration: 2s (infinite)
-├─ Effect: box-shadow từ nhỏ → lớn
+### **2. GLASSMORPHISM**
+```css
+/* Công thức cơ bản */
+backdrop-blur-[sm/md/lg/xl/2xl]  /* Blur nền phía sau */
+bg-white/[70-95]                 /* Nền trắng bán trong suốt */
+border border-white/[30-80]      /* Viền trắng nhẹ */
+shadow-[lg/xl/2xl]               /* Bóng tạo depth */
+```
 
-.animate-shimmer
-├─ Duration: 2s (infinite)
-├─ Effect: background-position animation (loading effect)
+**Examples:**
+```css
+/* Modal overlay */
+.modal-overlay {
+  @apply bg-black/40 backdrop-blur-md;
+}
 
-// ============================================================================
-// 🎨 COLOR PALETTE (Modern)
-// ============================================================================
+/* Card glassmorphism */
+.glass-card {
+  @apply bg-white/90 backdrop-blur-xl border border-white/50 shadow-2xl;
+}
 
-Primary (Xanh đậm - Tin tưởng):
-├─ #1b4332 (Đậm)
-├─ #0f2818 (Rất đậm - gradient end)
-└─ Linear: 135deg, #1b4332 → #0f2818
+/* Sidebar panel */
+.panel {
+  @apply bg-gradient-to-br from-white via-slate-50 to-blue-50
+         backdrop-blur-sm border-white/30;
+}
+```
 
-Success (Xanh lá - Tích cực):
-├─ #10b981 (Light)
-├─ #059669 (Medium)
-└─ Gradient: 135deg, #10b981 → #059669
+---
 
-Warning (Vàng cam - Cảnh báo):
-├─ #f59e0b (Light)
-├─ #d97706 (Dark)
-└─ Gradient: 135deg, #f59e0b → #d97706
+### **3. SMOOTH ANIMATIONS**
+```css
+/* Timing functions */
+cubic-bezier(0.4, 0, 0.2, 1)        /* ease-out modern */
+cubic-bezier(0.175, 0.885, 0.32, 1.275) /* bounce/spring */
 
-Neutral (Xám - Cân bằng):
-├─ white (Nền chính)
-├─ #f8fafc (Slate-50)
-├─ #e2e8f0 (Slate-200)
-└─ #1f2937 (Gray-800 - Text chính)
+/* Duration */
+duration-200  /* Nhanh - Hover effects */
+duration-300  /* Trung bình - Modal, dropdown */
+duration-500  /* Chậm - Page transitions */
+```
 
-Accent (Xanh dương - Highlight):
-├─ #3b82f6 (Blue-500)
-├─ #0284c7 (Cyan-600)
-└─ Dùng cho hyperlinks, focus states
+**Examples:**
+```css
+/* Hover scale up */
+.card {
+  @apply transition-all duration-200 hover:scale-105;
+}
 
-// ============================================================================
-// 📐 SPACING & SIZING SYSTEM
-// ============================================================================
+/* Slide in from top */
+.dropdown {
+  @apply transform transition-all duration-300 ease-out;
+  transform: translateY(-10px);
+  opacity: 0;
+}
+.dropdown.show {
+  transform: translateY(0);
+  opacity: 1;
+}
 
-Cards/Panels: px-6 py-5 → px-8 py-6 (spacious)
-Buttons: px-4 py-2.5 (không px-3 py-1.5)
-Icons: w-14 h-14 → w-16 h-16 (lớn hơn)
-Rounded: xl/2xl/3xl (không lg/md)
-Shadows: md/lg/xl (không sm)
-Gaps: gap-4 → gap-6 (thoải mái)
-Borders: border-2 (nổi bật hơn)
+/* Bounce button */
+.btn-bounce {
+  @apply transition-transform duration-200;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-bounce:active {
+  @apply scale-95;
+}
+```
 
-// ============================================================================
-// 🧩 COMBINATION EXAMPLES
-// ============================================================================
+---
 
-✨ MODERN BUTTON
-class="px-4 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600
-hover:from-green-600 hover:to-emerald-700
-text-white font-semibold rounded-xl
-shadow-lg hover:shadow-xl
-transition-all duration-200
-active:scale-95"
+### **4. SHADOWS & DEPTH**
+```css
+/* Shadow layers */
+shadow-sm   /* Subtle - Inner cards */
+shadow-md   /* Default - Cards */
+shadow-lg   /* Hover - Elevated cards */
+shadow-xl   /* Focus - Modals */
+shadow-2xl  /* Decorative - Hero elements */
 
-✨ STAT CARD
-class="flex-1 bg-gradient-to-br from-white to-slate-50
-px-6 py-5 rounded-2xl shadow-md
-border border-white/50
-hover:shadow-lg hover:border-white/80
-transition-all duration-300
-backdrop-blur-sm"
+/* Hover effect pattern */
+shadow-md → shadow-lg/xl (khi hover)
+```
 
-✨ MODAL
-class="relative w-full max-w-sm
-bg-gradient-to-br from-white via-slate-50 to-blue-50
-rounded-3xl shadow-2xl p-8
-border border-white/80
-backdrop-blur-xl
-animate-scale-up"
+**Examples:**
+```css
+/* Card elevation */
+.card {
+  @apply shadow-md hover:shadow-xl transition-shadow;
+}
 
-✨ ICON BOX
-class="w-14 h-14 rounded-xl flex justify-center items-center
-text-2xl text-white font-bold
-bg-gradient-to-br from-green-500 to-emerald-600
-shadow-lg
-hover:scale-110 transition-all duration-300"
+/* Button depth */
+.btn {
+  @apply shadow-lg hover:shadow-2xl;
+}
 
-✨ TABLE ROW
-class="transition-all duration-200"
-with .hover-effect-on-parent to child
+/* Dropdown popup */
+.dropdown {
+  @apply shadow-xl;
+}
 
-// ============================================================================
-// 💡 BEST PRACTICES
-// ============================================================================
+/* Glow effect cho QR */
+.qr-glow {
+  box-shadow: 
+    inset 0 0 30px rgba(255,255,255,0.5),
+    0 10px 40px rgba(0,0,0,0.1);
+}
+```
 
-1. NEVER use solid colors - always gradient or glassmorphism
-2. ALWAYS add hover effects - shadow, scale, or color change
-3. Use cubic-bezier for smooth, organic animations
-4. Add z-10 to decorative elements to avoid overlap
-5. Keep text readable - use text shadows if necessary
-6. Test on mobile - touch/tap should feel responsive
-7. Use group-hover for related elements animation
-8. Border-radius should be modern (xl/2xl minimum)
-9. Shadows should increase on hover (depth illusion)
-10. Animations should feel snappy (200-400ms)
+---
 
-// ============================================================================
-// 🎯 FILES TO CHECK
-// ============================================================================
+### **5. ROUNDED CORNERS**
+```css
+/* Kích thước border-radius */
+rounded-lg   /* 8px - Nhỏ (tránh dùng) */
+rounded-xl   /* 12px - Thường dùng */
+rounded-2xl  /* 16px - Card lớn */
+rounded-3xl  /* 24px - Modal, hero */
+rounded-full /* Circle/pill */
 
-✓ src/components/QRModal.vue - UPDATED (Modern design)
-✓ src/assets/styles/tailwind.css - UPDATED (All gradients & animations)
-✓ tailwind.config.js - Custom colors defined
-✓ StatsBarComponent.vue - Uses updated .stat-card + .icon-box
-✓ DataTableComponent.vue - Uses updated table styles
-✓ All buttons - Use .btn-primary or gradient inline
+/* Quy tắc: Càng lớn càng modern */
+✅ rounded-xl, rounded-2xl, rounded-3xl
+❌ rounded-md, rounded-lg (quá nhỏ)
+```
 
-// ============================================================================
-// 📝 NOTES
-// ============================================================================
+**Examples:**
+```css
+/* Buttons */
+.btn {
+  @apply rounded-xl;
+}
 
--    Phong cách: Glassmorphism + Gradient + Smooth animations
--    Trẻ trung: Modern colors, generous spacing, rounded corners
--    Hiện đại: Subtle shadows, blur effects, elastic interactions
--    Vue 3: group-hover, @click handlers work perfectly
--    Tailwind: No scoped CSS - all utilities used from global CSS
--    Performance: Animations use GPU (transform, opacity)
--    Accessibility: Keep hover effects subtle, support reduced-motion
+/* Cards */
+.card {
+  @apply rounded-2xl;
+}
 
-\*/
+/* Modals */
+.modal {
+  @apply rounded-3xl;
+}
+
+/* Avatar/Icons */
+.avatar {
+  @apply rounded-full;
+}
+```
+
+---
+
+### **6. HOVER & INTERACTION**
+```css
+/* Pattern chung */
+hover:shadow-lg/xl     /* Tăng bóng */
+hover:scale-105/110    /* Phóng to nhẹ */
+hover:-translate-y-1   /* Nâng lên */
+active:scale-95        /* Ấn xuống */
+group-hover:           /* Hover element cha ảnh hưởng con */
+```
+
+**Examples:**
+```css
+/* Card lift effect */
+.card {
+  @apply transition-all duration-200
+         hover:shadow-xl hover:-translate-y-1;
+}
+
+/* Button press */
+.btn {
+  @apply transition-transform active:scale-95;
+}
+
+/* Icon scale */
+.icon {
+  @apply transition-transform hover:scale-110;
+}
+
+/* Group hover pattern */
+.card-group:hover .icon {
+  @apply scale-110 rotate-12;
+}
+```
+
+---
+
+## �� COMPONENT STYLING PATTERNS
+
+### **MODAL (QRModal, QRScanner)**
+```css
+/* Backdrop */
+.modal-backdrop {
+  @apply fixed inset-0 
+         bg-black/40 backdrop-blur-md
+         flex items-center justify-center
+         z-50;
+}
+
+/* Modal card */
+.modal-card {
+  @apply bg-gradient-to-br from-white via-slate-50 to-blue-50
+         border border-white/80
+         rounded-3xl shadow-2xl
+         backdrop-blur-xl
+         p-8 max-w-md w-full;
+}
+
+/* Decorative circles */
+.decorative-circle {
+  @apply absolute rounded-full blur-3xl opacity-30;
+  background: radial-gradient(circle, #3b82f6, transparent);
+}
+
+/* Close button */
+.close-btn {
+  @apply text-gray-400 hover:text-gray-600
+         transition-colors duration-200;
+}
+```
+
+---
+
+### **STAT CARDS (StatsBarComponent)**
+```css
+/* Card container */
+.stat-card {
+  @apply bg-gradient-to-br from-white to-slate-50
+         border border-white/50
+         rounded-2xl shadow-md
+         backdrop-blur-sm
+         p-4 flex items-center gap-4
+         transition-all duration-200
+         hover:shadow-lg hover:border-white/80;
+}
+
+/* Icon box */
+.icon-box {
+  @apply w-12 h-12 rounded-xl
+         flex items-center justify-center
+         shadow-lg
+         transition-transform duration-200
+         hover:scale-110 hover:shadow-xl;
+}
+
+/* Color variants */
+.icon-box-green {
+  @apply bg-gradient-to-br from-green-500 to-emerald-600;
+}
+.icon-box-blue {
+  @apply bg-gradient-to-br from-blue-500 to-blue-600;
+}
+.icon-box-yellow {
+  @apply bg-gradient-to-br from-yellow-500 to-amber-600;
+}
+.icon-box-red {
+  @apply bg-gradient-to-br from-red-500 to-rose-600;
+}
+```
+
+---
+
+### **BUTTONS**
+```css
+/* Primary button */
+.btn-primary {
+  @apply px-4 py-2.5 rounded-xl
+         bg-gradient-to-r from-green-600 to-emerald-700
+         text-white font-semibold
+         shadow-lg hover:shadow-xl
+         transition-all duration-200
+         hover:from-green-700 hover:to-emerald-800
+         active:scale-95;
+}
+
+/* Secondary button */
+.btn-secondary {
+  @apply px-4 py-2.5 rounded-xl
+         bg-white/80 text-gray-700
+         border border-gray-300
+         hover:bg-gray-100/80
+         transition-all duration-200
+         active:scale-95;
+}
+
+/* Icon button */
+.btn-icon {
+  @apply w-10 h-10 rounded-xl
+         flex items-center justify-center
+         hover:bg-gray-100
+         transition-colors duration-200;
+}
+```
+
+---
+
+### **BADGES**
+```css
+/* Badge base */
+.badge {
+  @apply inline-flex items-center gap-1
+         px-3 py-1.5 rounded-xl
+         text-xs font-bold
+         shadow-sm;
+}
+
+/* Status variants */
+.badge-success {
+  @apply bg-gradient-to-r from-green-100 to-emerald-100
+         text-green-800;
+}
+.badge-warning {
+  @apply bg-gradient-to-r from-yellow-100 to-amber-100
+         text-yellow-800;
+}
+.badge-danger {
+  @apply bg-gradient-to-r from-red-100 to-rose-100
+         text-red-800;
+}
+.badge-info {
+  @apply bg-gradient-to-r from-blue-100 to-cyan-100
+         text-blue-800;
+}
+```
+
+---
+
+### **TABLE ROWS**
+```css
+/* Table header */
+.table-header {
+  @apply bg-gradient-to-r from-slate-100 to-slate-50
+         border-b border-slate-200
+         text-xs font-semibold text-gray-700
+         uppercase tracking-wider;
+}
+
+/* Table row */
+.table-row {
+  @apply border-b border-slate-200
+         transition-all duration-200
+         hover:bg-blue-50/50 hover:scale-[1.01];
+}
+
+/* Table cell */
+.table-cell {
+  @apply px-4 py-3 text-sm text-gray-900;
+}
+
+/* Selected row */
+.table-row-selected {
+  @apply bg-blue-100 border-blue-200;
+}
+```
+
+---
+
+### **PANELS (Sidebar, Dashboard)**
+```css
+/* Panel container */
+.panel {
+  @apply bg-gradient-to-br from-white to-slate-50
+         border border-white/50
+         rounded-2xl shadow-md
+         backdrop-blur-sm
+         overflow-hidden;
+}
+
+/* Panel header */
+.panel-header {
+  @apply bg-gradient-to-r from-green-700 to-emerald-800
+         text-white px-6 py-4
+         border-b border-white/20;
+}
+
+/* Panel title */
+.panel-title {
+  @apply text-base font-bold;
+}
+
+/* Panel body */
+.panel-body {
+  @apply p-6;
+}
+```
+
+---
+
+## 📱 RESPONSIVE DESIGN
+
+### **Breakpoints**
+```javascript
+sm: '640px',   // Mobile landscape
+md: '768px',   // Tablet
+lg: '1024px',  // Desktop
+xl: '1280px',  // Large desktop
+2xl: '1536px', // Extra large
+```
+
+### **Responsive Patterns**
+```css
+/* Mobile-first approach */
+.sidebar {
+  @apply w-full;           /* Mobile */
+  @apply md:w-80;          /* Tablet+ */
+  @apply lg:w-96;          /* Desktop+ */
+}
+
+/* Grid responsive */
+.stats-grid {
+  @apply grid grid-cols-1;    /* 1 col mobile */
+  @apply sm:grid-cols-2;      /* 2 cols tablet */
+  @apply lg:grid-cols-4;      /* 4 cols desktop */
+  @apply gap-4;
+}
+
+/* Font size responsive */
+.title {
+  @apply text-sm;          /* Mobile */
+  @apply md:text-base;     /* Tablet+ */
+  @apply lg:text-lg;       /* Desktop+ */
+}
+
+/* Hide/show elements */
+.desktop-only {
+  @apply hidden lg:block;
+}
+.mobile-only {
+  @apply block lg:hidden;
+}
+```
+
+---
+
+## 🎭 TYPOGRAPHY
+
+### **Font Sizes**
+```css
+/* Tailwind utility classes */
+text-xs     /* 12px - Small text, badges */
+text-sm     /* 14px - Body text */
+text-base   /* 16px - Default, headings */
+text-lg     /* 18px - Large headings */
+text-xl     /* 20px - Hero titles */
+text-2xl    /* 24px - Page titles */
+```
+
+### **Font Weights**
+```css
+font-normal    /* 400 - Body text */
+font-medium    /* 500 - Emphasis */
+font-semibold  /* 600 - Headings */
+font-bold      /* 700 - Strong emphasis */
+```
+
+### **Usage**
+```css
+/* H1 - Page title */
+.title-h1 {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+/* H2 - Section title */
+.title-h2 {
+  @apply text-lg font-semibold text-gray-800;
+}
+
+/* Body text */
+.body-text {
+  @apply text-sm text-gray-700;
+}
+
+/* Small text */
+.small-text {
+  @apply text-xs text-gray-500;
+}
+```
+
+---
+
+## ✨ SPECIAL EFFECTS
+
+### **Glow Effect**
+```css
+.glow {
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+```
+
+### **Gradient Text**
+```css
+.gradient-text {
+  @apply bg-gradient-to-r from-green-600 to-emerald-600
+         bg-clip-text text-transparent;
+}
+```
+
+### **Shimmer Animation**
+```css
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+```
+
+---
+
+## 🎯 DO'S AND DON'TS
+
+### **✅ DO**
+- Sử dụng gradient thay vì màu flat
+- Rounded corners lớn (xl, 2xl, 3xl)
+- Hover effects: scale + shadow
+- Glassmorphism cho modals
+- Smooth transitions (200-300ms)
+- Mobile-first responsive
+
+### **❌ DON'T**
+- Màu flat không gradient
+- Rounded-md/lg quá nhỏ
+- Góc vuông (không rounded)
+- Animations quá nhanh (<100ms)
+- Quá nhiều màu sắc rối mắt
+- Bỏ qua responsive mobile
+
+---
+
+**Cập nhật lần cuối:** 16/12/2025  
+**Trạng thái:** ✅ Production Design System Complete

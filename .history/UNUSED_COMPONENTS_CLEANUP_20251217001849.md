@@ -10,14 +10,14 @@
 
 Found and deleted **5 unused components** that were orphaned in the codebase:
 
-| Component                 | LOC     | Reason                | Status         |
-| ------------------------- | ------- | --------------------- | -------------- |
-| **DiaryActivityCard.vue** | 56      | Not imported anywhere | 🗑️ DELETED     |
-| **DiaryHeader.vue**       | 38      | Not imported anywhere | 🗑️ DELETED     |
-| **DiaryNavigation.vue**   | 65      | Not imported anywhere | 🗑️ DELETED     |
-| **MapStatsWidget.vue**    | 115     | Not imported anywhere | 🗑️ DELETED     |
-| **ChartsComponents.vue**  | 324     | Exact duplicate       | 🗑️ DELETED     |
-| **TOTAL**                 | **598** | **All unused**        | **✅ REMOVED** |
+| Component                  | LOC     | Reason                | Status         |
+| -------------------------- | ------- | --------------------- | -------------- |
+| **DiaryActivityCard.vue**  | 56      | Not imported anywhere | 🗑️ DELETED     |
+| **DiaryHeader.vue**        | 38      | Not imported anywhere | 🗑️ DELETED     |
+| **DiaryNavigation.vue**    | 65      | Not imported anywhere | 🗑️ DELETED     |
+| **MapStatsWidget.vue**     | 115     | Not imported anywhere | 🗑️ DELETED     |
+| **ChartsComponents.vue**   | 324     | Exact duplicate       | 🗑️ DELETED     |
+| **TOTAL**                  | **598** | **All unused**        | **✅ REMOVED** |
 
 ---
 
