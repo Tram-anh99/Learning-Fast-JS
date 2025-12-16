@@ -10,10 +10,10 @@ const emit = defineEmits(['toggleSauBenh', 'toggleDuLuongThuoc']);
 </script>
 
 <template>
-      <div class="h-full rounded-xl shadow-md p-5 flex flex-col" style="background-color: #24504b;">
-            <div class="flex items-center gap-2 mb-4 pb-3 border-b" style="border-color: #fbfced;">
-                  <i class="fas fa-layer-group text-lg" style="color: #fbfced;"></i>
-                  <h3 class="text-sm font-bold" style="color: #fbfced;">Lớp dữ liệu</h3>
+      <div class="h-full rounded-xl shadow-md p-5 flex flex-col bg-gradient-to-br from-white to-slate-50">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-gray-200">
+                  <i class="fas fa-layer-group text-lg text-gray-700"></i>
+                  <h3 class="text-sm font-bold text-gray-800">Lớp dữ liệu</h3>
             </div>
 
             <div class="space-y-3">
@@ -36,8 +36,8 @@ const emit = defineEmits(['toggleSauBenh', 'toggleDuLuongThuoc']);
                   </button>
             </div>
 
-            <div class="mt-auto pt-4 border-t" style="border-color: #fbfced;">
-                  <div class="p-3 rounded text-xs" style="background-color: rgba(251, 246, 237, 0.15); color: #fbfced;">
+            <div class="mt-auto pt-4 border-t border-gray-200">
+                  <div class="p-3 rounded text-xs bg-blue-50 text-gray-700">
                         <p class="font-semibold mb-1 flex items-center gap-1">
                               <i class="fas fa-info-circle"></i>
                               Hướng dẫn:

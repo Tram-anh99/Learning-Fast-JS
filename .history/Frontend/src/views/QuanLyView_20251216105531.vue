@@ -153,18 +153,18 @@ const handleToggleDuLuongThuoc = () => {
             <!-- ========== SECTION 2: PIE CHART & MAP & LAYER CONTROL ========== -->
             <!-- Khu vực: Biểu đồ tròn (trái) & Bản đồ (giữa) & Layer Control (phải) -->
             <!-- Responsive: Dọc trên mobile, ngang trên desktop -->
-            <div class="flex flex-col lg:flex-row gap-5">
+            <div class="flex flex-col lg:flex-row gap-5 min-h-[400px]">
 
                   <!-- ========== PIE CHART SECTION ========== -->
                   <!-- Biểu đồ tròn: Full width trên mobile, 25% trên desktop -->
-                  <div class="w-full lg:w-1/4 p-4 shadow-md rounded-xl h-[400px]" style="background-color: white;">
+                  <div class="w-full lg:w-1/4 p-4 shadow-md rounded-xl" style="background-color: white;">
                         <!-- Component biểu đồ tròn -->
                         <PieChartComponent />
                   </div>
 
                   <!-- ========== MAP SECTION ========== -->
                   <!-- Bản đồ: Full width trên mobile, flex-1 trên desktop -->
-                  <div class="w-full lg:flex-1 h-[400px]">
+                  <div class="w-full lg:flex-1 min-h-[400px]">
                         <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh"
                               :selectedVung="selectedVung" :cheDoXem="cheDoXem" @selectVung="handleSelectVungFromMap" />
                   </div>
@@ -180,18 +180,18 @@ const handleToggleDuLuongThuoc = () => {
             <!-- ========== SECTION 3: BAR CHART & LINE CHART ========== -->
             <!-- Khu vực: Biểu đồ cột (trái) & Biểu đồ đường (phải) -->
             <!-- Responsive: Dọc trên mobile/tablet, ngang trên desktop -->
-            <div class="flex flex-col md:flex-row gap-5">
+            <div class="flex flex-col md:flex-row gap-5 min-h-[450px]">
 
                   <!-- ========== BAR CHART SECTION ========== -->
                   <!-- Biểu đồ cột: Full width trên mobile, 40% trên desktop -->
-                  <div class="w-full md:w-2/5 p-4 shadow-md rounded-xl h-[450px]" style="background-color: white;">
+                  <div class="w-full md:w-2/5 p-4 shadow-md rounded-xl" style="background-color: white;">
                         <!-- Component biểu đồ cột -->
                         <BarChartComponent />
                   </div>
 
                   <!-- ========== LINE CHART SECTION ========== -->
                   <!-- Biểu đồ đường: Full width trên mobile, 60% trên desktop -->
-                  <div class="w-full md:flex-1 p-4 shadow-md rounded-xl h-[450px]" style="background-color: white;">
+                  <div class="w-full md:flex-1 p-4 shadow-md rounded-xl" style="background-color: white;">
                         <!-- Component biểu đồ đường -->
                         <LineChartComponent />
                   </div>

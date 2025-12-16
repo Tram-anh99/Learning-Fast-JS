@@ -128,42 +128,22 @@ import { RouterView } from 'vue-router';
   font-weight: 700;
   font-size: 1.1rem;
   text-transform: uppercase;
-}
-
-.brand-subtitle {
-  font-size: 0.75rem;
-  opacity: 0.8;
-}
-
-.nav-links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1024px) {
   .nav-links {
-    gap: 8px;
+    gap: 6px;
   }
 }
 
 @media (max-width: 768px) {
-  .top-navbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
   .nav-links {
-    flex-direction: column;
     width: 100%;
-    gap: 8px;
     order: 3;
-  }
-
-  .user-profile {
-    order: 2;
-    align-self: flex-end;
+    justify-content: space-around;
   }
 }
 
@@ -192,11 +172,9 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 768px) {
   .nav-item {
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    gap: 10px;
-    width: 100%;
-    justify-content: flex-start;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 6px;
   }
 }
 

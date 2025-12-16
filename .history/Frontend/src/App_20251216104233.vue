@@ -128,42 +128,22 @@ import { RouterView } from 'vue-router';
   font-weight: 700;
   font-size: 1.1rem;
   text-transform: uppercase;
-}
-
-.brand-subtitle {
-  font-size: 0.75rem;
-  opacity: 0.8;
-}
-
-.nav-links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1024px) {
   .nav-links {
-    gap: 8px;
+    gap: 6px;
   }
 }
 
 @media (max-width: 768px) {
-  .top-navbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
   .nav-links {
-    flex-direction: column;
     width: 100%;
-    gap: 8px;
     order: 3;
-  }
-
-  .user-profile {
-    order: 2;
-    align-self: flex-end;
+    justify-content: space-around;
   }
 }
 
@@ -192,16 +172,44 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 768px) {
   .nav-item {
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    gap: 10px;
-    width: 100%;
-    justify-content: flex-start;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+  
+  .nav-item i {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .user-profile {
+    gap: 6px;
   }
 }
 
-.nav-item i {
-  flex-shrink: 0;
+.role-badge {
+  font-size: 0.8rem;
+  background: rgba(251, 252, 237, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fbfced;
+}
+
+@media (max-width: 768px) {
+  .role-badge {
+    display: none;
+  }
+}
+
+.nav-item {
+  padding: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid transparent;
+  background: rgba(251, 252, 237, 0.1);
 }
 
 .nav-item:hover {
@@ -226,24 +234,12 @@ import { RouterView } from 'vue-router';
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .user-profile {
-    gap: 6px;
-  }
-}
-
 .role-badge {
   font-size: 0.8rem;
   background: rgba(251, 252, 237, 0.2);
   padding: 2px 8px;
   border-radius: 4px;
   color: #fbfced;
-}
-
-@media (max-width: 768px) {
-  .role-badge {
-    display: none;
-  }
 }
 
 .user-avatar {

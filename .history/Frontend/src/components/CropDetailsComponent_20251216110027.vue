@@ -116,14 +116,14 @@ const qrCodeUrl = computed(() => {
                         <div class="flex items-center justify-between">
                               <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Tên vùng:</span>
                               <span class="text-sm font-semibold" style="color: #24504b;">{{ props.selectedVung.ten
-                              }}</span>
+                                    }}</span>
                         </div>
 
                         <!-- Chủ hộ -->
                         <div class="flex items-center justify-between">
                               <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Chủ hộ:</span>
                               <span class="text-sm font-semibold" style="color: #24504b;">{{ props.selectedVung.chu
-                              }}</span>
+                                    }}</span>
                         </div>
 
                         <!-- Trạng thái -->
@@ -152,7 +152,7 @@ const qrCodeUrl = computed(() => {
                                           <p class="mb-1 text-xs" style="color: rgba(36, 80, 75, 0.6);">Giá trị XK</p>
                                           <p class="text-lg font-bold" style="color: #24504b;">${{
                                                 Math.round(totalExportValue /
-                                                      1000) }}K</p>
+                                                1000) }}K</p>
                                           <p class="text-xs" style="color: rgba(36, 80, 75, 0.6);">USD</p>
                                     </div>
                               </div>
@@ -181,9 +181,9 @@ const qrCodeUrl = computed(() => {
                                           class="flex items-center justify-between p-2 rounded"
                                           style="background-color: rgba(36, 80, 75, 0.05);">
                                           <span class="text-xs font-semibold" style="color: #24504b;">{{ crop.tenCay
-                                          }}</span>
+                                                }}</span>
                                           <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">{{ crop.dienTich
-                                          }} ha</span>
+                                                }} ha</span>
                                     </div>
                               </div>
                         </div>
@@ -191,7 +191,7 @@ const qrCodeUrl = computed(() => {
             </div>
 
             <!-- PHẦN 2: LỊCH SỬ CANH TÁC -->
-            <div class="w-full lg:flex-1 p-5 shadow-md rounded-xl" style="background-color: white;">
+            <div class="flex-1 p-5 shadow-md rounded-xl" style="background-color: white;">
                   <div class="flex items-center gap-2 pb-3 mb-4 border-b-2" style="border-color: #24504b;">
                         <i class="text-lg fas fa-clipboard-list" style="color: #24504b;"></i>
                         <h3 class="text-sm font-bold" style="color: #24504b;">Lịch sử Canh tác gần đây</h3>
@@ -228,7 +228,7 @@ const qrCodeUrl = computed(() => {
             </div>
 
             <!-- PHẦN 3: MÃ QR -->
-            <div class="w-full lg:w-64 p-5 shadow-md rounded-xl" style="background-color: white;">
+            <div class="w-64 p-5 shadow-md rounded-xl" style="background-color: white;">
                   <div class="flex items-center gap-2 pb-3 mb-4 border-b-2" style="border-color: #24504b;">
                         <i class="text-lg fas fa-qrcode" style="color: #24504b;"></i>
                         <h3 class="text-sm font-bold" style="color: #24504b;">Mã QR Truy xuất</h3>
@@ -244,8 +244,7 @@ const qrCodeUrl = computed(() => {
                                     </div>
 
                                     <!-- QR Card -->
-                                    <div
-                                          class="relative p-4 transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl">
+                                    <div class="relative p-4 transition-all duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl">
                                           <QrcodeVue :value="qrCodeUrl" :size="180" level="H" render-as="svg"
                                                 foreground="#24504b" />
                                     </div>

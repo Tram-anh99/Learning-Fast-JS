@@ -12,16 +12,7 @@
  *   - datasets: Mỗi dataset là một thị trường xuất khẩu với dữ liệu sản lượng/giá trị
  */
 const lineChartData = {
-     labels: [
-          "Lúa",
-          "Xoài",
-          "Thanh long",
-          "Cà phê",
-          "Tiêu",
-          "Dừa",
-          "Sầu riêng",
-          "Rau củ",
-     ],
+     labels: ["Lúa", "Xoài", "Thanh long", "Cà phê", "Tiêu", "Dừa", "Sầu riêng", "Rau củ"],
      datasets: [
           {
                label: "Trung Quốc",
@@ -133,9 +124,9 @@ const lineChartOptions = {
                max: 10000,
                title: {
                     display: true,
-                    text: "Sản lượng xuất khẩu (tấn)",
+                    text: 'Sản lượng xuất khẩu (tấn)',
                     font: { size: 11, weight: 600 },
-                    color: "#374151",
+                    color: '#374151',
                     padding: 8,
                },
                ticks: {
@@ -154,9 +145,9 @@ const lineChartOptions = {
           x: {
                title: {
                     display: true,
-                    text: "Loại cây trồng",
+                    text: 'Loại cây trồng',
                     font: { size: 11, weight: 600 },
-                    color: "#374151",
+                    color: '#374151',
                     padding: 8,
                },
                ticks: {

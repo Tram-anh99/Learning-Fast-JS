@@ -206,18 +206,18 @@ const handleToggleDuLuongThuoc = () => {
             <!-- ========== SECTION 5: DATA TABLE ========== -->
             <!-- Bảng danh sách vùng -->
             <!-- Chiều cao tự động theo nội dung -->
-            <!-- Props:
-         - :danhSachVung - Danh sách vùng trồng để render trong bảng
-         - :selectedVung - Vùng được chọn (highlight row)
-         Events:
-         - @selectVung - Phát ra khi bấm vào row
-         Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
-    -->
-            <DataTableComponent :danhSachVung="danhSachVung" :selectedVung="selectedVung"
-                  @selectVung="handleSelectVungFromTable" />
+                  <!-- Props:
+               - :danhSachVung - Danh sách vùng trồng để render trong bảng
+               - :selectedVung - Vùng được chọn (highlight row)
+               Events:
+               - @selectVung - Phát ra khi bấm vào row
+               Features: Sắp xếp theo cột, lọc, chỉnh sửa inline
+          -->
+                  <DataTableComponent :danhSachVung="danhSachVung" :selectedVung="selectedVung"
+                        @selectVung="handleSelectVungFromTable" />
+            </div>
 
             <!-- ========== FOOTER ========== -->
-            <footer class="pt-6 pb-4 mt-8 text-sm text-center text-gray-600 border-t border-gray-200">
                   <p>&copy; 2024 Hệ thống Quản lý Nông nghiệp. Phát triển bởi <span
                               class="font-semibold text-gray-800">Dev Team</span></p>
                   <p class="mt-2 text-xs text-gray-500">Cập nhật lần cuối: <span class="font-medium">{{ new

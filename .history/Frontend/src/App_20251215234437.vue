@@ -128,43 +128,19 @@ import { RouterView } from 'vue-router';
   font-weight: 700;
   font-size: 1.1rem;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fbfced;
 }
 
 .brand-subtitle {
   font-size: 0.75rem;
-  opacity: 0.8;
+  color: rgba(251, 252, 237, 0.7);
+  font-weight: 300;
 }
 
 .nav-links {
   display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-direction: row;
-}
-
-@media (max-width: 1024px) {
-  .nav-links {
-    gap: 8px;
-  }
-}
-
-@media (max-width: 768px) {
-  .top-navbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
-    order: 3;
-  }
-
-  .user-profile {
-    order: 2;
-    align-self: flex-end;
-  }
+  gap: 8px;
 }
 
 .nav-item {
@@ -180,28 +156,6 @@ import { RouterView } from 'vue-router';
   gap: 8px;
   border: 2px solid transparent;
   background: rgba(251, 252, 237, 0.1);
-  white-space: nowrap;
-}
-
-@media (max-width: 1024px) {
-  .nav-item {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-item {
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    gap: 10px;
-    width: 100%;
-    justify-content: flex-start;
-  }
-}
-
-.nav-item i {
-  flex-shrink: 0;
 }
 
 .nav-item:hover {
@@ -226,24 +180,12 @@ import { RouterView } from 'vue-router';
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .user-profile {
-    gap: 6px;
-  }
-}
-
 .role-badge {
   font-size: 0.8rem;
   background: rgba(251, 252, 237, 0.2);
   padding: 2px 8px;
   border-radius: 4px;
   color: #fbfced;
-}
-
-@media (max-width: 768px) {
-  .role-badge {
-    display: none;
-  }
 }
 
 .user-avatar {

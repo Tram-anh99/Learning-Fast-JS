@@ -140,5 +140,7 @@ circle {
       transition: all 0.3s ease;
 }
 
-/* SVG circle hover effect would need JavaScript implementation */
+circle:hover {
+      /* r property cannot be set via CSS, use JavaScript instead */
+}
 </style>
