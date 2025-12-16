@@ -116,14 +116,14 @@ const qrCodeUrl = computed(() => {
                         <div class="flex items-center justify-between">
                               <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Tên vùng:</span>
                               <span class="text-sm font-semibold" style="color: #24504b;">{{ props.selectedVung.ten
-                                    }}</span>
+                              }}</span>
                         </div>
 
                         <!-- Chủ hộ -->
                         <div class="flex items-center justify-between">
                               <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">Chủ hộ:</span>
                               <span class="text-sm font-semibold" style="color: #24504b;">{{ props.selectedVung.chu
-                                    }}</span>
+                              }}</span>
                         </div>
 
                         <!-- Trạng thái -->
@@ -181,9 +181,9 @@ const qrCodeUrl = computed(() => {
                                           class="flex items-center justify-between p-2 rounded"
                                           style="background-color: rgba(36, 80, 75, 0.05);">
                                           <span class="text-xs font-semibold" style="color: #24504b;">{{ crop.tenCay
-                                                }}</span>
+                                          }}</span>
                                           <span class="text-xs" style="color: rgba(36, 80, 75, 0.6);">{{ crop.dienTich
-                                                }} ha</span>
+                                          }} ha</span>
                                     </div>
                               </div>
                         </div>
