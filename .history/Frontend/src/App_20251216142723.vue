@@ -75,8 +75,8 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 768px) {
   .top-navbar {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 10px 12px;
+    gap: 12px;
   }
 }
 
@@ -196,9 +196,9 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 768px) {
   .nav-item {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    gap: 8px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    gap: 10px;
     width: 100%;
     justify-content: flex-start;
   }

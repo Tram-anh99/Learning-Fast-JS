@@ -69,7 +69,8 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 1024px) {
   .top-navbar {
-    padding: 12px 16px;
+    padding: 10px 16px;
+    min-height: 50px;
   }
 }
 
@@ -77,6 +78,7 @@ import { RouterView } from 'vue-router';
   .top-navbar {
     padding: 8px 12px;
     gap: 8px;
+    min-height: auto;
   }
 }
 
@@ -87,9 +89,11 @@ import { RouterView } from 'vue-router';
   position: relative;
   /* Làm điểm tựa cho con bên trong */
   width: 100%;
-  height: 100%;
   background-color: #fbfced;
-  overflow: hidden;
+  overflow-y: auto;
+  /* Cho phép scroll dọc */
+  overflow-x: hidden;
+  /* Ngăn scroll ngang */
 }
 
 /* ... giữ nguyên các class khác ... */
@@ -151,7 +155,6 @@ import { RouterView } from 'vue-router';
 @media (max-width: 768px) {
   .top-navbar {
     flex-wrap: wrap;
-    gap: 8px;
   }
 
   .brand {
@@ -164,10 +167,10 @@ import { RouterView } from 'vue-router';
   }
 
   .nav-links {
-    order: 3;
-    width: 100%;
     flex-direction: column;
+    width: 100%;
     gap: 6px;
+    order: 3;
   }
 }
 
@@ -196,7 +199,7 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 768px) {
   .nav-item {
-    padding: 10px 14px;
+    padding: 8px 12px;
     font-size: 0.85rem;
     gap: 8px;
     width: 100%;
@@ -261,5 +264,13 @@ import { RouterView } from 'vue-router';
   align-items: center;
   font-weight: bold;
   border: 2px solid rgba(251, 252, 237, 0.3);
+}
+
+@media (max-width: 768px) {
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
 }
 </style>

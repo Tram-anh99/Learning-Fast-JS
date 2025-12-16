@@ -75,8 +75,8 @@ import { RouterView } from 'vue-router';
 
 @media (max-width: 768px) {
   .top-navbar {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 10px 12px;
+    gap: 12px;
   }
 }
 
