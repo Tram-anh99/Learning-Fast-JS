@@ -1,0 +1,166 @@
+# 📱 Mobile Responsive Design
+
+## Tổng quan / Overview
+
+Ứng dụng WebGIS Nông Nghiệp Smart đã được tối ưu hóa cho màn hình điện thoại 6 inch (360px - 390px width).
+
+The Smart Agriculture WebGIS application has been optimized for 6-inch mobile screens (360px - 390px width).
+
+---
+
+## 📐 Breakpoints
+
+| Breakpoint | Size     | Mô tả                            |
+| ---------- | -------- | -------------------------------- |
+| Default    | < 640px  | Mobile (6 inch phones)           |
+| `sm`       | ≥ 640px  | Mobile landscape / Small tablets |
+| `md`       | ≥ 768px  | Tablets                          |
+| `lg`       | ≥ 1024px | Desktop                          |
+| `xl`       | ≥ 1280px | Large desktop                    |
+
+---
+
+## 🎨 Components đã tối ưu
+
+### 1. HomeView - Sidebar
+
+```vue
+<!-- Floating sidebar responsive -->
+<div class="floating-sidebar absolute
+  top-2 left-3 right-3 bottom-[75px]
+  sm:right-auto sm:bottom-2.5 sm:top-2.5 sm:left-2.5
+  sm:w-[360px]
+  rounded-xl sm:rounded-2xl">
+```
+
+**Mobile:**
+
+-    Full width với margin `left-3 right-3`
+-    Bottom margin `75px` để tránh navigation
+-    Border radius nhỏ hơn
+
+**Desktop:**
+
+-    Fixed width `360px`
+-    Positioned left
+-    Larger border radius
+
+---
+
+### 2. Navigation Bar (App.vue)
+
+```css
+.mobile-bottom-nav {
+     height: 56px;
+     border-radius: 20px 20px 0 0;
+}
+
+.nav-label {
+     font-size: 0.6rem;
+     margin-top: 2px;
+}
+```
+
+**Features:**
+
+-    Chiều cao nhỏ gọn: 56px
+-    Inline labels thay vì popup tooltips
+-    Touch-friendly với min 44px touch targets
+
+---
+
+### 3. Charts (Pie, Bar, Line)
+
+```javascript
+const options = {
+     responsive: true,
+     maintainAspectRatio: false,
+     plugins: {
+          legend: {
+               labels: {
+                    font: { size: 9 },
+               },
+          },
+          tooltip: {
+               bodyFont: { size: 8 },
+               titleFont: { size: 10 },
+          },
+     },
+};
+```
+
+**Mobile optimizations:**
+
+-    Smaller font sizes (8-10px)
+-    `maintainAspectRatio: false` cho flexible sizing
+-    Subtitles giải thích mối quan hệ giữa các biểu đồ
+
+---
+
+### 4. Data Table
+
+```vue
+<div class="overflow-x-auto">
+  <table class="min-w-[600px]">
+    <th class="hidden sm:table-cell">Ít quan trọng</th>
+  </table>
+</div>
+```
+
+**Features:**
+
+-    Horizontal scroll cho mobile
+-    Ẩn cột ít quan trọng trên mobile
+-    Min-width đảm bảo readability
+
+---
+
+### 5. DiaryActivityForm
+
+```vue
+<!-- Equal buttons -->
+<button class="flex-1">Hủy</button>
+<button class="flex-1">Lưu</button>
+```
+
+**Features:**
+
+-    Cả hai nút có kích thước bằng nhau
+-    Easy to tap trên touch screen
+
+---
+
+## 🧪 Testing Devices
+
+Đã test trên các thiết bị:
+
+| Device             | Screen | Resolution |
+| ------------------ | ------ | ---------- |
+| iPhone SE          | 4.7"   | 375 x 667  |
+| iPhone 14          | 6.1"   | 390 x 844  |
+| iPhone 14 Pro      | 6.1"   | 393 x 852  |
+| Samsung Galaxy S21 | 6.2"   | 360 x 800  |
+| Pixel 7            | 6.3"   | 412 x 915  |
+
+---
+
+## 📋 Checklist
+
+-    [x] Sidebar responsive với floating design
+-    [x] Navigation bar với inline labels
+-    [x] Charts readable trên mobile
+-    [x] Data table với horizontal scroll
+-    [x] Forms có buttons dễ tap
+-    [x] No overflow hoặc hidden content
+-    [x] Touch targets ≥ 44px
+-    [x] Font sizes legible (≥ 10px)
+
+---
+
+## 🔗 Related Files
+
+-    [HomeView.vue](../Frontend/src/views/HomeView.vue)
+-    [QuanLyView.vue](../Frontend/src/views/QuanLyView.vue)
+-    [DiaryPage.vue](../Frontend/src/views/DiaryPage.vue)
+-    [App.vue](../Frontend/src/App.vue)
+-    [MOBILE_UI_DESIGN_ISSUE.md](../MOBILE_UI_DESIGN_ISSUE.md)
