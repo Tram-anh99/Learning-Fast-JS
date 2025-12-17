@@ -425,21 +425,21 @@ watch(danhSachTimKiem, veLaiBanDo);
 .mobile-sidebar-toggle {
   display: none;
   position: absolute;
-  bottom: 70px;
+  bottom: 90px;
   left: 12px;
   z-index: 1100;
   background: #24504b;
   color: #fbfced;
   border: none;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   transition: all 0.3s ease;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }
 
 .mobile-sidebar-toggle:hover {

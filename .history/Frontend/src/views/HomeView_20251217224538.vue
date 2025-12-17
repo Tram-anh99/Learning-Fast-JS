@@ -230,9 +230,9 @@ watch(danhSachTimKiem, veLaiBanDo);
          - Responsive: Nhỏ hơn trên mobile (< 640px), 360px trên tablet+
     -->
     <aside
-      class="floating-sidebar absolute top-2 left-3 right-3 sm:right-auto bottom-[75px] sm:bottom-2.5 sm:top-2.5 sm:left-2.5 rounded-xl sm:rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
+      class="floating-sidebar absolute top-2 left-2 right-2 sm:right-auto bottom-[85px] sm:bottom-2.5 sm:top-2.5 sm:left-2.5 rounded-xl sm:rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
       :class="[
-        isSidebarCollapsed ? 'w-[60px]' : 'sm:w-[360px]',
+        isSidebarCollapsed ? 'w-[60px]' : 'sm:w-[360px] w-full',
         { 'mobile-sidebar-hidden': !isMobileSidebarVisible }
       ]">
 
@@ -425,21 +425,21 @@ watch(danhSachTimKiem, veLaiBanDo);
 .mobile-sidebar-toggle {
   display: none;
   position: absolute;
-  bottom: 70px;
+  bottom: 90px;
   left: 12px;
   z-index: 1100;
   background: #24504b;
   color: #fbfced;
   border: none;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   transition: all 0.3s ease;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }
 
 .mobile-sidebar-toggle:hover {
