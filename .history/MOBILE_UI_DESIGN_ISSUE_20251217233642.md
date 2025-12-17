@@ -149,11 +149,11 @@ Optimize the entire Smart Agriculture WebGIS application interface for smooth op
 
 ---
 
-## 📸 Screenshots / Ảnh chụp màn hình
+## 📸 Screenshots
 
-### Giao diện Mobile (6 inch - 390x844px) / Mobile View (6 inch - 390x844px)
+### Mobile View (6 inch - 390x844px)
 
-#### HomeView với Sidebar / HomeView with Sidebar
+#### HomeView với Sidebar
 
 ```
 ┌─────────────────────────────┐
@@ -175,7 +175,7 @@ Optimize the entire Smart Agriculture WebGIS application interface for smooth op
 └─────────────────────────────┘
 ```
 
-#### Thanh điều hướng / Navigation Bar
+#### Navigation Bar
 
 ```
 ┌─────────────────────────────┐
@@ -201,10 +201,7 @@ Height: 56px | Border-radius: 20px 20px 0 0
 
 ---
 
-## ✅ Trạng thái / Status: COMPLETED ✅
+## ✅ Status: COMPLETED
 
-| Field | Value |
-|-------|-------|
-| **Ngày hoàn thành / Completed Date** | December 2024 |
-| **Đã test trên / Tested On** | iPhone SE (375px), iPhone 14 Pro (393px), Samsung Galaxy S21 (360px) |
-| **Người thực hiện / Implemented By** | Development Team |
+**Completed Date:** December 2024
+**Tested On:** iPhone SE (375px), iPhone 14 Pro (393px), Samsung Galaxy S21 (360px)

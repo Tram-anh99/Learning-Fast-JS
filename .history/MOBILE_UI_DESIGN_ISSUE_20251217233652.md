@@ -175,7 +175,7 @@ Optimize the entire Smart Agriculture WebGIS application interface for smooth op
 └─────────────────────────────┘
 ```
 
-#### Thanh điều hướng / Navigation Bar
+#### Navigation Bar
 
 ```
 ┌─────────────────────────────┐
