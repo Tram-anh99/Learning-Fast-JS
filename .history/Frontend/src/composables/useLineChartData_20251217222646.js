@@ -140,7 +140,7 @@ const lineChartOptions = {
                     color: "#9CA3AF",
                     padding: 4,
                     callback: (value) => {
-                         return value / 1000 + "k";
+                         return (value / 1000) + "k";
                     },
                },
                grid: {

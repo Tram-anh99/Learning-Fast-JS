@@ -120,6 +120,14 @@ const handleToggleDuLuongThuoc = () => {
       cheDoXem.value = cheDoXem.value === 'phan_bon' ? 'hanh_chinh' : 'phan_bon';
 };
 
+/**
+ * Toggle sidebar hiển thị panel điều khiển
+ */
+const isPanelCollapsed = ref(false);
+const togglePanel = () => {
+      isPanelCollapsed.value = !isPanelCollapsed.value;
+};
+
 // ========== METHODS ==========
 // TODO: Thêm các phương thức sau khi tích hợp API:
 // - editVung(id): Chỉnh sửa thông tin vùng trồng
@@ -139,7 +147,7 @@ const handleToggleDuLuongThuoc = () => {
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="flex flex-col w-full h-screen gap-4 sm:gap-5 p-3 sm:p-5 pb-[80px] overflow-y-auto scrollbar-custom"
+      <div class="flex flex-col w-full h-screen gap-5 p-5 pb-[80px] overflow-y-auto scrollbar-custom"
             style="background-color: #fbfced;">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
@@ -153,47 +161,81 @@ const handleToggleDuLuongThuoc = () => {
             <!-- ========== SECTION 2: PIE CHART & MAP & LAYER CONTROL ========== -->
             <!-- Khu vực: Biểu đồ tròn (trái) & Bản đồ (giữa) & Layer Control (phải) -->
             <!-- Responsive: Dọc trên mobile, ngang trên desktop -->
-            <!-- Mobile 6 inch: h-[280px], Tablet+: h-[400px] -->
-            <div class="flex flex-col lg:flex-row gap-4 sm:gap-5">
+            <div class="flex flex-col lg:flex-row gap-5">
 
                   <!-- ========== PIE CHART SECTION ========== -->
                   <!-- Biểu đồ tròn: Full width trên mobile, 25% trên desktop -->
-                  <div class="w-full lg:w-1/4 p-3 sm:p-4 shadow-md rounded-xl h-[280px] sm:h-[350px] lg:h-[400px]" style="background-color: white;">
+                  <div class="w-full lg:w-1/4 p-4 shadow-md rounded-xl h-[400px]" style="background-color: white;">
                         <!-- Component biểu đồ tròn -->
                         <PieChartComponent />
                   </div>
 
                   <!-- ========== MAP SECTION ========== -->
                   <!-- Bản đồ: Full width trên mobile, flex-1 trên desktop -->
-                  <div class="w-full lg:flex-1 h-[280px] sm:h-[350px] lg:h-[400px]">
+                  <div class="w-full lg:flex-1 h-[400px]">
                         <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh"
                               :selectedVung="selectedVung" :cheDoXem="cheDoXem" @selectVung="handleSelectVungFromMap" />
                   </div>
 
-                  <!-- ========== LAYER CONTROL SECTION ========== -->
-                  <!-- Panel điều khiển: Full width trên mobile, cố định 224px trên desktop -->
-                  <div class="w-full lg:w-56">
-                        <MapLayerControl :cheDoXem="cheDoXem" @toggleSauBenh="handleToggleSauBenh"
-                              @toggleDuLuongThuoc="handleToggleDuLuongThuoc" />
+                  <!-- ========== CONTROL PANEL SECTION ========== -->
+                  <!-- Panel điều khiển có thể thu nhỏ -->
+                  <div class="control-panel-container" :class="{ collapsed: isPanelCollapsed }">
+                        <!-- Toggle Button -->
+                        <button @click="togglePanel" class="panel-toggle-btn" :title="isPanelCollapsed ? 'Mở rộng' : 'Thu nhỏ'">
+                              <i class="fas" :class="isPanelCollapsed ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
+                        </button>
+
+                        <!-- Panel Content -->
+                        <transition name="panel-slide">
+                              <div v-if="!isPanelCollapsed" class="panel-content">
+                                    <!-- Layer Control -->
+                                    <div class="mb-4">
+                                          <MapLayerControl :cheDoXem="cheDoXem" @toggleSauBenh="handleToggleSauBenh"
+                                                @toggleDuLuongThuoc="handleToggleDuLuongThuoc" />
+                                    </div>
+
+                                    <!-- Region List -->
+                                    <div class="region-list-panel">
+                                          <div class="panel-header">
+                                                <i class="fas fa-list"></i>
+                                                <h3>Danh sách vùng</h3>
+                                          </div>
+                                          <div class="region-scroll-area scrollbar-custom">
+                                                <div 
+                                                      v-for="vung in danhSachVung" 
+                                                      :key="vung.id"
+                                                      @click="handleSelectVungFromMap(vung)"
+                                                      class="region-card"
+                                                      :class="{ selected: selectedVung?.id === vung.id }"
+                                                >
+                                                      <div class="region-card-name">{{ vung.ten }}</div>
+                                                      <div class="region-card-info">
+                                                            <span class="status-tag" :style="{ backgroundColor: vung.mauVung }">{{ vung.trangThai }}</span>
+                                                            <span class="area-tag">{{ vung.dienTich }} ha</span>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </transition>
                   </div>
             </div>
 
             <!-- ========== SECTION 3: BAR CHART & LINE CHART ========== -->
             <!-- Khu vực: Biểu đồ cột (trái) & Biểu đồ đường (phải) -->
             <!-- Responsive: Dọc trên mobile/tablet, ngang trên desktop -->
-            <!-- Mobile 6 inch: h-[320px], Tablet+: h-[450px] -->
-            <div class="flex flex-col md:flex-row gap-4 sm:gap-5">
+            <div class="flex flex-col md:flex-row gap-5">
 
                   <!-- ========== BAR CHART SECTION ========== -->
                   <!-- Biểu đồ cột: Full width trên mobile, 40% trên desktop -->
-                  <div class="w-full md:w-2/5 p-3 sm:p-4 shadow-md rounded-xl h-[320px] sm:h-[380px] md:h-[450px]" style="background-color: white;">
+                  <div class="w-full md:w-2/5 p-4 shadow-md rounded-xl h-[450px]" style="background-color: white;">
                         <!-- Component biểu đồ cột -->
                         <BarChartComponent />
                   </div>
 
                   <!-- ========== LINE CHART SECTION ========== -->
                   <!-- Biểu đồ đường: Full width trên mobile, 60% trên desktop -->
-                  <div class="w-full md:flex-1 p-3 sm:p-4 shadow-md rounded-xl h-[320px] sm:h-[380px] md:h-auto" style="background-color: white;">
+                  <div class="w-full md:flex-1 p-4 shadow-md rounded-xl h-[450px]" style="background-color: white;">
                         <!-- Component biểu đồ đường -->
                         <LineChartComponent />
                   </div>
@@ -227,3 +269,185 @@ const handleToggleDuLuongThuoc = () => {
             </footer>
       </div>
 </template>
+
+<style scoped>
+/* Control Panel Container */
+.control-panel-container {
+      position: relative;
+      width: 320px;
+      transition: width 0.3s ease;
+}
+
+.control-panel-container.collapsed {
+      width: 50px;
+}
+
+@media (max-width: 1024px) {
+      .control-panel-container {
+            width: 100%;
+            max-width: 320px;
+      }
+      
+      .control-panel-container.collapsed {
+            width: 50px;
+      }
+}
+
+/* Toggle Button */
+.panel-toggle-btn {
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      background: #24504b;
+      color: #fbfced;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+}
+
+.panel-toggle-btn:hover {
+      background: #1a3d39;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.collapsed .panel-toggle-btn {
+      left: 50%;
+      transform: translate(-50%, -50%);
+}
+
+.collapsed .panel-toggle-btn:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Panel Content */
+.panel-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+}
+
+/* Region List Panel */
+.region-list-panel {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-height: 500px;
+      display: flex;
+      flex-direction: column;
+}
+
+.panel-header {
+      background: #24504b;
+      color: #fbfced;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+}
+
+.panel-header i {
+      font-size: 1.1rem;
+}
+
+.panel-header h3 {
+      margin: 0;
+      font-size: 0.95rem;
+}
+
+.region-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      max-height: 400px;
+}
+
+/* Region Card */
+.region-card {
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+}
+
+.region-card:hover {
+      background: #e9ecef;
+      transform: translateX(-4px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.region-card.selected {
+      background: #24504b;
+      color: white;
+      border-color: #24504b;
+      box-shadow: 0 4px 12px rgba(36, 80, 75, 0.3);
+}
+
+.region-card-name {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+}
+
+.region-card-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+}
+
+.status-tag {
+      padding: 3px 10px;
+      border-radius: 6px;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+}
+
+.area-tag {
+      opacity: 0.8;
+      font-weight: 500;
+}
+
+.region-card.selected .status-tag,
+.region-card.selected .area-tag {
+      opacity: 1;
+      font-weight: 600;
+}
+
+/* Panel Slide Animation */
+.panel-slide-enter-active,
+.panel-slide-leave-active {
+      transition: all 0.3s ease;
+}
+
+.panel-slide-enter-from,
+.panel-slide-leave-to {
+      opacity: 0;
+      transform: translateX(20px);
+}
+
+.panel-slide-enter-to,
+.panel-slide-leave-from {
+      opacity: 1;
+      transform: translateX(0);
+}
+</style>

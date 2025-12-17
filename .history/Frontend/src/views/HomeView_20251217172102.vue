@@ -208,11 +208,10 @@ watch(danhSachTimKiem, veLaiBanDo);
            • Overflow hidden để clip nội dung vượt quá
            • Collapsible với nút toggle
          - Z-index: z-1000 (cao hơn map & layer selector)
-         - Responsive: Full width trên mobile (< 640px), 360px trên tablet+
     -->
     <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 right-2.5 sm:right-auto bottom-2.5 rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
-      :class="isSidebarCollapsed ? 'w-[60px]' : 'sm:w-[360px] w-full'">
+      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
+      :class="isSidebarCollapsed ? 'w-[60px]' : 'w-[360px]'">
 
       <!-- Toggle Button -->
       <button 
@@ -308,6 +307,7 @@ watch(danhSachTimKiem, veLaiBanDo);
       -->
       <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
 
+      </div>
         </div>
       </transition>
 
@@ -361,67 +361,6 @@ watch(danhSachTimKiem, veLaiBanDo);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   box-shadow: 0 8px 32px rgba(36, 80, 75, 0.2);
-}
-
-/* Toggle Button for Sidebar */
-.sidebar-toggle-btn {
-  position: absolute;
-  right: -15px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background: #24504b;
-  color: #fbfced;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-}
-
-/* Ẩn toggle button trên mobile vì sidebar đã full width */
-@media (max-width: 639px) {
-  .sidebar-toggle-btn {
-    display: none;
-  }
-}
-
-.sidebar-toggle-btn:hover {
-  background: #1a3d39;
-  transform: translateY(-50%) scale(1.15);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-}
-
-/* Sidebar Content Wrapper */
-.sidebar-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-
-/* Sidebar Content Animation */
-.sidebar-content-enter-active,
-.sidebar-content-leave-active {
-  transition: all 0.3s ease;
-}
-
-.sidebar-content-enter-from,
-.sidebar-content-leave-to {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-.sidebar-content-enter-to,
-.sidebar-content-leave-from {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 /* Gradient background cho sidebar header */

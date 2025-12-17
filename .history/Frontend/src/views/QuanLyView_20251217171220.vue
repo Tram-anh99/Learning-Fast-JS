@@ -120,6 +120,14 @@ const handleToggleDuLuongThuoc = () => {
       cheDoXem.value = cheDoXem.value === 'phan_bon' ? 'hanh_chinh' : 'phan_bon';
 };
 
+/**
+ * Toggle sidebar hiển thị danh sách vùng trên mobile
+ */
+const showRegionSidebar = ref(false);
+const toggleRegionSidebar = () => {
+      showRegionSidebar.value = !showRegionSidebar.value;
+};
+
 // ========== METHODS ==========
 // TODO: Thêm các phương thức sau khi tích hợp API:
 // - editVung(id): Chỉnh sửa thông tin vùng trồng
@@ -139,7 +147,7 @@ const handleToggleDuLuongThuoc = () => {
       <!-- gap-5: Khoảng cách 20px giữa các phần -->
       <!-- overflow-y-auto: Cho phép cuộn dọc khi nội dung vượt quá màn hình -->
       <!-- scrollbar-custom: Thanh cuộn đẹp với màu xanh lá -->
-      <div class="flex flex-col w-full h-screen gap-4 sm:gap-5 p-3 sm:p-5 pb-[80px] overflow-y-auto scrollbar-custom"
+      <div class="flex flex-col w-full h-screen gap-5 p-5 pb-[80px] overflow-y-auto scrollbar-custom"
             style="background-color: #fbfced;">
 
             <!-- ========== SECTION 1: STATS BAR ========== -->
@@ -153,21 +161,58 @@ const handleToggleDuLuongThuoc = () => {
             <!-- ========== SECTION 2: PIE CHART & MAP & LAYER CONTROL ========== -->
             <!-- Khu vực: Biểu đồ tròn (trái) & Bản đồ (giữa) & Layer Control (phải) -->
             <!-- Responsive: Dọc trên mobile, ngang trên desktop -->
-            <!-- Mobile 6 inch: h-[280px], Tablet+: h-[400px] -->
-            <div class="flex flex-col lg:flex-row gap-4 sm:gap-5">
+            <div class="flex flex-col lg:flex-row gap-5">
 
                   <!-- ========== PIE CHART SECTION ========== -->
                   <!-- Biểu đồ tròn: Full width trên mobile, 25% trên desktop -->
-                  <div class="w-full lg:w-1/4 p-3 sm:p-4 shadow-md rounded-xl h-[280px] sm:h-[350px] lg:h-[400px]" style="background-color: white;">
+                  <div class="w-full lg:w-1/4 p-4 shadow-md rounded-xl h-[400px]" style="background-color: white;">
                         <!-- Component biểu đồ tròn -->
                         <PieChartComponent />
                   </div>
 
                   <!-- ========== MAP SECTION ========== -->
                   <!-- Bản đồ: Full width trên mobile, flex-1 trên desktop -->
-                  <div class="w-full lg:flex-1 h-[280px] sm:h-[350px] lg:h-[400px]">
+                  <div class="w-full lg:flex-1 h-[400px] relative">
+                        <!-- Hamburger Button - Always visible -->
+                        <button 
+                              @click="toggleRegionSidebar" 
+                              class="hamburger-btn"
+                              :class="{ active: showRegionSidebar }"
+                              title="Hiện/ẩn danh sách vùng trồng"
+                        >
+                              <i class="fas fa-bars"></i>
+                        </button>
+
+                        <!-- Map Component -->
                         <MapComponent :danhSachVung="danhSachVung" :diemNongSauBenh="mockDiemNongSauBenh"
                               :selectedVung="selectedVung" :cheDoXem="cheDoXem" @selectVung="handleSelectVungFromMap" />
+                        
+                        <!-- Mobile Sidebar for Region List -->
+                        <transition name="slide-left">
+                              <div v-if="showRegionSidebar" class="mobile-region-sidebar">
+                                    <div class="sidebar-header">
+                                          <h3>Danh sách vùng trồng</h3>
+                                          <button @click="toggleRegionSidebar" class="close-btn">
+                                                <i class="fas fa-times"></i>
+                                          </button>
+                                    </div>
+                                    <div class="sidebar-content scrollbar-custom">
+                                          <div 
+                                                v-for="vung in danhSachVung" 
+                                                :key="vung.id"
+                                                @click="handleSelectVungFromMap(vung); toggleRegionSidebar()"
+                                                class="region-item"
+                                                :class="{ selected: selectedVung?.id === vung.id }"
+                                          >
+                                                <div class="region-name">{{ vung.ten }}</div>
+                                                <div class="region-info">
+                                                      <span class="status-badge" :style="{ backgroundColor: vung.mauVung }">{{ vung.trangThai }}</span>
+                                                      <span class="area">{{ vung.dienTich }} ha</span>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </transition>
                   </div>
 
                   <!-- ========== LAYER CONTROL SECTION ========== -->
@@ -181,19 +226,18 @@ const handleToggleDuLuongThuoc = () => {
             <!-- ========== SECTION 3: BAR CHART & LINE CHART ========== -->
             <!-- Khu vực: Biểu đồ cột (trái) & Biểu đồ đường (phải) -->
             <!-- Responsive: Dọc trên mobile/tablet, ngang trên desktop -->
-            <!-- Mobile 6 inch: h-[320px], Tablet+: h-[450px] -->
-            <div class="flex flex-col md:flex-row gap-4 sm:gap-5">
+            <div class="flex flex-col md:flex-row gap-5">
 
                   <!-- ========== BAR CHART SECTION ========== -->
                   <!-- Biểu đồ cột: Full width trên mobile, 40% trên desktop -->
-                  <div class="w-full md:w-2/5 p-3 sm:p-4 shadow-md rounded-xl h-[320px] sm:h-[380px] md:h-[450px]" style="background-color: white;">
+                  <div class="w-full md:w-2/5 p-4 shadow-md rounded-xl h-[450px]" style="background-color: white;">
                         <!-- Component biểu đồ cột -->
                         <BarChartComponent />
                   </div>
 
                   <!-- ========== LINE CHART SECTION ========== -->
                   <!-- Biểu đồ đường: Full width trên mobile, 60% trên desktop -->
-                  <div class="w-full md:flex-1 p-3 sm:p-4 shadow-md rounded-xl h-[320px] sm:h-[380px] md:h-auto" style="background-color: white;">
+                  <div class="w-full md:flex-1 p-4 shadow-md rounded-xl h-[450px]" style="background-color: white;">
                         <!-- Component biểu đồ đường -->
                         <LineChartComponent />
                   </div>
@@ -227,3 +271,166 @@ const handleToggleDuLuongThuoc = () => {
             </footer>
       </div>
 </template>
+
+<style scoped>
+/* Hamburger Button */
+.hamburger-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1500;
+      background: #24504b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
+.hamburger-btn:hover {
+      background: #1a3d39;
+      transform: scale(1.05);
+}
+
+.hamburger-btn.active {
+      background: #fbfced;
+      color: #24504b;
+}
+
+.hamburger-btn i {
+      font-size: 1.2rem;
+}
+
+/* Mobile Region Sidebar */
+.mobile-region-sidebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+}
+
+.sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: #24504b;
+      color: white;
+      border-bottom: 1px solid rgba(251, 252, 237, 0.2);
+}
+
+.sidebar-header h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+}
+
+.close-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+}
+
+.close-btn:hover {
+      background: rgba(251, 252, 237, 0.2);
+}
+
+.close-btn i {
+      font-size: 1.2rem;
+}
+
+.sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+}
+
+.region-item {
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+}
+
+.region-item:hover {
+      background: #e9ecef;
+      transform: translateX(-4px);
+}
+
+.region-item.selected {
+      background: #24504b;
+      color: white;
+      border-color: #24504b;
+}
+
+.region-name {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+}
+
+.region-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+}
+
+.status-badge {
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: white;
+      font-size: 0.75rem;
+}
+
+.area {
+      opacity: 0.8;
+}
+
+.region-item.selected .status-badge,
+.region-item.selected .area {
+      opacity: 1;
+}
+
+/* Slide Animation */
+.slide-left-enter-active,
+.slide-left-leave-active {
+      transition: transform 0.3s ease;
+}
+
+.slide-left-enter-from {
+      transform: translateX(100%);
+}
+
+.slide-left-leave-to {
+      transform: translateX(100%);
+}
+
+@media (min-width: 768px) {
+      .mobile-region-sidebar {
+            display: none;
+      }
+}
+</style>

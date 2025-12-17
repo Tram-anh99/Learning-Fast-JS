@@ -45,14 +45,14 @@ import { onBeforeUnmount } from 'vue';
 <template>
       <!-- ========== LINE CHART CONTAINER ========== -->
       <!-- Wrapper cho biểu đồ đường -->
-      <div class="flex flex-col h-full overflow-hidden">
+      <div class="flex flex-col h-full">
             <!-- ========== CHART TITLE ========== -->
-            <h3 class="text-sm sm:text-base font-bold text-gray-800 mb-2 sm:mb-3 flex-shrink-0">Thị trường & Loại cây</h3>
+            <h3 class="text-base font-bold text-gray-800 mb-3">Mối quan hệ: Thị trường xuất khẩu & Loại cây</h3>
 
             <!-- ========== CHART CANVAS ========== -->
             <!-- Canvas element nơi Chart.js render biểu đồ -->
             <!-- Chiều cao tự động fill parent container -->
-            <div class="flex-1 min-h-0 relative">
+            <div class="flex-1 relative">
                   <canvas ref="chartCanvas"></canvas>
             </div>
       </div>

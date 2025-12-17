@@ -208,11 +208,10 @@ watch(danhSachTimKiem, veLaiBanDo);
            • Overflow hidden để clip nội dung vượt quá
            • Collapsible với nút toggle
          - Z-index: z-1000 (cao hơn map & layer selector)
-         - Responsive: Full width trên mobile (< 640px), 360px trên tablet+
     -->
     <aside
-      class="floating-sidebar absolute top-2.5 left-2.5 right-2.5 sm:right-auto bottom-2.5 rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
-      :class="isSidebarCollapsed ? 'w-[60px]' : 'sm:w-[360px] w-full'">
+      class="floating-sidebar absolute top-2.5 left-2.5 bottom-2.5 rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
+      :class="isSidebarCollapsed ? 'w-[60px]' : 'w-[360px]'">
 
       <!-- Toggle Button -->
       <button 
@@ -307,7 +306,9 @@ watch(danhSachTimKiem, veLaiBanDo);
              • Back button để quay lại danh sách
       -->
       <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
-
+        </div>
+      </transition>
+      </div>
         </div>
       </transition>
 
@@ -383,13 +384,6 @@ watch(danhSachTimKiem, veLaiBanDo);
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-}
-
-/* Ẩn toggle button trên mobile vì sidebar đã full width */
-@media (max-width: 639px) {
-  .sidebar-toggle-btn {
-    display: none;
-  }
 }
 
 .sidebar-toggle-btn:hover {
