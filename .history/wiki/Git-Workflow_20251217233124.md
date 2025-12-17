@@ -1,0 +1,210 @@
+# 🔀 Git Workflow
+
+## Quy trình Git / Git Process
+
+---
+
+## 📌 Branches
+
+| Branch      | Purpose                 | Protect |
+| ----------- | ----------------------- | ------- |
+| `main`      | Production code         | ✅ Yes  |
+| `develop`   | Development integration | ✅ Yes  |
+| `feature/*` | New features            | No      |
+| `fix/*`     | Bug fixes               | No      |
+| `hotfix/*`  | Urgent production fixes | No      |
+
+---
+
+## 🚀 Workflow
+
+```
+main ─────●──────●──────●─────────────●────▶
+          │      ▲      │             ▲
+          │      │      │             │
+develop ──●──────●──────●─────────────●────▶
+          │      ▲      ▲             ▲
+          │      │      │             │
+feature ──●──────●      │             │
+                        │             │
+fix ────────────────────●             │
+                                      │
+hotfix ───────────────────────────────●
+```
+
+---
+
+## 📝 Commit Messages
+
+### Format
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Types
+
+| Type       | Description      | Ví dụ                                  |
+| ---------- | ---------------- | -------------------------------------- |
+| `feat`     | New feature      | `feat(map): add layer control`         |
+| `fix`      | Bug fix          | `fix(chart): correct tooltip position` |
+| `docs`     | Documentation    | `docs: update README`                  |
+| `style`    | Formatting       | `style: fix indentation`               |
+| `refactor` | Code refactoring | `refactor(home): extract search logic` |
+| `test`     | Add tests        | `test: add unit tests for useHome`     |
+| `chore`    | Maintenance      | `chore: update dependencies`           |
+
+### Examples
+
+```bash
+# Feature
+git commit -m "feat(diary): add activity form with validation"
+
+# Fix
+git commit -m "fix(mobile): correct sidebar margin on small screens"
+
+# Docs
+git commit -m "docs: add mobile design wiki page"
+
+# Multiple scopes
+git commit -m "feat(chart,mobile): responsive chart components"
+```
+
+---
+
+## 🔄 Daily Workflow
+
+### 1. Start new feature
+
+```bash
+# Checkout develop
+git checkout develop
+git pull origin develop
+
+# Create feature branch
+git checkout -b feature/mobile-responsive
+
+# Work on feature...
+```
+
+### 2. Commit changes
+
+```bash
+# Stage specific files
+git add src/views/HomeView.vue
+git add src/App.vue
+
+# Or stage all
+git add .
+
+# Commit with message
+git commit -m "feat(mobile): add responsive sidebar"
+```
+
+### 3. Push and create PR
+
+```bash
+# Push branch
+git push origin feature/mobile-responsive
+
+# Create PR on GitHub
+# Branch: feature/mobile-responsive → develop
+```
+
+### 4. After PR merged
+
+```bash
+# Checkout develop
+git checkout develop
+git pull origin develop
+
+# Delete local feature branch
+git branch -d feature/mobile-responsive
+```
+
+---
+
+## 🔥 Hotfix Workflow
+
+```bash
+# Create hotfix from main
+git checkout main
+git pull origin main
+git checkout -b hotfix/critical-bug
+
+# Fix the bug...
+git add .
+git commit -m "fix(critical): resolve production crash"
+
+# Push
+git push origin hotfix/critical-bug
+
+# Create PR to main AND develop
+```
+
+---
+
+## ⚡ Quick Commands
+
+```bash
+# Check status
+git status
+
+# View log
+git log --oneline -10
+
+# Discard changes
+git checkout -- <file>
+
+# Stash changes
+git stash
+git stash pop
+
+# Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# View diff
+git diff <file>
+```
+
+---
+
+## 📋 Branch Naming
+
+```bash
+# Features
+feature/add-qr-scanner
+feature/mobile-responsive
+feature/chart-improvements
+
+# Fixes
+fix/sidebar-overflow
+fix/map-loading-issue
+fix/navigation-label
+
+# Hotfixes
+hotfix/production-crash
+hotfix/security-patch
+```
+
+---
+
+## ✅ Before Push Checklist
+
+-    [ ] Code builds successfully (`npm run build`)
+-    [ ] No lint errors (`npm run lint`)
+-    [ ] Tested on mobile (if UI changes)
+-    [ ] Commit messages follow convention
+-    [ ] No console.log() left in code
+-    [ ] Updated documentation if needed
+
+---
+
+## 🔗 Related
+
+-    [[Coding Standards|Coding Standards]]
+-    [[Pull Request Guide|PR Guide]]
