@@ -315,7 +315,8 @@ watch(danhSachTimKiem, veLaiBanDo);
       -->
       <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
 
-      </div>
+        </div>
+      </transition>
 
     </aside>
 

@@ -219,20 +219,35 @@ watch(danhSachTimKiem, veLaiBanDo);
 
     <!-- ========== FLOATING SIDEBAR CONTAINER ==========
          - Tag: <aside> - Semantic HTML cho sidebar
+         - Classes: absolute top-2.5 left-2.5 bottom-2.5 w-[360px] rounded-2xl overflow-hidden flex flex-col z-1000
          - Layout: flex flex-col để organize nội dung dọc
          - Features:
            • Glass-morphism effect (backdrop-filter blur, rgba transparency) - CSS class .floating-sidebar
            • Rounded corners rounded-2xl (16px)
            • Overflow hidden để clip nội dung vượt quá
+           • Collapsible với nút toggle
          - Z-index: z-1000 (cao hơn map & layer selector)
-         - Responsive: Sidebar luôn hiển thị cố định, không có toggle
+         - Responsive: Nhỏ hơn trên mobile (< 640px), 360px trên tablet+
     -->
     <aside
-      class="floating-sidebar absolute top-2 left-3 right-3 sm:right-auto bottom-[75px] sm:bottom-2.5 sm:top-2.5 sm:left-2.5 rounded-xl sm:rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300 sm:w-[360px]"
-      :class="{ 'mobile-sidebar-hidden': !isMobileSidebarVisible }">
+      class="floating-sidebar absolute top-2 left-3 right-3 sm:right-auto bottom-[75px] sm:bottom-2.5 sm:top-2.5 sm:left-2.5 rounded-xl sm:rounded-2xl overflow-hidden flex flex-col z-[1000] transition-all duration-300"
+      :class="[
+        isSidebarCollapsed ? 'w-[60px]' : 'sm:w-[360px]',
+        { 'mobile-sidebar-hidden': !isMobileSidebarVisible }
+      ]">
 
-      <!-- Sidebar Content -->
-      <div class="sidebar-content-wrapper">
+      <!-- Toggle Button -->
+      <button 
+        @click="toggleSidebar" 
+        class="sidebar-toggle-btn"
+        :title="isSidebarCollapsed ? 'Mở rộng' : 'Thu nhỏ'"
+      >
+        <i class="fas" :class="isSidebarCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+      </button>
+
+      <!-- Sidebar Content with Transition -->
+      <transition name="sidebar-content">
+        <div v-if="!isSidebarCollapsed" class="sidebar-content-wrapper">
           <!-- ========== SIDEBAR HEADER COMPONENT ==========
            - Component: SidebarHeader.vue
            - Props:
@@ -315,7 +330,8 @@ watch(danhSachTimKiem, veLaiBanDo);
       -->
       <HomeDetailView v-else :vung="vungDangXem" @back="quayLaiDanhSach" @openQR="(ma) => openQRModal(ma)" />
 
-      </div>
+        </div>
+      </transition>
 
     </aside>
 
