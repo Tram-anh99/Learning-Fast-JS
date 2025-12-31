@@ -1,0 +1,182 @@
+INFO:     Will watch for changes in these directories: ['/Users/anllen/LapTrinh/Learning-Fast-JS/Backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [49970] using WatchFiles
+INFO:     Started server process [50024]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55481 - "GET /api/farms/ HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/protocols/http/httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 187, in __call__
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/routes/farms.py", line 65, in get_all_farms
+    "dien_tich_ha": farm.dien_tich_ha,
+                    ^^^^^^^^^^^^^^^^^
+AttributeError: 'VungTrong' object has no attribute 'dien_tich_ha'. Did you mean: 'dien_tich'?
+WARNING:  WatchFiles detected changes in 'routes/farms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50024]
+INFO:     Started server process [50856]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55564 - "GET /api/farms/ HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/protocols/http/httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 187, in __call__
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/routes/farms.py", line 66, in get_all_farms
+    "ngay_cap_ma": farm.ngay_cap_ma,
+                   ^^^^^^^^^^^^^^^^
+AttributeError: 'VungTrong' object has no attribute 'ngay_cap_ma'. Did you mean: 'ngay_cap_nhat'?
+WARNING:  WatchFiles detected changes in 'routes/farms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [50856]
+INFO:     Started server process [51729]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55607 - "GET /api/farms/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'config.py', 'database.py', 'models/to_chuc_ca_nhan.py', 'models/lich_su.py', 'app.py', 'models/loai_cay.py', 'models/vung_trong.py', 'models/thi_truong.py', 'models/__init__.py', 'models/trang_thai_vung.py', 'models/chung_nhan.py', 'add_sample_data.py', 'test_backend.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [51729]
+WARNING:  WatchFiles detected changes in 'routes/farms.py', 'add_sample_data.py', 'models/loai_cay.py'. Reloading...
+INFO:     Started server process [53278]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:     Started server process [53304]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.

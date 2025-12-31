@@ -134,102 +134,45 @@ app.include_router(diary.router, prefix=settings.API_PREFIX)
 
 @app.get("/")
 async def root():
-    """
-    Root endpoint - Trang chủ của API
-    
-    Endpoint: GET /
-    Method: GET
-    Authentication: None (public)
-    
-    Response:
-    {
+    """Root endpoint"""
+    return {
         "message": "🌾 Agriculture Management API",
-        "version": "1.0.0",
+        "version": settings.API_VERSION,
         "docs": "/docs",
         "health": "/api/health"
-    }
-    
-    Usage:
-    - Kiểm tra xem API có đang chạy không
-    - Xem version hiện tại
-    - Link đến docs và health check
-    
-    Kết nối đến:
-    - config.py: settings.API_VERSION
-    - Browser: http://localhost:8000/ sẽ trả về JSON này
-    """
-    return {
-        "message": "🌾 Agriculture Management API",  # Welcome message
-        "version": settings.API_VERSION,            # Version từ config (1.0.0)
-        "docs": "/docs",                             # Link đến Swagger UI
-        "health": "/api/health"                      # Link đến health check endpoint
     }
 
 
 @app.get("/api/health")
 async def health_check():
-    """
-    Health check endpoint - Kiểm tra trạng thái API và Database
-    
-    Endpoint: GET /api/health
-    Method: GET
-    Authentication: None (public)
-    
-    Cách hoạt động:
-    1. Test kết nối database bằng test_connection()
-    2. Lấy thông tin tables từ get_table_count()
-    3. Return status "healthy" hoặc "unhealthy" tùy DB connection
-    
-    Response:
-    {
-        "status": "healthy",              // "healthy" or "unhealthy"
-        "message": "Backend API is running",
-        "version": "1.0.0",
-        "database_connected": true,       // true/false
-        "total_tables": 18,               // Số bảng trong schema
-        "schema": "nongsan"               // Schema name
-    }
-    
-    Usage:
-    - Frontend gọi để check backend có sẵn sàng không
-    - Monitoring tools check health status
-    - Debugging database connection issues
-    
-    Kết nối đến:
-    - database.py: test_connection(), get_table_count()
-    - config.py: settings.API_VERSION
-    - Frontend: src/services/api.js -> getHealthStatus()
-    """
-    db_connected = test_connection()      # Test DB connection (return bool)
-    table_info = get_table_count()        # Get schema info (return dict)
+    """Health check endpoint"""
+    db_connected = test_connection()
+    table_info = get_table_count()
     
     return {
-        "status": "healthy" if db_connected else "unhealthy",  # Trạng thái tổng thể
-        "message": "Backend API is running",                    # Message
-        "version": settings.API_VERSION,                        # API version
-        "database_connected": db_connected,                     # DB connection status
-        "total_tables": table_info.get('count', 0),            # Số bảng (default 0 nếu lỗi)
-        "schema": table_info.get('schema', 'unknown')          # Schema name (default "unknown" nếu lỗi)
+        "status": "healthy" if db_connected else "unhealthy",
+        "message": "Backend API is running",
+        "version": settings.API_VERSION,
+        "database_connected": db_connected,
+        "total_tables": table_info.get('count', 0),
+        "schema": table_info.get('schema', 'unknown')
     }
 
 
 # ========== RUN APPLICATION ==========
-# Code này chỉ chạy khi execute file trực tiếp: python app.py
-# Không chạy khi import: from app import app
 
 if __name__ == '__main__':
-    # Print startup information ra console
     print("🚀 Starting FastAPI Backend Server...")
     print(f"📡 API running at: http://localhost:8000")
     print(f"📚 API Docs at: http://localhost:8000/docs")
-    print(f"🔗 Database: {settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}")  # DB connection string
-    print(f"📊 Schema: {settings.DB_SCHEMA}")  # Schema name: "nongsan"
+    print(f"🔗 Database: {settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}")
+    print(f"📊 Schema: {settings.DB_SCHEMA}")
     
-    # Start Uvicorn ASGI server
     uvicorn.run(
-        "app:app",          # Module:instance (app.py:app)
-        host="0.0.0.0",     # Listen on all network interfaces (0.0.0.0 = public, không chỉ localhost)
-        port=8000,          # Port 8000 (http://localhost:8000)
-        reload=True,        # Auto-reload khi code thay đổi (chỉ dùng trong development)
-        log_level="info"    # Log level: info (log mọi request và response)
+        "app:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        log_level="info"
     )
+
