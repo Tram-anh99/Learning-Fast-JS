@@ -1,0 +1,218 @@
+# Thiết Kế Cơ Sở Dữ Liệu Quản Lý Nông Sản
+
+## Tổng Quan
+
+Cơ sở dữ liệu được thiết kế theo **3 chuẩn hóa (3NF)** để đảm bảo:
+
+-    **1NF**: Mỗi cột chỉ chứa giá trị nguyên tử, không có nhóm lặp
+-    **2NF**: Mọi thuộc tính không khóa phụ thuộc hoàn toàn vào khóa chính
+-    **3NF**: Không có phụ thuộc bắc cầu giữa các thuộc tính không khóa
+
+## Sơ Đồ ERD
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   trang_thai    │     │  trang_thai_ma  │     │   chung_nhan    │
+├─────────────────┤     ├─────────────────┤     ├─────────────────┤
+│ id (PK)         │     │ id (PK)         │     │ id (PK)         │
+│ ma_trang_thai   │     │ ma_trang_thai   │     │ ma_chung_nhan   │
+│ ten_trang_thai  │     │ ten_trang_thai  │     │ ten_chung_nhan  │
+│ mau_sac         │     │ mo_ta           │     │ to_chuc_cap     │
+│ css_class       │     └────────┬────────┘     └────────┬────────┘
+└────────┬────────┘              │                       │
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌────────────▼────────────┐
+                    │       vung_trong        │
+                    ├─────────────────────────┤
+         ┌──────────│ id (PK)                 │──────────┐
+         │          │ ma_vung                 │          │
+         │          │ ten_vung                │          │
+         │          │ chu_vung_id (FK)        │◄─────────┼───┐
+         │          │ trang_thai_id (FK)      │          │   │
+         │          │ trang_thai_ma_id (FK)   │          │   │
+         │          │ chung_nhan_id (FK)      │          │   │
+         │          │ ma_qr                   │          │   │
+         │          └────────────┬────────────┘          │   │
+         │                       │                       │   │
+         ▼                       ▼                       ▼   │
+┌─────────────────┐   ┌─────────────────────┐   ┌────────────┴──┐
+│  toa_do_vung    │   │  lich_su_canh_tac   │   │   chu_vung    │
+├─────────────────┤   ├─────────────────────┤   ├───────────────┤
+│ id (PK)         │   │ id (PK)             │   │ id (PK)       │
+│ vung_trong_id   │   │ vung_trong_id (FK)  │   │ ma_chu        │
+│ thu_tu          │   │ loai_hoat_dong_id   │──►│ ten_chu       │
+│ vi_do           │   │ ngay_thuc_hien      │   │ loai_chu      │
+│ kinh_do         │   │ tieu_de             │   │ so_dien_thoai │
+└─────────────────┘   │ noi_dung            │   └───────────────┘
+                      │ nguoi_thuc_hien     │
+                      └──────────┬──────────┘
+                                 │
+                      ┌──────────▼──────────┐
+                      │   loai_hoat_dong    │
+                      ├─────────────────────┤
+                      │ id (PK)             │
+                      │ ma_loai             │
+                      │ ten_loai            │
+                      │ icon                │
+                      └─────────────────────┘
+
+         ┌─────────────────────────────────────────────────────┐
+         │                                                     │
+         ▼                                                     │
+┌─────────────────────┐     ┌─────────────────┐               │
+│   vung_cay_trong    │     │    loai_cay     │               │
+├─────────────────────┤     ├─────────────────┤               │
+│ id (PK)             │     │ id (PK)         │◄──────────────┤
+│ vung_trong_id (FK)  │────►│ ma_cay          │               │
+│ loai_cay_id (FK)    │     │ ten_cay         │               │
+│ dien_tich           │     │ nhom_cay        │               │
+│ nam_trong           │     └─────────────────┘               │
+│ nang_suat           │                                       │
+│ gia_xuat_khau       │                                       │
+└──────────┬──────────┘                                       │
+           │                                                   │
+           ▼                                                   │
+┌─────────────────────┐     ┌─────────────────┐               │
+│   cay_thi_truong    │     │   thi_truong    │               │
+├─────────────────────┤     ├─────────────────┤               │
+│ id (PK)             │     │ id (PK)         │               │
+│ vung_cay_trong_id   │     │ ma_thi_truong   │◄──────────────┘
+│ thi_truong_id (FK)  │────►│ ten_thi_truong  │
+│ san_luong_xuat      │     │ vung_dia_ly     │
+│ gia_tri_xuat        │     └─────────────────┘
+└─────────────────────┘
+
+┌─────────────────────┐
+│   diem_sau_benh     │
+├─────────────────────┤
+│ id (PK)             │
+│ vung_trong_id (FK)  │
+│ vi_do               │
+│ kinh_do             │
+│ loai_sau_benh       │
+│ muc_do              │
+│ ngay_phat_hien      │
+│ trang_thai          │
+│ bien_phap           │
+└─────────────────────┘
+```
+
+## Danh Sách Bảng
+
+### 1. Bảng Tham Chiếu (Reference Tables)
+
+| Bảng             | Mô tả                                                               | Số cột |
+| ---------------- | ------------------------------------------------------------------- | ------ |
+| `trang_thai`     | Trạng thái vùng trồng (canh_tac, sau_benh, thu_hoach, da_thu_hoach) | 6      |
+| `trang_thai_ma`  | Trạng thái mã vùng (hoat_dong, bi_thu_hoi)                          | 5      |
+| `chung_nhan`     | Loại chứng nhận (VietGAP, GlobalGAP, OCOP)                          | 6      |
+| `thi_truong`     | Thị trường xuất khẩu (Trung Quốc, Hoa Kỳ, EU...)                    | 6      |
+| `loai_hoat_dong` | Loại hoạt động canh tác (cày ải, gieo sạ, bón phân...)              | 6      |
+
+### 2. Bảng Thực Thể Chính (Main Entity Tables)
+
+| Bảng                | Mô tả                               | Số cột |
+| ------------------- | ----------------------------------- | ------ |
+| `chu_vung`          | Chủ vùng/Hộ nông dân/HTX            | 9      |
+| `vung_trong`        | Thông tin vùng trồng                | 11     |
+| `toa_do_vung`       | Tọa độ polygon vùng trồng           | 6      |
+| `loai_cay`          | Danh mục loại cây trồng             | 6      |
+| `vung_cay_trong`    | Chi tiết cây trồng trong vùng (N-N) | 9      |
+| `cay_thi_truong`    | Thị trường xuất khẩu của cây (N-N)  | 6      |
+| `lich_su_canh_tac`  | Nhật ký đồng ruộng                  | 10     |
+| `diem_sau_benh`     | Điểm phát sinh sâu bệnh             | 12     |
+| `thong_ke_he_thong` | Snapshot thống kê hệ thống          | 8      |
+
+## Giải Thích Chuẩn Hóa
+
+### Chuẩn 1 (1NF)
+
+-    **Vấn đề ban đầu**: Trường `thiBruongXuatKhau` trong mock data là mảng `["Trung Quốc", "Hoa Kỳ"]`
+-    **Giải pháp**: Tách thành bảng riêng `cay_thi_truong` với quan hệ N-N
+
+-    **Vấn đề ban đầu**: Trường `toaDo` là mảng các điểm polygon
+-    **Giải pháp**: Tách thành bảng `toa_do_vung` với mỗi điểm là 1 dòng
+
+### Chuẩn 2 (2NF)
+
+-    **Vấn đề**: Thông tin cây trồng lặp lại trong nhiều vùng
+-    **Giải pháp**: Tạo bảng `loai_cay` riêng biệt và bảng trung gian `vung_cay_trong`
+
+### Chuẩn 3 (3NF)
+
+-    **Vấn đề**: Thông tin trạng thái (tên, màu sắc, CSS class) lặp lại
+-    **Giải pháp**: Tạo bảng `trang_thai` riêng, vùng trồng chỉ tham chiếu qua FK
+
+-    **Vấn đề**: Thông tin chủ vùng có thể lặp lại
+-    **Giải pháp**: Tạo bảng `chu_vung` riêng biệt
+
+## Hướng Dẫn Sử Dụng
+
+### Chạy Script tạo CSDL
+
+```bash
+# Kết nối PostgreSQL và chạy script
+psql -U postgres -d your_database -f schema.sql
+
+# Hoặc nếu dùng Docker
+docker exec -i postgres_container psql -U postgres -d your_database < schema.sql
+```
+
+### Truy vấn mẫu
+
+```sql
+-- Lấy danh sách vùng trồng đầy đủ thông tin
+SELECT * FROM nongsan.v_vung_trong_full;
+
+-- Lấy chi tiết cây trồng theo vùng
+SELECT * FROM nongsan.v_cay_trong_chi_tiet WHERE ma_vung = 'VT-001';
+
+-- Thống kê năng suất theo loại cây
+SELECT * FROM nongsan.v_thong_ke_nang_suat;
+
+-- Thống kê xuất khẩu theo thị trường
+SELECT * FROM nongsan.v_thong_ke_xuat_khau;
+
+-- Lấy lịch sử canh tác của vùng
+SELECT
+    lsc.ngay_thuc_hien,
+    lhd.ten_loai AS hoat_dong,
+    lhd.icon,
+    lsc.tieu_de,
+    lsc.noi_dung,
+    lsc.nguoi_thuc_hien
+FROM nongsan.lich_su_canh_tac lsc
+JOIN nongsan.loai_hoat_dong lhd ON lsc.loai_hoat_dong_id = lhd.id
+JOIN nongsan.vung_trong vt ON lsc.vung_trong_id = vt.id
+WHERE vt.ma_vung = 'VT-001'
+ORDER BY lsc.ngay_thuc_hien DESC;
+```
+
+## Views Có Sẵn
+
+| View                   | Mô tả                                          |
+| ---------------------- | ---------------------------------------------- |
+| `v_vung_trong_full`    | Danh sách vùng trồng với đầy đủ thông tin join |
+| `v_cay_trong_chi_tiet` | Chi tiết cây trồng với thông tin vùng          |
+| `v_thong_ke_nang_suat` | Thống kê năng suất theo loại cây               |
+| `v_thong_ke_xuat_khau` | Thống kê giá trị xuất khẩu theo thị trường     |
+
+## Kết Nối với Backend
+
+Để kết nối với Flask backend, cập nhật file `Backend/app.py`:
+
+```python
+import psycopg2
+from psycopg2.extras import RealDictCursor
+
+def get_db_connection():
+    return psycopg2.connect(
+        host="localhost",
+        database="nongsan_db",
+        user="postgres",
+        password="your_password",
+        cursor_factory=RealDictCursor
+    )
+```
