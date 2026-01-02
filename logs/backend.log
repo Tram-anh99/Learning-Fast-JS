@@ -180,3 +180,326 @@ INFO:database:✅ Database connection successful!
 INFO:app:✅ Connected to schema: nongsan
 INFO:app:✅ Total tables: 37
 INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'models/lich_su.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [53304]
+INFO:     Started server process [56633]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'models/lich_su.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [56633]
+INFO:     Started server process [57230]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/farms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [57230]
+INFO:     Started server process [57686]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/farms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [57686]
+INFO:     Started server process [57838]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:database:✅ Database connection successful!
+INFO:     127.0.0.1:56120 - "GET /api/health HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'routes/farms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [57838]
+INFO:     Started server process [58989]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/farms.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [58989]
+INFO:     Started server process [59295]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56220 - "GET /api/farms/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'routes/charts.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [59295]
+INFO:     Started server process [60252]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/charts.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [60252]
+INFO:     Started server process [60304]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/charts.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [60304]
+INFO:     Started server process [60430]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/charts.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [60430]
+INFO:     Started server process [60674]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:database:✅ Database connection successful!
+INFO:     127.0.0.1:56310 - "GET /api/health HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'routes/diary.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [60674]
+INFO:     Started server process [61138]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/diary.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [61138]
+INFO:     Started server process [61208]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'routes/diary.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [61208]
+INFO:     Started server process [61339]
+INFO:     Waiting for application startup.
+INFO:app:🚀 Starting FastAPI Backend Server...
+INFO:app:📡 API running at: http://localhost:8000
+INFO:app:📚 API Docs at: http://localhost:8000/docs
+INFO:database:✅ Database connection successful!
+INFO:app:✅ Connected to schema: nongsan
+INFO:app:✅ Total tables: 37
+INFO:     Application startup complete.
+INFO:database:✅ Database connection successful!
+INFO:     127.0.0.1:56356 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56371 - "GET /api/farms/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56382 - "GET /api/charts/dashboard-stats HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/protocols/http/httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 187, in __call__
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/routes/charts.py", line 116, in get_dashboard_stats
+    VungTrong.ngay_het_han >= today
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'VungTrong' has no attribute 'ngay_het_han'
+INFO:     127.0.0.1:56391 - "GET /api/charts/dashboard-stats HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/protocols/http/httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 187, in __call__
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/.venv/lib/python3.13/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/anllen/LapTrinh/Learning-Fast-JS/Backend/routes/charts.py", line 116, in get_dashboard_stats
+    VungTrong.ngay_het_han >= today
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'VungTrong' has no attribute 'ngay_het_han'
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:app:👋 Shutting down FastAPI Backend Server...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [61339]
+INFO:     Stopping reloader process [49970]

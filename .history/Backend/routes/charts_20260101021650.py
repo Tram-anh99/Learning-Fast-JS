@@ -297,73 +297,32 @@ async def get_crop_production_chart(db: Session = Depends(get_db)):
 @router.get("/productivity-trend", response_model=ChartData)
 async def get_productivity_trend_chart(
     years: int = Query(5, ge=1, le=10),
-    # years: Số năm hiển thị (default 5, min 1, max 10)
-    # Query param: /api/charts/productivity-trend?years=5
-    
     db: Session = Depends(get_db)
 ):
     """
-    ========== Biểu đồ Xu hướng Năng suất (Line Chart) ==========
-    
-    Endpoint: GET /api/charts/productivity-trend
-    
-    Chức năng:
-    - Thống kê năng suất trung bình theo năm
-    - Năng suất = san_luong_du_kien / dien_tich_ha (tấn/ha)
-    - Hiển thị xu hướng tăng/giảm qua các năm
-    
-    Query Parameters:
-    - years: Số năm hiển thị (1-10, default 5)
-    
-    Response: ChartData schema
-    - labels: Năm (2020, 2021, etc.)
-    - datasets[0].data: Năng suất trung bình (tạ/ha)
-    - datasets[0].tension: 0.4 (smooth curve)
-    
-    Use case:
-    - Phân tích hiệu quả sản xuất qua thời gian
-    - Dự đoán xu hướng tương lai
+    Biểu đồ xu hướng năng suất theo năm (Line Chart)
     """
-    
-    # ========== CALCULATE DATE RANGE ==========
     current_year = date.today().year
-    # Năm hiện tại (2026)
-    
     start_year = current_year - years + 1
-    # Ví dụ: years=5 → start_year = 2026 - 5 + 1 = 2022
-    # Hiển thị 5 năm: 2022, 2023, 2024, 2025, 2026
     
-    # ========== QUERY PRODUCTIVITY BY YEAR ==========
+    # Query productivity by year
     results = db.query(
         VungCayTrong.nam_trong,
-        # Năm trồng
-        
         func.avg(
             VungCayTrong.san_luong_du_kien / VungCayTrong.dien_tich_ha
         ).label('productivity')
-        # Năng suất = Sản lượng / Diện tích
-        # AVG: Trung bình năng suất trong năm
-        # Unit: tấn/hecta
     ).filter(
         VungCayTrong.nam_trong.isnot(None),
-        # Loại bỏ NULL
-        
         VungCayTrong.nam_trong >= start_year,
-        # Chỉ lấy data từ start_year
-        
         VungCayTrong.dien_tich_ha > 0
-        # Tránh chia cho 0
     ).group_by(
         VungCayTrong.nam_trong
-        # GROUP BY năm
     ).order_by(
         VungCayTrong.nam_trong
-        # Sắp xếp theo thứ tự thời gian
     ).all()
     
-    # ========== HANDLE EMPTY DATA ==========
     if not results:
-        # DB trống → sample data
+        # Return sample data
         return {
             "labels": ["2020", "2021", "2022", "2023", "2024"],
             "datasets": [{
@@ -374,13 +333,8 @@ async def get_productivity_trend_chart(
             }]
         }
     
-    # ========== FORMAT DATA ==========
     labels = [str(r[0]) for r in results]
-    # Convert year to string (2023 → "2023")
-    
     data = [round(float(r[1]), 2) if r[1] else 0 for r in results]
-    # r[1] = productivity (AVG result)
-    # Round 2 chữ số thập phân
     
     return {
         "labels": labels,
@@ -388,11 +342,7 @@ async def get_productivity_trend_chart(
             "label": "Năng suất (tạ/ha)",
             "data": data,
             "borderColor": "#3b82f6",
-            # Màu xanh dương (Tailwind blue-500)
-            
             "tension": 0.4
-            # Bezier curve tension (0 = straight, 1 = very curved)
-            # 0.4 = smooth curve
         }]
     }
 
@@ -400,65 +350,28 @@ async def get_productivity_trend_chart(
 @router.get("/farm-status", response_model=ChartData)
 async def get_farm_status_chart(db: Session = Depends(get_db)):
     """
-    ========== Biểu đồ Trạng thái Vùng (Pie Chart) ==========
-    
-    Endpoint: GET /api/charts/farm-status
-    
-    Chức năng:
-    - Thống kê vùng trồng theo trạng thái hạn giấy chứng nhận
-    - 3 nhóm: Còn hạn, Sắp hết hạn, Hết hạn
-    - Warning threshold: 30 ngày
-    
-    Response: ChartData schema
-    - labels: ["Còn hạn", "Sắp hết hạn", "Hết hạn"]
-    - datasets[0].data: Số lượng vùng mỗi nhóm
-    - datasets[0].backgroundColor: Màu (xanh, vàng, đỏ)
-    
-    Note: Dùng field cũ ngay_het_han
+    Biểu đồ phân bổ trạng thái vùng trồng
     """
-    
-    # ========== DATE THRESHOLDS ==========
     today = date.today()
-    # Ngày hiện tại
-    
     warning_date = today + timedelta(days=30)
-    # 30 ngày từ nay (ngưỡng cảnh báo)
     
-    # ========== COUNT TOTAL ==========
+    # Count by status
     total = db.query(func.count(VungTrong.id)).scalar()
-    # Tổng số vùng (không dùng, reserved)
-    
-    # ========== COUNT CON HAN ==========
-    # TODO: Field ngay_het_han không tồn tại trong DB mới
     con_han = db.query(func.count(VungTrong.id)).filter(
         VungTrong.ngay_het_han > warning_date
-        # ngay_het_han > (today + 30 days)
-        # Còn hạn > 30 ngày
     ).scalar()
-    
-    # ========== COUNT SAP HET HAN ==========
     sap_het_han = db.query(func.count(VungTrong.id)).filter(
         VungTrong.ngay_het_han.between(today, warning_date)
-        # ngay_het_han BETWEEN today AND (today + 30 days)
-        # Sắp hết hạn trong vòng 30 ngày
     ).scalar()
-    
-    # ========== COUNT HET HAN ==========
     het_han = db.query(func.count(VungTrong.id)).filter(
         VungTrong.ngay_het_han < today
-        # Đã hết hạn (quá khứ)
     ).scalar()
     
-    # ========== RETURN PIE CHART DATA ==========
     return {
         "labels": ["Còn hạn", "Sắp hết hạn", "Hết hạn"],
         "datasets": [{
             "data": [con_han or 0, sap_het_han or 0, het_han or 0],
-            # Đảm bảo không NULL
-            
             "backgroundColor": ["#10b981", "#f59e0b", "#ef4444"]
-            # Xanh lá (OK), Vàng (Warning), Đỏ (Danger)
-            # Tailwind: green-500, amber-500, red-500
         }]
     }
 
@@ -466,61 +379,27 @@ async def get_farm_status_chart(db: Session = Depends(get_db)):
 @router.get("/activity-timeline", response_model=ChartData)
 async def get_activity_timeline(
     days: int = Query(30, ge=7, le=90),
-    # days: Số ngày hiển thị (default 30, min 7, max 90)
-    
     db: Session = Depends(get_db)
 ):
     """
-    ========== Biểu đồ Timeline Hoạt động (Line Chart) ==========
-    
-    Endpoint: GET /api/charts/activity-timeline
-    
-    Chức năng:
-    - Hiển thị số lượng hoạt động canh tác theo ngày
-    - Timeline: 7-90 ngày gần đây
-    - Giúp theo dõi tần suất hoạt động
-    
-    Query Parameters:
-    - days: Số ngày hiển thị (7-90, default 30)
-    
-    Response: ChartData schema
-    - labels: Ngày (dd/mm format)
-    - datasets[0].data: Số hoạt động mỗi ngày
-    
-    Use case:
-    - Xác định ngày nào có nhiều hoạt động
-    - Phân tích patterns (weekend vs weekday, etc.)
+    Biểu đồ timeline hoạt động canh tác
     """
-    
-    # ========== DATE RANGE ==========
     end_date = date.today()
-    # Ngày kết thúc = hôm nay
-    
     start_date = end_date - timedelta(days=days)
-    # Ngày bắt đầu = days ngày trước
-    # Ví dụ: days=30 → 30 ngày gần đây
     
-    # ========== QUERY ACTIVITIES BY DATE ==========
+    # Query activities by date
     results = db.query(
         LichSuCanhTac.ngay_thuc_hien,
-        # Ngày thực hiện hoạt động
-        
         func.count(LichSuCanhTac.id).label('count')
-        # Đếm số hoạt động trong ngày
     ).filter(
         LichSuCanhTac.ngay_thuc_hien.between(start_date, end_date)
-        # Chỉ lấy data trong khoảng [start_date, end_date]
     ).group_by(
         LichSuCanhTac.ngay_thuc_hien
-        # GROUP BY ngày
     ).order_by(
         LichSuCanhTac.ngay_thuc_hien
-        # Sắp xếp theo thời gian
     ).all()
     
-    # ========== HANDLE EMPTY DATA ==========
     if not results:
-        # DB trống → empty chart
         return {
             "labels": [],
             "datasets": [{
@@ -531,28 +410,16 @@ async def get_activity_timeline(
             }]
         }
     
-    # ========== FORMAT DATA ==========
     labels = [r[0].strftime("%d/%m") for r in results]
-    # r[0] = ngay_thuc_hien (date object)
-    # strftime: Convert to "dd/mm" format
-    # Ví dụ: date(2026, 1, 1) → "01/01"
-    
     data = [r[1] for r in results]
-    # r[1] = count (số hoạt động)
     
     return {
         "labels": labels,
         "datasets": [{
             "label": "Hoạt động",
             "data": data,
-            
             "borderColor": "#8b5cf6",
-            # Màu tím (Tailwind violet-500)
-            
             "backgroundColor": "#8b5cf620",
-            # Màu tím nhạt (20% opacity) cho fill area
-            
             "tension": 0.4
-            # Smooth curve
         }]
     }

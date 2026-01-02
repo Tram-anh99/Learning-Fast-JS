@@ -52,6 +52,11 @@ class LoaiHoatDong(Base):
     # Tên loại hoạt động
     # Example: "Bón phân", "Phun thuốc BVTV", "Tưới nước"
     
+    nhom = Column(String(50))
+    # Nhóm hoạt động để phân loại
+    # Example: "cham_soc", "bao_ve_thuc_vat", "thu_hoach"
+    # Usage: Filter, group by trong UI
+    
     icon = Column(String(50))
     # Icon class cho hiển thị UI
     # Example: "fa-leaf", "fa-spray-can", "fa-droplet"
@@ -157,13 +162,4 @@ class LichSuCanhTac(Base):
     loai_hoat_dong = relationship("LoaiHoatDong", back_populates="lich_su")
     # Relationship với LoaiHoatDong (many-to-one)
     # Usage: lich_su.loai_hoat_dong.ten_loai → get tên loại hoạt động
-    
-    phan_bon = relationship("PhanBon", back_populates="lich_su_canh_tac", foreign_keys=[phan_bon_id])
-    # Relationship với PhanBon (many-to-one)
-    # foreign_keys: Specify FK column
-    # Usage: lich_su.phan_bon.ten_phan_bon → get tên phân bón
-    
-    thuoc_bvtv = relationship("ThuocBVTV", back_populates="lich_su_canh_tac", foreign_keys=[thuoc_bvtv_id])
-    # Relationship với ThuocBVTV (many-to-one)
-    # Usage: lich_su.thuoc_bvtv.ten_thuoc → get tên thuốc
 

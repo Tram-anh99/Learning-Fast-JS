@@ -650,3 +650,76 @@ class PaginatedResponse(BaseModel):
     skip: int          # Records đã bỏ qua
     limit: int         # Max records per page
     data: List[dict]   # Data array cho page hiện tại
+
+
+
+# ========================================================================
+# ========== SECTION 8: PHÂN BÓN & THUỐC BVTV SCHEMAS ==========
+# ========================================================================
+
+# --- Loại Phân Bón Schemas ---
+class LoaiPhanBonBase(BaseModel):
+    ma_loai: str = Field(..., description='Mã loại phân bón (unique)')
+    ten_loại: str = Field(..., description='Tên loại')
+    mo_ta: Optional[str] = Field(None, description='Mô tả')
+
+class LoaiPhanBonCreate(LoaiPhanBonBase):
+    pass
+
+class LoaiPhanBonResponse(LoaiPhanBonBase):
+    id: int
+    ngay_tao: datetime
+    model_config = ConfigDict(from_attributes=True)
+
+# --- Phân Bón Schemas ---
+class PhanBonBase(BaseModel):
+    ma_phan_bon: str = Field(..., description='Mã phân bón (unique)')
+    ten_phan_bon: str = Field(..., description='Tên phân bón')
+    loai_phan_bon_id: Optional[int] = Field(None, description='ID loại phân bón')
+    thanh_phan: Optional[str] = Field(None, description='Thành phần hóa học')
+    don_vi: Optional[str] = Field(None, description='Đơn vị (kg, tấn, bao)')
+    mo_ta: Optional[str] = Field(None, description='Mô tả, hướng dẫn')
+
+class PhanBonCreate(PhanBonBase):
+    pass
+
+class PhanBonResponse(PhanBonBase):
+    id: int
+    ngay_tao: datetime
+    loai_phan_bon: Optional[LoaiPhanBonResponse] = None
+    model_config = ConfigDict(from_attributes=True)
+
+# --- Nhóm Thuốc BVTV Schemas ---
+class NhomThuocBVTVBase(BaseModel):
+    ma_nhom: str = Field(..., description='Mã nhóm (unique)')
+    ten_nhom: str = Field(..., description='Tên nhóm')
+    mo_ta: Optional[str] = Field(None, description='Mô tả')
+
+class NhomThuocBVTVCreate(NhomThuocBVTVBase):
+    pass
+
+class NhomThuocBVTVResponse(NhomThuocBVTVBase):
+    id: int
+    ngay_tao: datetime
+    model_config = ConfigDict(from_attributes=True)
+
+# --- Thuốc BVTV Schemas ---
+class ThuocBVTVBase(BaseModel):
+    ma_thuoc: str = Field(..., description='Mã thuốc (unique)')
+    ten_thuoc: str = Field(..., description='Tên thương mại')
+    ten_hoat_chat: Optional[str] = Field(None, description='Tên hoạt chất')
+    ham_luong: Optional[str] = Field(None, description='Hàm lượng (%)')
+    nhom_thuoc_id: Optional[int] = Field(None, description='ID nhóm thuốc')
+    dang_bao_che: Optional[str] = Field(None, description='Dạng bào chế (EC, WP, SC)')
+    trang_thai_su_dung: Optional[str] = Field(None, description='Trạng thái (Được phép, Hạn chế, Cấm)')
+    mo_ta: Optional[str] = Field(None, description='Mô tả, hướng dẫn')
+
+class ThuocBVTVCreate(ThuocBVTVBase):
+    pass
+
+class ThuocBVTVResponse(ThuocBVTVBase):
+    id: int
+    ngay_tao: datetime
+    nhom_thuoc: Optional[NhomThuocBVTVResponse] = None
+    model_config = ConfigDict(from_attributes=True)
+

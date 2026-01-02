@@ -137,30 +137,14 @@ async def get_diary_entries(
 @router.get("/{entry_id}", response_model=LichSuCanhTacResponse)
 async def get_diary_entry(entry_id: int, db: Session = Depends(get_db)):
     """
-    ========== Chi tiết Nhật ký (Get Diary Detail) ==========
-    
-    Endpoint: GET /api/diary/{entry_id}
-    
-    Chức năng:
-    - Lấy thông tin chi tiết một nhật ký
-    - FastAPI tự serialize theo LichSuCanhTacResponse
-    
-    Response:
-    - 200: Chi tiết nhật ký
-    - 404: Không tìm thấy
+    Lấy chi tiết một nhật ký
     """
-    
-    # ========== FIND ENTRY ==========
     entry = db.query(LichSuCanhTac).filter(
         LichSuCanhTac.id == entry_id
     ).first()
     
-    # ========== HANDLE NOT FOUND ==========
     if not entry:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Không tìm thấy nhật ký ID {entry_id}"
-        )
+        raise HTTPException(status_code=404, detail=f"Không tìm thấy nhật ký ID {entry_id}")
     
     return entry
 
@@ -168,47 +152,16 @@ async def get_diary_entry(entry_id: int, db: Session = Depends(get_db)):
 @router.post("/", response_model=LichSuCanhTacResponse, status_code=201)
 async def create_diary_entry(
     entry_data: LichSuCanhTacCreate,
-    # Request body validated by Pydantic
-    
     db: Session = Depends(get_db)
 ):
     """
-    ========== Tạo Nhật ký (Create Diary) ==========
-    
-    Endpoint: POST /api/diary/
-    
-    Chức năng:
-    - Tạo nhật ký canh tác mới
-    - Auto generate ngay_tao (server_default)
-    
-    Request Body: LichSuCanhTacCreate
-    - vung_trong_id: FK vùng trồng
-    - loai_hoat_dong_id: FK loại hoạt động
-    - ngay_thuc_hien: Ngày thực hiện
-    - noi_dung: Mô tả (field mới)
-    - phan_bon_id, thuoc_bvtv_id: Optional
-    
-    Response:
-    - 201 Created: Nhật ký mới
-    - 422: Validation error
-    
-    Note: Schema cũ có fields khác models
+    Tạo nhật ký canh tác mới
     """
-    
-    # ========== CREATE OBJECT ==========
     new_entry = LichSuCanhTac(**entry_data.model_dump())
-    # model_dump(): Convert Pydantic model to dict
-    # **dict: Unpack dict as kwargs
     
-    # ========== SAVE TO DB ==========
     db.add(new_entry)
-    # Add to session
-    
     db.commit()
-    # Save to database
-    
     db.refresh(new_entry)
-    # Refresh để lấy ngay_tao auto-generated
     
     return new_entry
 
@@ -220,41 +173,21 @@ async def update_diary_entry(
     db: Session = Depends(get_db)
 ):
     """
-    ========== Cập nhật Nhật ký (Update Diary) ==========
-    
-    Endpoint: PUT /api/diary/{entry_id}
-    
-    Chức năng:
-    - Cập nhật thông tin nhật ký
-    - Auto update ngay_cap_nhat (onupdate)
-    
-    Note: Dùng setattr để update dynamic
+    Cập nhật nhật ký
     """
-    
-    # ========== FIND ENTRY ==========
     entry = db.query(LichSuCanhTac).filter(
         LichSuCanhTac.id == entry_id
     ).first()
     
-    # ========== HANDLE NOT FOUND ==========
     if not entry:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Không tìm thấy nhật ký ID {entry_id}"
-        )
+        raise HTTPException(status_code=404, detail=f"Không tìm thấy nhật ký ID {entry_id}")
     
-    # ========== UPDATE FIELDS ==========
+    # Update fields
     for key, value in entry_data.model_dump().items():
         setattr(entry, key, value)
-        # setattr(obj, 'field', value) = obj.field = value
-        # Dynamic update tất cả fields từ request
     
-    # ========== SAVE ==========
     db.commit()
-    # ngay_cap_nhat auto update (onupdate=func.now())
-    
     db.refresh(entry)
-    # Get updated data
     
     return entry
 
@@ -262,80 +195,34 @@ async def update_diary_entry(
 @router.delete("/{entry_id}")
 async def delete_diary_entry(entry_id: int, db: Session = Depends(get_db)):
     """
-    ========== Xóa Nhật ký (Delete Diary) ==========
-    
-    Endpoint: DELETE /api/diary/{entry_id}
-    
-    Chức năng:
-    - Xóa nhật ký khỏi database
-    - Hard delete (không thể hoàn tác)
-    
-    Response:
-    - 200: Success message
-    - 404: Not found
-    
-    Warning: KHÔNG THỂ HOÀN TÁC!
+    Xóa nhật ký
     """
-    
-    # ========== FIND ENTRY ==========
     entry = db.query(LichSuCanhTac).filter(
         LichSuCanhTac.id == entry_id
     ).first()
     
-    # ========== HANDLE NOT FOUND ==========
     if not entry:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Không tìm thấy nhật ký ID {entry_id}"
-        )
+        raise HTTPException(status_code=404, detail=f"Không tìm thấy nhật ký ID {entry_id}")
     
-    # ========== DELETE ==========
     db.delete(entry)
-    # Mark for deletion
-    
     db.commit()
-    # Execute DELETE SQL
     
-    return {
-        "success": True,
-        "message": f"Đã xóa nhật ký ID {entry_id}"
-    }
+    return {"success": True, "message": f"Đã xóa nhật ký ID {entry_id}"}
 
 
 @router.get("/activity-types/", response_model=List[dict])
 async def get_activity_types(db: Session = Depends(get_db)):
     """
-    ========== Danh sách Loại Hoạt động (Activity Types) ==========
-    
-    Endpoint: GET /api/diary/activity-types/
-    
-    Chức năng:
-    - Lấy tất cả loại hoạt động canh tác
-    - Dùng cho dropdown/selector trong form
-    
-    Response: List[dict]
-    - id: ID loại hoạt động
-    - ma_loai: Mã loại (BONPHAN, PHUNTHUOC, etc.)
-    - ten_loai: Tên hiển thị
-    - nhom: TODO field cũ đã remove
-    - icon: Icon class (fa-*, etc.)
-    
-    Use case:
-    - Frontend DiaryActivityForm.vue dropdown
-    - Filter trong DiaryActivityHistory.vue
+    Lấy danh sách loại hoạt động canh tác
     """
-    
-    # ========== QUERY ALL ==========
     types = db.query(LoaiHoatDong).all()
-    # SELECT * FROM loai_hoat_dong
     
-    # ========== FORMAT RESPONSE ==========
     return [
         {
             "id": t.id,
             "ma_loai": t.ma_loai,
             "ten_loai": t.ten_loai,
-            "nhom": None,  # TODO: Field đã remove
+            "nhom": t.nhom,
             "icon": t.icon
         }
         for t in types

@@ -142,11 +142,6 @@ app.include_router(fertilizers.router, prefix=settings.API_PREFIX)
 # Handles: Quản lý danh mục thuốc BVTV
 app.include_router(pesticides.router, prefix=settings.API_PREFIX)
 
-# Include QR router
-# Endpoints: /api/qr/generate/{ma_vung}, /api/qr/trace/{ma_vung}
-# Handles: Tạo QR code và traceability công khai
-app.include_router(qr.router, prefix=settings.API_PREFIX)
-
 
 # ========== ROOT & HEALTH ENDPOINTS ==========
 

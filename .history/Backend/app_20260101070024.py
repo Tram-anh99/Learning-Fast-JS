@@ -36,7 +36,6 @@ from routes import charts  # Charts/Thống kê APIs: Lấy dữ liệu cho bi�
 from routes import diary   # Diary/Nhật ký APIs: Quản lý nhật ký hoạt động
 from routes import fertilizers  # Fertilizers APIs: Quản lý danh mục phân bón
 from routes import pesticides   # Pesticides APIs: Quản lý danh mục thuốc BVTV
-from routes import qr       # QR APIs: Tạo QR code và traceability
 
 # ========== SETUP LOGGING ==========
 # Cấu hình logging format và level
@@ -141,11 +140,6 @@ app.include_router(fertilizers.router, prefix=settings.API_PREFIX)
 # Endpoints: /api/pesticides/, /api/pesticides/groups/
 # Handles: Quản lý danh mục thuốc BVTV
 app.include_router(pesticides.router, prefix=settings.API_PREFIX)
-
-# Include QR router
-# Endpoints: /api/qr/generate/{ma_vung}, /api/qr/trace/{ma_vung}
-# Handles: Tạo QR code và traceability công khai
-app.include_router(qr.router, prefix=settings.API_PREFIX)
 
 
 # ========== ROOT & HEALTH ENDPOINTS ==========
