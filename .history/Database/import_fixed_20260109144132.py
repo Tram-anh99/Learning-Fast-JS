@@ -56,16 +56,16 @@ def connect_db():
 def detect_header_row(df, max_rows_to_check=10):
     """
     Phát hiện dòng tiêu đề trong DataFrame bằng cách phân tích nội dung
-
+    
     Logic:
     - Dòng tiêu đề thường chứa nhiều từ khóa đặc trưng
     - Dòng tiêu đề có ít giá trị NaN
     - Dòng sau tiêu đề thường là dữ liệu thực
-
+    
     Args:
         df: DataFrame đã đọc từ Excel
         max_rows_to_check: Số dòng đầu tiên để kiểm tra
-
+        
     Returns:
         int: Index của dòng tiêu đề (0-based), hoặc 0 nếu không tìm thấy
     """
@@ -77,19 +77,19 @@ def detect_header_row(df, max_rows_to_check=10):
         'địa chỉ', 'dia chi', 'address', 'quyết định', 'quyet dinh',
         'ngày', 'ngay', 'date', 'đối tượng', 'doi tuong', 'pest', 'crop'
     ]
-
+    
     best_score = 0
     best_row = 0
-
+    
     for idx in range(min(max_rows_to_check, len(df))):
         row = df.iloc[idx]
         score = 0
-
+        
         # Đếm số giá trị không NaN
         non_nan_count = row.notna().sum()
         if non_nan_count < 2:  # Quá ít giá trị → không phải tiêu đề
             continue
-
+            
         # Kiểm tra từ khóa trong mỗi cell
         for cell in row:
             if pd.notna(cell):
@@ -98,35 +98,35 @@ def detect_header_row(df, max_rows_to_check=10):
                     if keyword in cell_str:
                         score += 1
                         break  # Chỉ đếm 1 lần/cell
-
+        
         # Cộng điểm cho số cột có dữ liệu
         score += non_nan_count * 0.1
-
+        
         if score > best_score:
             best_score = score
             best_row = idx
-
+    
     return best_row if best_score > 1 else 0
 
 
 def guess_column_type(column_name, sample_values):
     """
     Dự đoán loại cột dựa vào tên cột và giá trị mẫu
-
+    
     Args:
         column_name: Tên cột (có thể là NaN hoặc Unnamed)
         sample_values: List các giá trị mẫu từ cột
-
+        
     Returns:
         str: Loại cột dự đoán (ten_phan_bon, ten_thuoc, hoat_chat, etc.)
     """
     col_str = str(column_name).lower() if pd.notna(column_name) else ''
-
+    
     # Lọc bỏ giá trị NaN trong sample
     valid_samples = [str(v).lower() for v in sample_values if pd.notna(v)]
     if not valid_samples:
         return 'unknown'
-
+    
     # Phân tích tên cột
     if 'tên phân bón' in col_str or 'ten phan bon' in col_str:
         return 'ten_phan_bon'
@@ -150,52 +150,50 @@ def guess_column_type(column_name, sample_values):
         return 'doi_tuong_su_dung'
     if 'ngày' in col_str or 'ngay' in col_str or 'date' in col_str:
         return 'ngay_thang'
-
+    
     # Phân tích nội dung mẫu
     # Kiểm tra xem có phải là cột tên sản phẩm không
-    avg_length = sum(len(str(v))
-                     for v in valid_samples[:10]) / len(valid_samples[:10])
-
+    avg_length = sum(len(str(v)) for v in valid_samples[:10]) / len(valid_samples[:10])
+    
     # Cột tên sản phẩm thường có độ dài 15-100 ký tự
     if 15 <= avg_length <= 100:
         # Kiểm tra xem có chứa các từ đặc trưng không
         chemical_indicators = ['ec', 'wp', 'wg', 'sc', '%', 'kg', 'lít', 'lit']
-        product_indicators = any(any(ind in sample for ind in chemical_indicators)
-                                 for sample in valid_samples[:5])
-
+        product_indicators = any(any(ind in sample for ind in chemical_indicators) 
+                                for sample in valid_samples[:5])
+        
         if product_indicators:
             # Phân biệt phân bón vs thuốc BVTV
-            pesticide_words = ['sâu', 'sau', 'nấm', 'nam',
-                               'cỏ', 'co', 'rệp', 'rep', 'bọ', 'bo']
-            is_pesticide = any(any(word in sample for word in pesticide_words)
-                               for sample in valid_samples[:5])
+            pesticide_words = ['sâu', 'sau', 'nấm', 'nam', 'cỏ', 'co', 'rệp', 'rep', 'bọ', 'bo']
+            is_pesticide = any(any(word in sample for word in pesticide_words) 
+                             for sample in valid_samples[:5])
             return 'ten_thuoc' if is_pesticide else 'ten_phan_bon'
-
+    
     # Cột công ty/tổ chức
     company_indicators = ['công ty', 'cong ty', 'cp', 'tnhh', 'ltd', 'co.']
     if any(any(ind in sample for ind in company_indicators) for sample in valid_samples[:5]):
         return 'to_chuc'
-
+    
     return 'unknown'
 
 
 def smart_read_excel(file_path, sheet_name=0):
     """
     Đọc Excel file thông minh - tự động phát hiện dòng tiêu đề
-
+    
     Args:
         file_path: Đường dẫn file Excel
         sheet_name: Tên sheet hoặc index
-
+        
     Returns:
         tuple: (DataFrame, dict mapping column types)
     """
     # Đọc file không có header để phân tích
     df_raw = pd.read_excel(file_path, sheet_name=sheet_name, header=None)
-
+    
     # Phát hiện dòng tiêu đề
     header_row = detect_header_row(df_raw)
-
+    
     # Đọc lại với header đúng
     if header_row > 0:
         df = pd.read_excel(file_path, sheet_name=sheet_name, header=header_row)
@@ -205,14 +203,14 @@ def smart_read_excel(file_path, sheet_name=0):
         if len(df) > 0:
             df.columns = df.iloc[0]
             df = df[1:].reset_index(drop=True)
-
+    
     # Dự đoán loại cột
     column_types = {}
     for col in df.columns:
         sample_values = df[col].head(20).tolist()
         col_type = guess_column_type(col, sample_values)
         column_types[col] = col_type
-
+    
     return df, column_types
 
 
@@ -400,18 +398,16 @@ def import_vung_trong(conn):
 def import_phan_bon(conn):
     """
     Import phân bón từ tất cả các file Excel trong thư mục phanbon/
-    Sử dụng SMART DETECTION - tự động phát hiện tiêu đề và dự đoán cột dựa vào nội dung
 
     Database table: nongsan.phan_bon
     Columns: ma_phan_bon, ten_phan_bon, thanh_phan, don_vi, loai_phan_bon_id
 
     Chức năng:
     - Đọc tất cả file .xlsx và .xls trong thư mục phanbon/
-    - Tự động phát hiện dòng tiêu đề (có thể ở dòng 0, 1, 2, 3...)
-    - Dự đoán loại cột dựa vào tên cột VÀ nội dung thực tế
+    - Tự động phát hiện cột tên phân bón và thành phần
     - Import tất cả dữ liệu có tên phân bón hợp lệ
     """
-    print("\n📥 Import Phân bón từ nhiều file (SMART DETECTION)...")
+    print("\n📥 Import Phân bón từ nhiều file...")
 
     phanbon_dir = 'phanbon/'
     if not os.path.exists(phanbon_dir):
@@ -433,6 +429,20 @@ def import_phan_bon(conn):
     total_imported = 0
     cursor = conn.cursor()
     phan_bon_counter = 1  # Để tạo mã phân bón duy nhất
+
+    # Danh sách các tên cột có thể chứa tên phân bón
+    potential_ten_phan_bon_cols = [
+        'TenPhanBon', 'Tên phân bón', 'Ten phan bon',
+        'Tên sản phẩm', 'Ten san pham', 'San pham',
+        'Tên', 'Ten', 'Name', 'Product Name'
+    ]
+
+    # Danh sách các tên cột có thể chứa thành phần
+    potential_thanh_phan_cols = [
+        'ThanhPhan', 'Thành phần', 'Thanh phan',
+        'Hàm lượng', 'Ham luong', 'Content',
+        'Composition', 'Formula'
+    ]
 
     for file_name in excel_files:
         file_path = os.path.join(phanbon_dir, file_name)

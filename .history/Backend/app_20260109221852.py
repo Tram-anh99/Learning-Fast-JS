@@ -22,14 +22,12 @@ Kết nối đến:
 
 # Import FastAPI framework để tạo REST API
 from fastapi import FastAPI  # Core FastAPI class
-# Middleware xử lý CORS (Cross-Origin Resource Sharing)
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware  # Middleware xử lý CORS (Cross-Origin Resource Sharing)
 import uvicorn  # ASGI server để chạy FastAPI app
 import logging  # Thư viện logging để ghi log
 
 # Import config and database modules
-# Import cấu hình từ file config.py (API_TITLE, DATABASE_URL, etc.)
-from config import settings
+from config import settings  # Import cấu hình từ file config.py (API_TITLE, DATABASE_URL, etc.)
 from database import test_connection, get_table_count  # Functions kiểm tra database
 
 # Import route modules (mỗi module handle 1 nhóm endpoints)
@@ -39,24 +37,20 @@ from routes import diary   # Diary/Nhật ký APIs: Quản lý nhật ký hoạt
 from routes import fertilizers  # Fertilizers APIs: Quản lý danh mục phân bón
 from routes import pesticides   # Pesticides APIs: Quản lý danh mục thuốc BVTV
 from routes import qr       # QR APIs: Tạo QR code và traceability
-from routes import enhanced  # Enhanced APIs: Facilities với coordinates và views mới
+from routes import enhanced # Enhanced APIs: Facilities với coordinates và views mới
 
 # ========== SETUP LOGGING ==========
 # Cấu hình logging format và level
 logging.basicConfig(
-    # Log level: INFO (log mọi thứ từ INFO trở lên: INFO, WARNING, ERROR)
-    level=logging.INFO,
-    # Format: timestamp - logger_name - level - message
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO,  # Log level: INFO (log mọi thứ từ INFO trở lên: INFO, WARNING, ERROR)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'  # Format: timestamp - logger_name - level - message
 )
-# Tạo logger cho module này (__name__ = "app")
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # Tạo logger cho module này (__name__ = "app")
 
 # ========== INITIALIZE FASTAPI APPLICATION ==========
 # Tạo FastAPI app instance - core của toàn bộ backend
 app = FastAPI(
-    # Title hiển thị trong Swagger docs (từ config.py)
-    title=settings.API_TITLE,
+    title=settings.API_TITLE,  # Title hiển thị trong Swagger docs (từ config.py)
     description="API cho hệ thống quản lý nông nghiệp - Kết nối PostgreSQL",  # Mô tả API
     version=settings.API_VERSION,  # Version của API (từ config.py)
     docs_url="/docs",    # URL để xem Swagger UI: http://localhost:8000/docs
@@ -68,13 +62,10 @@ app = FastAPI(
 # Nếu không có CORS, browser sẽ block requests từ origin khác
 app.add_middleware(
     CORSMiddleware,                      # Middleware class của FastAPI
-    # Danh sách origins được phép: ["http://localhost:5173", "*"]
-    allow_origins=settings.cors_origins_list,
+    allow_origins=settings.cors_origins_list,  # Danh sách origins được phép: ["http://localhost:5173", "*"]
     allow_credentials=True,              # Cho phép gửi cookies/credentials
-    # Cho phép tất cả HTTP methods: GET, POST, PUT, DELETE, PATCH
-    allow_methods=["*"],
-    # Cho phép tất cả headers: Content-Type, Authorization, etc.
-    allow_headers=["*"],
+    allow_methods=["*"],                 # Cho phép tất cả HTTP methods: GET, POST, PUT, DELETE, PATCH
+    allow_headers=["*"],                 # Cho phép tất cả headers: Content-Type, Authorization, etc.
 )
 
 
@@ -84,13 +75,13 @@ app.add_middleware(
 async def startup_event():
     """
     Event handler chạy khi FastAPI app khởi động
-
+    
     Cách hoạt động:
     1. Log thông tin server (URL, docs URL)
     2. Test kết nối database bằng test_connection()
     3. Lấy thông tin schema và số lượng bảng
     4. Log kết quả connection
-
+    
     Kết nối đến:
     - database.py: test_connection(), get_table_count()
     - Tự động được FastAPI gọi khi server start
@@ -98,28 +89,25 @@ async def startup_event():
     logger.info("🚀 Starting FastAPI Backend Server...")
     logger.info(f"📡 API running at: http://localhost:8000")
     logger.info(f"📚 API Docs at: http://localhost:8000/docs")
-
+    
     # Test database connection khi server khởi động
     if test_connection():  # Return True nếu connect thành công
         table_info = get_table_count()  # Lấy thông tin schema và tables
-        # Log schema name: "nongsan"
-        logger.info(f"✅ Connected to schema: {table_info.get('schema')}")
-        # Log số bảng: 18
-        logger.info(f"✅ Total tables: {table_info.get('count')}")
+        logger.info(f"✅ Connected to schema: {table_info.get('schema')}")  # Log schema name: "nongsan"
+        logger.info(f"✅ Total tables: {table_info.get('count')}")           # Log số bảng: 18
     else:
-        # Log error nếu không connect được
-        logger.error("❌ Database connection failed!")
+        logger.error("❌ Database connection failed!")  # Log error nếu không connect được
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
     """
     Event handler chạy khi FastAPI app shutdown
-
+    
     Cách hoạt động:
     1. Log message khi server tắt
     2. Có thể thêm cleanup code ở đây (close connections, save state, etc.)
-
+    
     Kết nối đến:
     - Tự động được FastAPI gọi khi server stop (Ctrl+C hoặc kill process)
     """
@@ -133,8 +121,7 @@ async def shutdown_event():
 # Include farms router
 # Endpoints: /api/farms/, /api/farms/{id}, /api/farms/code/{code}
 # Handles: GET, POST, PUT, DELETE operations cho Vùng trồng
-# settings.API_PREFIX = "/api"
-app.include_router(farms.router, prefix=settings.API_PREFIX)
+app.include_router(farms.router, prefix=settings.API_PREFIX)  # settings.API_PREFIX = "/api"
 
 # Include charts router
 # Endpoints: /api/dashboard/stats, /api/charts/export-markets, /api/charts/crop-production, etc.
@@ -161,11 +148,6 @@ app.include_router(pesticides.router, prefix=settings.API_PREFIX)
 # Handles: Tạo QR code và traceability công khai
 app.include_router(qr.router, prefix=settings.API_PREFIX)
 
-# Include enhanced router
-# Endpoints: /api/enhanced/facilities, /api/enhanced/facilities/map, /api/enhanced/farms/crops, etc.
-# Handles: Enhanced queries với coordinates, views và statistics
-app.include_router(enhanced.router, prefix=settings.API_PREFIX)
-
 
 # ========== ROOT & HEALTH ENDPOINTS ==========
 
@@ -173,11 +155,11 @@ app.include_router(enhanced.router, prefix=settings.API_PREFIX)
 async def root():
     """
     Root endpoint - Trang chủ của API
-
+    
     Endpoint: GET /
     Method: GET
     Authentication: None (public)
-
+    
     Response:
     {
         "message": "🌾 Agriculture Management API",
@@ -185,12 +167,12 @@ async def root():
         "docs": "/docs",
         "health": "/api/health"
     }
-
+    
     Usage:
     - Kiểm tra xem API có đang chạy không
     - Xem version hiện tại
     - Link đến docs và health check
-
+    
     Kết nối đến:
     - config.py: settings.API_VERSION
     - Browser: http://localhost:8000/ sẽ trả về JSON này
@@ -207,16 +189,16 @@ async def root():
 async def health_check():
     """
     Health check endpoint - Kiểm tra trạng thái API và Database
-
+    
     Endpoint: GET /api/health
     Method: GET
     Authentication: None (public)
-
+    
     Cách hoạt động:
     1. Test kết nối database bằng test_connection()
     2. Lấy thông tin tables từ get_table_count()
     3. Return status "healthy" hoặc "unhealthy" tùy DB connection
-
+    
     Response:
     {
         "status": "healthy",              // "healthy" or "unhealthy"
@@ -226,12 +208,12 @@ async def health_check():
         "total_tables": 18,               // Số bảng trong schema
         "schema": "nongsan"               // Schema name
     }
-
+    
     Usage:
     - Frontend gọi để check backend có sẵn sàng không
     - Monitoring tools check health status
     - Debugging database connection issues
-
+    
     Kết nối đến:
     - database.py: test_connection(), get_table_count()
     - config.py: settings.API_VERSION
@@ -239,16 +221,14 @@ async def health_check():
     """
     db_connected = test_connection()      # Test DB connection (return bool)
     table_info = get_table_count()        # Get schema info (return dict)
-
+    
     return {
         "status": "healthy" if db_connected else "unhealthy",  # Trạng thái tổng thể
         "message": "Backend API is running",                    # Message
         "version": settings.API_VERSION,                        # API version
         "database_connected": db_connected,                     # DB connection status
-        # Số bảng (default 0 nếu lỗi)
-        "total_tables": table_info.get('count', 0),
-        # Schema name (default "unknown" nếu lỗi)
-        "schema": table_info.get('schema', 'unknown')
+        "total_tables": table_info.get('count', 0),            # Số bảng (default 0 nếu lỗi)
+        "schema": table_info.get('schema', 'unknown')          # Schema name (default "unknown" nếu lỗi)
     }
 
 
@@ -261,18 +241,14 @@ if __name__ == '__main__':
     print("🚀 Starting FastAPI Backend Server...")
     print(f"📡 API running at: http://localhost:8000")
     print(f"📚 API Docs at: http://localhost:8000/docs")
-    # DB connection string
-    print(
-        f"🔗 Database: {settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}")
+    print(f"🔗 Database: {settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}")  # DB connection string
     print(f"📊 Schema: {settings.DB_SCHEMA}")  # Schema name: "nongsan"
-
+    
     # Start Uvicorn ASGI server
     uvicorn.run(
         "app:app",          # Module:instance (app.py:app)
-        # Listen on all network interfaces (0.0.0.0 = public, không chỉ localhost)
-        host="0.0.0.0",
+        host="0.0.0.0",     # Listen on all network interfaces (0.0.0.0 = public, không chỉ localhost)
         port=8000,          # Port 8000 (http://localhost:8000)
-        # Auto-reload khi code thay đổi (chỉ dùng trong development)
-        reload=True,
+        reload=True,        # Auto-reload khi code thay đổi (chỉ dùng trong development)
         log_level="info"    # Log level: info (log mọi request và response)
     )
