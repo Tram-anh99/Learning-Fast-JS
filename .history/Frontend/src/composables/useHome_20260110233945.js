@@ -272,26 +272,14 @@ export const fetchFarmsData = async () => {
      try {
           const response = await axios.get("/api/farms/");
           const farms = response.data.data || [];
-
+          
           // Mock coordinates cho demo (vì API chưa trả tọa độ)
           const mockCoordinates = {
-               MSVT001: [
-                    [10.762, 106.66],
-                    [10.77, 106.67],
-                    [10.76, 106.67],
-               ],
-               MSVT002: [
-                    [10.78, 106.68],
-                    [10.79, 106.69],
-                    [10.78, 106.69],
-               ],
-               MSVT003: [
-                    [10.75, 106.64],
-                    [10.758, 106.66],
-                    [10.742, 106.66],
-               ],
+               'MSVT001': [[10.762, 106.66], [10.77, 106.67], [10.76, 106.67]],
+               'MSVT002': [[10.78, 106.68], [10.79, 106.69], [10.78, 106.69]],
+               'MSVT003': [[10.75, 106.64], [10.758, 106.66], [10.742, 106.66]]
           };
-
+          
           // Transform data từ API sang format frontend
           danhSachGoc.value = farms.map((farm) => ({
                id: farm.id,
@@ -301,18 +289,14 @@ export const fetchFarmsData = async () => {
                trangThai: farm.trang_thai || "canh_tac",
                chungNhan: "VietGAP",
                anh: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
-               toaDo: mockCoordinates[farm.ma_vung] || [
-                    [10.762, 106.66],
-                    [10.77, 106.67],
-                    [10.76, 106.67],
-               ],
+               toaDo: mockCoordinates[farm.ma_vung] || [[10.762, 106.66], [10.77, 106.67], [10.76, 106.67]],
                nhatKy: [],
                dia_chi: farm.dia_chi,
-               chu_so_huu: farm.chu_so_huu?.ten_to_chuc || "Chưa xác định",
+               chu_so_huu: farm.chu_so_huu?.ten_to_chuc || "Chưa xác định"
           }));
-
+          
           console.log(`✅ Loaded ${danhSachGoc.value.length} farms from API`);
-          console.log("Farms:", danhSachGoc.value);
+          console.log('Farms:', danhSachGoc.value);
      } catch (error) {
           console.error("❌ Error fetching farms:", error);
           // Fallback to mock data if API fails
@@ -320,9 +304,7 @@ export const fetchFarmsData = async () => {
                ...vung,
                dienTich: vung.dienTich || "0ha",
                chungNhan: "VietGAP",
-               anh:
-                    vung.anh ||
-                    "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
+               anh: vung.anh || "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1000&auto=format&fit=crop",
                nhatKy: vung.lichSuCanhTac || [],
           }));
           console.log(`⚠️ Using ${danhSachGoc.value.length} mock farms`);

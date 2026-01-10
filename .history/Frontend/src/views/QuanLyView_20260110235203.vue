@@ -128,24 +128,6 @@ const handleToggleDuLuongThuoc = () => {
       cheDoXem.value = cheDoXem.value === 'phan_bon' ? 'hanh_chinh' : 'phan_bon';
 };
 
-// ========== LIFECYCLE ==========
-onMounted(async () => {
-      console.log('[QuanLyView] Mounting, fetching charts data from API');
-      await fetchAllCharts();
-      
-      // Update thongKe với data từ API
-      if (dashboardStats.value) {
-            thongKe.value = {
-                  tongVung: dashboardStats.value.total_farms || 0,
-                  tongDienTich: dashboardStats.value.total_area || 0,
-                  vungHoatDong: dashboardStats.value.active_farms || 0,
-                  vungCanhBao: 0 // TODO: Add to API
-            };
-      }
-      
-      console.log('[QuanLyView] Charts data loaded');
-});
-
 // ========== METHODS ==========
 // TODO: Thêm các phương thức sau khi tích hợp API:
 // - editVung(id): Chỉnh sửa thông tin vùng trồng

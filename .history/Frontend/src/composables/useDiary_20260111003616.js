@@ -59,7 +59,7 @@ export function useDiary() {
                          type: entry.loai_hoat_dong?.ma_loai || "fertilizer",
                          title: entry.loai_hoat_dong?.ten_loai || "Hoạt động",
                          field: entry.vung_trong?.ten_vung || "Vùng trồng",
-                         details: entry.noi_dung || entry.mo_ta || "",
+                         details: entry.noi_dung || "",
                          dateDay: date.getDate().toString().padStart(2, "0"),
                          dateMonth: `T${date.getMonth() + 1}`,
                          vung_trong_id: entry.vung_trong_id,

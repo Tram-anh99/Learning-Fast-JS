@@ -165,10 +165,8 @@ const handleQRScan = (qrCode) => {
 /**
  * Hook: Khởi tạo bản đồ khi component được mounted
  */
-onMounted(async () => {
-  console.log('[HomeView] Mounting, fetching farms data from API');
-  await fetchFarmsData(); // Fetch dữ liệu từ API trước
-  console.log('[HomeView] Data loaded, initializing map with HOME mode');
+onMounted(() => {
+  console.log('[HomeView] Mounting, initializing map with HOME mode');
   initMap('home'); // Gọi hàm khởi tạo map với mode 'home' để load ArcGIS tiles
   console.log('[HomeView] Map initialized, drawing polygons');
   veLaiBanDo(danhSachTimKiem.value); // Vẽ polygons cho danh sách hiện tại

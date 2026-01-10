@@ -440,14 +440,16 @@ class LichSuCanhTacResponse(LichSuCanhTacBase):
     
     Adds:
     - id: Primary key
-    - ngay_tao: Timestamp tạo record (from model)
-    - ngay_cap_nhat: Timestamp cập nhật (from model)
+    - created_at: Timestamp
     
     Usage: GET /api/diary/ -> List[LichSuCanhTacResponse]
+    
+    Kết nối đến:
+    - routes/diary.py: get_diary_entries() return List[LichSuCanhTacResponse]
+    - Frontend: DiaryPage.vue display history
     """
-    id: int                            # Primary key
-    ngay_tao: Optional[datetime] = None      # Timestamp tạo
-    ngay_cap_nhat: Optional[datetime] = None # Timestamp cập nhật
+    id: int              # Primary key từ lich_su_canh_tac.id
+    created_at: datetime # Timestamp tạo record
     
     model_config = ConfigDict(from_attributes=True)
 

@@ -59,7 +59,7 @@ export function useDiary() {
                          type: entry.loai_hoat_dong?.ma_loai || "fertilizer",
                          title: entry.loai_hoat_dong?.ten_loai || "Hoạt động",
                          field: entry.vung_trong?.ten_vung || "Vùng trồng",
-                         details: entry.noi_dung || entry.mo_ta || "",
+                         details: entry.mo_ta || "",
                          dateDay: date.getDate().toString().padStart(2, "0"),
                          dateMonth: `T${date.getMonth() + 1}`,
                          vung_trong_id: entry.vung_trong_id,
@@ -91,12 +91,13 @@ export function useDiary() {
                     ngay_thuc_hien:
                          entry.ngay_thuc_hien ||
                          new Date().toISOString().split("T")[0],
-                    noi_dung: entry.details || entry.noi_dung || "",
+                    mo_ta: entry.details || entry.mo_ta || "",
                };
 
                const response = await axios.post("/api/diary/", payload);
                console.log("✅ Diary entry created:", response.data);
 
+               // Refresh list
                await fetchDiaryList();
                return response.data;
           } catch (err) {
@@ -117,7 +118,7 @@ export function useDiary() {
                     vung_trong_id: entry.vung_trong_id,
                     loai_hoat_dong_id: entry.loai_hoat_dong_id,
                     ngay_thuc_hien: entry.ngay_thuc_hien,
-                    noi_dung: entry.details || entry.noi_dung,
+                    mo_ta: entry.details || entry.mo_ta,
                };
 
                const response = await axios.put(`/api/diary/${id}`, payload);

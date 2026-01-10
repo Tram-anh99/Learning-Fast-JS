@@ -391,34 +391,34 @@ class LichSuCanhTacBase(BaseModel):
     """
     Base schema cho Lịch Sử Canh Tác (Activity History)
     
-    Fields matching database columns:
-    - vung_trong_id: FK to vung_trong.id (required)
-    - loai_hoat_dong_id: FK to loai_hoat_dong.id  
+    Fields:
+    - vung_trong_id: FK to vung.id
+    - loai_hoat_dong_id: FK to loai_hoat_dong.id (activity type)
     - ngay_thuc_hien: Ngày thực hiện hoạt động
-    - tieu_de: Tiêu đề hoạt động
-    - noi_dung: Nội dung chi tiết
+    - mo_ta: Mô tả hoạt động
+    - phan_bon_id: FK to phan_bon.id (fertilizer)
+    - thuoc_bvtv_id: FK to thuoc_bvtv.id (pesticide)
+    - luong_su_dung: Lượng phân bón/thuốc sử dụng
+    - don_vi: Đơn vị (kg, lít, ...)
+    - ket_qua: Kết quả hoạt động
     - nguoi_thuc_hien: Người thực hiện
-    - thua_ruong: Thửa ruộng
-    - phan_bon_id: FK to phan_bon.id
-    - lieu_luong_phan_bon: Liều lượng phân bón
-    - thuoc_bvtv_id: FK to thuoc_bvtv.id
-    - lieu_luong_thuoc: Liều lượng thuốc
-    - ghi_chu: Ghi chú
     
     Usage: Base schema cho Create/Response
+    
+    Kết nối đến:
+    - models/lich_su_canh_tac.py: LichSuCanhTac SQLAlchemy model
+    - Bảng: nongsan.lich_su_canh_tac
     """
-    vung_trong_id: int                           # FK (required)
-    loai_hoat_dong_id: Optional[int] = None      # FK loại hoạt động
-    ngay_thuc_hien: date                         # Ngày thực hiện (required)
-    tieu_de: Optional[str] = None                # Tiêu đề
-    noi_dung: Optional[str] = None               # Nội dung chi tiết
-    nguoi_thuc_hien: Optional[str] = None        # Người thực hiện
-    thua_ruong: Optional[str] = None             # Thửa ruộng
-    phan_bon_id: Optional[int] = None            # FK phân bón
-    lieu_luong_phan_bon: Optional[str] = None    # Liều lượng phân bón
-    thuoc_bvtv_id: Optional[int] = None          # FK thuốc BVTV
-    lieu_luong_thuoc: Optional[str] = None       # Liều lượng thuốc
-    ghi_chu: Optional[str] = None                # Ghi chú
+    vung_trong_id: int                      # FK to vung.id (required)
+    loai_hoat_dong_id: Optional[int] = None # FK to loai_hoat_dong.id
+    ngay_thuc_hien: date                    # Ngày thực hiện (required)
+    noi_dung: Optional[str] = None         # Nội dung chi tiết
+    phan_bon_id: Optional[int] = None      # FK to phan_bon.id
+    thuoc_bvtv_id: Optional[int] = None    # FK to thuoc_bvtv.id
+    luong_su_dung: Optional[float] = None  # Lượng sử dụng
+    don_vi: Optional[str] = None           # Đơn vị (kg, lít, ...)
+    ket_qua: Optional[str] = None          # Kết quả
+    nguoi_thuc_hien: Optional[str] = None  # Người thực hiện
 
 
 class LichSuCanhTacCreate(LichSuCanhTacBase):
@@ -440,14 +440,16 @@ class LichSuCanhTacResponse(LichSuCanhTacBase):
     
     Adds:
     - id: Primary key
-    - ngay_tao: Timestamp tạo record (from model)
-    - ngay_cap_nhat: Timestamp cập nhật (from model)
+    - created_at: Timestamp
     
     Usage: GET /api/diary/ -> List[LichSuCanhTacResponse]
+    
+    Kết nối đến:
+    - routes/diary.py: get_diary_entries() return List[LichSuCanhTacResponse]
+    - Frontend: DiaryPage.vue display history
     """
-    id: int                            # Primary key
-    ngay_tao: Optional[datetime] = None      # Timestamp tạo
-    ngay_cap_nhat: Optional[datetime] = None # Timestamp cập nhật
+    id: int              # Primary key từ lich_su_canh_tac.id
+    created_at: datetime # Timestamp tạo record
     
     model_config = ConfigDict(from_attributes=True)
 

@@ -40,7 +40,7 @@ export function useDiary() {
      };
 
      // ========== API CALLS ==========
-
+     
      // Fetch tất cả diary entries từ API
      const fetchDiaryList = async () => {
           isLoading.value = true;
@@ -48,30 +48,26 @@ export function useDiary() {
           try {
                const response = await axios.get("/api/diary/");
                const entries = response.data.data || response.data || [];
-
+               
                // Transform data từ API
-               diaryList.value = entries.map((entry) => {
-                    const date = new Date(
-                         entry.ngay_thuc_hien || entry.ngay_tao
-                    );
+               diaryList.value = entries.map(entry => {
+                    const date = new Date(entry.ngay_thuc_hien || entry.ngay_tao);
                     return {
                          id: entry.id,
                          type: entry.loai_hoat_dong?.ma_loai || "fertilizer",
                          title: entry.loai_hoat_dong?.ten_loai || "Hoạt động",
                          field: entry.vung_trong?.ten_vung || "Vùng trồng",
-                         details: entry.noi_dung || entry.mo_ta || "",
-                         dateDay: date.getDate().toString().padStart(2, "0"),
+                         details: entry.mo_ta || "",
+                         dateDay: date.getDate().toString().padStart(2, '0'),
                          dateMonth: `T${date.getMonth() + 1}`,
                          vung_trong_id: entry.vung_trong_id,
                          loai_hoat_dong_id: entry.loai_hoat_dong_id,
                          ngay_thuc_hien: entry.ngay_thuc_hien,
-                         fullData: entry,
+                         fullData: entry
                     };
                });
-
-               console.log(
-                    `✅ Loaded ${diaryList.value.length} diary entries from API`
-               );
+               
+               console.log(`✅ Loaded ${diaryList.value.length} diary entries from API`);
           } catch (err) {
                console.error("❌ Error fetching diary:", err);
                error.value = err.message;
@@ -88,15 +84,14 @@ export function useDiary() {
                const payload = {
                     vung_trong_id: entry.vung_trong_id || 1,
                     loai_hoat_dong_id: entry.loai_hoat_dong_id || 1,
-                    ngay_thuc_hien:
-                         entry.ngay_thuc_hien ||
-                         new Date().toISOString().split("T")[0],
-                    noi_dung: entry.details || entry.noi_dung || "",
+                    ngay_thuc_hien: entry.ngay_thuc_hien || new Date().toISOString().split('T')[0],
+                    mo_ta: entry.details || entry.mo_ta || ""
                };
-
+               
                const response = await axios.post("/api/diary/", payload);
                console.log("✅ Diary entry created:", response.data);
-
+               
+               // Refresh list
                await fetchDiaryList();
                return response.data;
           } catch (err) {
@@ -117,12 +112,12 @@ export function useDiary() {
                     vung_trong_id: entry.vung_trong_id,
                     loai_hoat_dong_id: entry.loai_hoat_dong_id,
                     ngay_thuc_hien: entry.ngay_thuc_hien,
-                    noi_dung: entry.details || entry.noi_dung,
+                    mo_ta: entry.details || entry.mo_ta
                };
-
+               
                const response = await axios.put(`/api/diary/${id}`, payload);
                console.log("✅ Diary entry updated:", response.data);
-
+               
                // Refresh list
                await fetchDiaryList();
                return response.data;
@@ -142,11 +137,9 @@ export function useDiary() {
           try {
                await axios.delete(`/api/diary/${id}`);
                console.log("✅ Diary entry deleted:", id);
-
+               
                // Remove from local list
-               diaryList.value = diaryList.value.filter(
-                    (item) => item.id !== id
-               );
+               diaryList.value = diaryList.value.filter((item) => item.id !== id);
           } catch (err) {
                console.error("❌ Error deleting diary:", err);
                error.value = err.response?.data?.detail || err.message;
@@ -159,17 +152,10 @@ export function useDiary() {
      return {
           activityTypes,
           diaryList,
-          isLoading,
-          error,
           getCurrentDate,
           getActivityIcon,
           getActivityLabel,
-          fetchDiaryList,
           addDiaryEntry,
-          updateDiaryEntry,
           removeDiaryEntry,
-          getCurrentDate,
-          getActivityIcon,
-          getActivityLabel,
      };
 }

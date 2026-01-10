@@ -241,34 +241,22 @@ const handleCancel = () => {
 /**
  * Lưu hoạt động canh tác
  * Ghi nhật ký với mã số vùng trồng để liên kết với bản đồ WebGIS
+ * TODO: Kết nối API để lưu vào database
  */
-const handleSave = async () => {
+const handleSave = () => {
   // Lấy thông tin thửa đất được chọn (bao gồm mã số vùng trồng)
   const selectedFieldData = fields.value.find(f => f.id === selectedField.value);
 
-  try {
-    await addDiaryEntry({
-      vung_trong_id: 1, // TODO: Map từ selectedField
-      loai_hoat_dong_id: 1, // TODO: Map từ selectedActivity
-      ngay_thuc_hien: formData.value.datetime.split('T')[0],
-      details: `${formData.value.activityType} - ${formData.value.material}: ${formData.value.quantity} ${formData.value.unit}`
-    });
-    
-    console.log('✅ Hoạt động đã lưu thành công');
-    alert('Hoạt động đã được lưu vào database!');
-    handleCancel(); // Reset form
-  } catch (err) {
-    console.error('❌ Lỗi khi lưu hoạt động:', err);
-    alert('Lỗi khi lưu hoạt động: ' + (error.value || 'Unknown error'));
-  }
+  console.log('Lưu hoạt động:', {
+    fieldId: selectedField.value,
+    fieldCode: selectedFieldData?.ma, // Mã số vùng trồng (VT-001, VT-002, v.v.)
+    fieldName: selectedFieldData?.name,
+    activity: selectedActivity.value,
+    data: formData.value,
+    timestamp: new Date().toISOString()
+  });
+  alert('Hoạt động đã được lưu!');
 };
-
-// ========== LIFECYCLE ==========
-onMounted(async () => {
-  console.log('[DiaryPage] Mounting, fetching diary data from API');
-  await fetchDiaryList();
-  console.log(`[DiaryPage] Loaded ${diaryList.value.length} diary entries`);
-});
 
 /**
  * Xóa hình ảnh khỏi form
