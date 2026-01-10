@@ -44,3 +44,5 @@ INFO:database:✅ Database connection successful!
 INFO:app:✅ Connected to schema: nongsan
 INFO:app:✅ Total tables: 41
 INFO:     Application startup complete.
+INFO:     127.0.0.1:64927 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64927 - "GET /openapi.json HTTP/1.1" 200 OK
