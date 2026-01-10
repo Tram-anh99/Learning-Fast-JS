@@ -21,7 +21,6 @@ Kết nối đến:
 """
 
 # Import FastAPI framework để tạo REST API
-from routes import geojson
 from fastapi import FastAPI  # Core FastAPI class
 # Middleware xử lý CORS (Cross-Origin Resource Sharing)
 from fastapi.middleware.cors import CORSMiddleware
@@ -170,6 +169,7 @@ app.include_router(enhanced.router, prefix=settings.API_PREFIX)
 # Include geojson router
 # Endpoints: /api/geojson/provinces, /api/geojson/districts, /api/geojson/farms/boundaries, /api/geojson/info/{layer}/{id}
 # Handles: GeoJSON polygon/line rendering với clickable info cho map visualization
+from routes import geojson
 app.include_router(geojson.router, prefix=settings.API_PREFIX)
 
 
